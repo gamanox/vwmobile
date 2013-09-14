@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-VWMobile::Application.config.secret_key_base = '95bd7cbffc77b3c8f9615379d5a8d3a7e6ea612883c7693d5deca559bf2b0c4ef5c75c5d22f7f85c6aa0af8db3a0c0777b393280751abb048bd32b5f1cfed5af'
+VWMobile::Application.config.secret_key_base = '239aa3543cc02c96e5448ef2637af1ed3c1f288f609dec4910379178b6fbec57a6c51f70f2e2511c63095dfd60d9f00255df41f95210f452c833d2cf8b357b83'

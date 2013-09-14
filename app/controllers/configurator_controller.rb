@@ -36,7 +36,7 @@ class ConfiguratorController < ApplicationController
   def color
   end
 
-  def price
+  def empty
   end
 
   def data

@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 development:
   adapter: postgresql
-  database: db_development
+  database: db_vwmobile
   pool: 5
   timeout: 5000
   host: localhost
@@ -22,7 +22,7 @@ test:
 
 production:
   adapter: postgresql
-  database: db_production
+  database: db_vwmobile
   pool: 5
   timeout: 5000
-  host: locahost
+  host: localhost
