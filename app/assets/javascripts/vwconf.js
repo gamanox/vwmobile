@@ -44,6 +44,7 @@ function switchScreen(){
 	$(next).css("left",$(window).width()).show().animate({left:0},250).removeClass("nextPage").addClass("currentPage");
 	$(prev).removeClass("prevPage").addClass("nextPage");
 	enableButtons();
+	enableSlider();
 	setScreen();
 
 }
@@ -55,8 +56,32 @@ function switchBackScreen(){
 	$(prev).css("left",-$(window).width()).show().animate({left:0},250).removeClass("prevPage").addClass("currentPage");
 	$(next).removeClass("nextPage").addClass("prevPage");
 	enableButtons();
+	enableSlider();
 	setScreen();
 
+}
+var currentSlide;
+function enableSlider() {
+	$(".currentPage .arrows").hammer().off("swipeleft");
+	$(".currentPage .arrows").hammer().off("swiperight");
+	$(".currentPage .image_slider").hammer().off("swipeleft");
+	$(".currentPage .image_slider").hammer().off("swiperight");
+
+	$(".currentPage .image_slider li").each(function(index,element) {
+		$(element).css("left",index*$(window).width()).hide();
+	});
+	$($(".currentPage .image_slider li").get(0)).show();
+
+	if($(".currentPage .image_slider li").length < 2) {
+		$(".currentPage .arrows").hide();
+	} else {
+		$(".currentPage .arrows").show();
+		$(".currentPage .image_slider").hammer().on("swipeleft",nextSlide);
+		$(".currentPage .image_slider").hammer().on("swiperight",prevSlide);
+		$(".currentPage .arrows").hammer().on("swipeleft",nextSlide);
+		$(".currentPage .arrows").hammer().on("swiperight",prevSlide);
+	}
+	currentSlide = 0;
 }
 function enableButtons() {
 
@@ -75,7 +100,33 @@ function doAction() {
 	if(action == "back") {
 		History.back();
 	}
+	if(action == "next_slide") {
+		nextSlide();
+	}
+	if(action == "prev_slide") {
+		prevSlide();
+	}
 
+}
+function prevSlide() {
+	var prev = currentSlide-1;
+		var slides = $(".currentPage .image_slider li");
+		if(prev < 0) {
+			prev = $(slides).length-1;
+		}
+		$($(slides).get(currentSlide)).animate({"left":$(window).width()},250).hide(0);
+		$($(slides).get(prev)).css("left",-$(window).width()).show().animate({left:0},250);
+		currentSlide = prev;
+}
+function nextSlide() {
+	var next = currentSlide+1;
+		var slides = $(".currentPage .image_slider li");
+		if(next >= $(slides).length) {
+			next = 0;
+		}
+		$($(slides).get(currentSlide)).animate({"left":-$(window).width()},250).hide(0);
+		$($(slides).get(next)).css("left",$(window).width()).show().animate({left:0},250);
+		currentSlide = next;
 }
 function stateHasChanged() { // Note: We are using statechange instead of popstate
         console.log("State has changed");
