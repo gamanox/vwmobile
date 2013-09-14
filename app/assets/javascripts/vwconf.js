@@ -3,13 +3,11 @@ var currentPage = null;
 var prevPage;
 var level = 0;
 
-$(function () {
-	$.getJSON('/configurator/data.json',init);
-});
+$(init);
 
 
 function init(data) {
-	config_data = data;
+	//config_data = data;
 	$(window).on("resize",setScreen);
 	$(".prevPage").hide();
 	$(".nextPage").hide();
