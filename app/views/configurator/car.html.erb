@@ -1,0 +1,18 @@
+<div>
+	<div class="page_title">
+		<% if(@category) %>
+			<%= @category.name %>
+		<% else %>
+			Todas las categorías
+		<% end %>
+		<div class='back_btn btn' action='back'></div>
+	</div>
+	<ul class='car_list'>
+<%  @cars.each do |c| %>
+	<li action="page" class="btn" actionid="version/?id=<%= c.id %>">
+		<div><%= c.name %></div>
+		<div></div>
+	</li>
+<% end %>
+</ul>
+</div>

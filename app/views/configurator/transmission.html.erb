@@ -1,0 +1,18 @@
+<div>
+	<div class="page_title">
+			<%= @car.name %>
+		<div class='back_btn btn' action='back'></div>
+	</div>
+	<ul class='image_slider'>
+<%  @subcategories.each do |sc| %>
+	<li action="page" class="btn" actionid="car/?id=<%= sc.id %>">
+		<div><%= sc.name %></div>
+		<div></div>
+	</li>
+<% end %>
+	<li action="page" class="btn"  actionid="car/">
+		<div>Todas las subcategorías</div>
+		<div></div>
+	</li>
+</ul>
+</div>

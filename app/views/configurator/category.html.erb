@@ -1,0 +1,17 @@
+<div>
+	<div class="page_title">
+	Elige un Volkswagen
+	</div>
+	<ul class='category_list'>
+<%  @categories.each do |c| %>
+	<li action="page" class="btn" actionid="subcategory/?id=<%= c.id %>">
+		<div><%= c.name %></div>
+		<div></div>
+	</li>
+<% end %>
+	<li action="page" class="btn"  actionid="subcategory/">
+		<div>Todas las categorías</div>
+		<div></div>
+	</li>
+</ul>
+</div>
