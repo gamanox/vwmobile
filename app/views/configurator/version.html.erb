@@ -9,23 +9,27 @@
 	</div>
 	<div class='image_slider'>
 			<ul>
-				<% for i in 0..2 %>
-				<li> 
-					<div class='slide_title center_elem'>Elige la versión <%= i %></div>
-					<div class='model_title center_elem'><span class='car_name'><%= @car.name %></span> <span class='model_name'>Sport Style 1.4</span></div>
-					<div class='price center_elem'><span class='price_from'>Desde: </span><span class='price_value'>$771,350.00</span></div>
-					<div class='center_elem model_image'><img src="/assets/pics/troca.jpg" width="220" height="130" /></div>
-					<div class='center_elem model_info'>Suspensión delantera y trasera, A/C con temperatura independiente en dos zonas, volante multifuncionales en piel con calefacción y paletas de cambio, y más.</div>
+				<% @versions.each do |v| %>
+				<li sid="<%= v.id %>"> 
+					<div class='slide_title center_elem'>Elige la versión</div>
+					<div class='model_title center_elem'><span class='car_name'><%= @car.name %></span> <span class='model_name'><%= v.name %></span></div>
+					<div class='price center_elem'><span class='price_from'>Desde: </span><span class='price_value'><%= number_to_currency(v.list_price,precision: 0) %></span></div>
+					<div class='center_elem model_image'>
+						<% if (Rails.application.assets.find_asset 'pics/versions/'+v.id.to_s+'.png') %>
+						<img src="/assets/pics/versions/<%= v.id %>.png" width="204" height="126" />
+						<% end %>
+					</div>
+					<div class='center_elem model_info'><%= v.description %></div>
 				</li>
 				<% end %>
 			</ul>
 	</div>
-	<div class='large_btn btn config_btn' action='page_extra' actionid="transmission/?car_id=<%= @car.id %>">
+	<div class='large_btn btn config_btn' action='page_slide' actionid="transmission/?car_id=<%= @car.id %>">
 		<div class='left'></div>
 		<div class='center'>Configurar</div>
 		<div class='right'></div>
 	</div>
-	<div class='large_btn ready_btn btn' action='page_extra' actionid="transmission/?car_id=<%= @car.id %>">
+	<div class='large_btn ready_btn btn' action='page_slide' actionid="transmission/?car_id=<%= @car.id %>">
 		<div class='left'></div>
 		<div class='center'>Listo</div>
 		<div class='right'></div>

@@ -10,7 +10,15 @@
 	<ul class='car_list'>
 <%  @cars.each do |c| %>
 	<li action="page" class="btn" actionid="version/?id=<%= c.id %>">
-		<div><%= c.name %></div>
+		<div class="car_img">
+			<% if (Rails.application.assets.find_asset 'pics/cars/'+c.id.to_s+'.png') %>
+				<img src="assets/pics/cars/<%=c.id %>.png" width="130" height="64" />
+			<% end %>
+		&nbsp;</div>
+		<div>
+			<div><%= c.name %></div>
+			<div class="car_price_name"><span>Desde: </span><span class='car_price_value'><%= number_to_currency(c.list_price,precision: 0) %></span> </div>
+		</div>
 		<div></div>
 	</li>
 <% end %>

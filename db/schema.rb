@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130913213131) do
+ActiveRecord::Schema.define(version: 20130919033738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20130913213131) do
   create_table "cars", force: true do |t|
     t.string   "name"
     t.integer  "subcategory_id"
+    t.float    "list_price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,9 +30,59 @@ ActiveRecord::Schema.define(version: 20130913213131) do
     t.datetime "updated_at"
   end
 
+  create_table "colors", force: true do |t|
+    t.string   "name"
+    t.string   "hex"
+    t.text     "description"
+    t.float    "price_up"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "interiors", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.float    "price_up"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "packages", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.float    "price_up"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "services", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.float    "price_up"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "subcategories", force: true do |t|
     t.string   "name"
     t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transmissions", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.float    "price_up"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "versions", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "car_id"
+    t.float    "list_price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

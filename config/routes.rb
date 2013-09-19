@@ -1,6 +1,7 @@
 VWMobile::Application.routes.draw do
   get "configurator/empty"
   get "configurator/version"
+  get "configurator/interior"
   get "configurator/transmission"
   get "configurator/subcategory"
   get "configurator/price"

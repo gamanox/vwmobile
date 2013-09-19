@@ -1,2 +1,50 @@
-<h1>Configurator#color</h1>
-<p>Find me in app/views/configurator/color.html.erb</p>
+<div>
+	<div class="page_title">
+			<%= @transmission.name %>
+		<div class='back_btn btn' action='back'></div>
+	</div>
+	<div class='arrows'>
+		<div class='slide_arrow left2 btn' action='prev_slide'></div>
+		<div class='slide_arrow right2 btn' action='next_slide'></div>
+	</div>
+	<div class='image_slider trans_slider'>
+			<ul>
+				<% @colors.each do |c|
+					img = ""
+					style = ""
+					infoclass = ""
+					if (Rails.application.assets.find_asset 'pics/colors/'+c.id.to_s+'.png')
+						 img = '<img src="/assets/pics/colors/'+c.id.to_s+'.png" width="212" height="130" />'
+						 
+					else
+						style = "style='background-color:"+c.hex+";'"
+						infoclass = "white"
+					end
+				 %>
+				<li sid="<%= c.id %>">
+					<div class='slider_prices'>
+						<div class='top_price'><div class='first'><span class='top_price_title'>Tu precio:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*c.price_up,precision: 0) %></span> </div></div>
+						<div class='top_price'><div class='last'><span class='top_price_title'>Precio<br/>de lista:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up,precision: 0) %></span></div></div>
+					</div>
+					<div class='slide_title center_elem'>Elige el color</div>
+					<div class='trans_title center_elem'><%= c.name %></div>
+					<div class='center_elem color_image' <%= raw style %> >
+						<%= raw img %>
+					
+					</div>
+					<div class='center_elem trans_info <%= infoclass %>'><%= c.description %></div>
+				</li>
+				<% end %>
+			</ul>
+	</div>
+	<div class='large_btn btn config_btn' action='page_slide' actionid="interior/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>">
+		<div class='left'></div>
+		<div class='center'>Elegir</div>
+		<div class='right'></div>
+	</div>
+	<div class='large_btn ready_btn btn' action='page_slide' actionid="interior/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>">
+		<div class='left'></div>
+		<div class='center'>Listo</div>
+		<div class='right'></div>
+	</div>
+</div>

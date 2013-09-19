@@ -17,13 +17,14 @@ function init(data) {
 	setScreen();
 	loadPage("category");
 }
+var historyTimer;
 
 function setScreen() {
 	console.log($(".currentPage").height());
-	var height = $(window).height()-49;
-	if(height < $(".currentPage").height()) {
+	//var height = $(window).height()-49;
+	//if(height < $(".currentPage").height()) {
 		height = $(".currentPage").height();
-	}
+	//}
 	$("#content").animate({"height":height});
 }
 
@@ -31,10 +32,18 @@ function loadPage(page) {
 	console.log("LOAD PAGE: "+page);
 	prevPage = currentPage
 	currentPage = page;
-	
+	historyTimer = window.setTimeout('forceLoad("/configurator/'+page+'")',3000);
+	console.log("INIT TIMEOUT");
 	History.pushState({"level":level,"page":page,"url":"/configurator/"+page},"VW Conf Mobile");
 	
 	
+	
+}
+function forceLoad(page) {
+	historyTimer = null;
+	console.log("Force Load");
+	$(".nextPage").load(page,switchScreen);
+
 }
 function switchScreen(){
 	var prev = $(".prevPage");
@@ -96,15 +105,25 @@ function doAction() {
 	if(action == "page") {
 		param = $(this).attr("actionid");
 		loadPage(param);
+		return;
 	}
 	if(action == "back") {
 		History.back();
+		return;
 	}
 	if(action == "next_slide") {
 		nextSlide();
+		return;
 	}
 	if(action == "prev_slide") {
 		prevSlide();
+		return;
+	}
+	if(action == "page_slide") {
+		param = $(this).attr("actionid");
+		var slide = $(".currentPage .image_slider li").get(currentSlide);
+		param += "&sid="+$(slide).attr("sid")*1;
+		loadPage(param);
 	}
 
 }
@@ -129,6 +148,9 @@ function nextSlide() {
 		currentSlide = next;
 }
 function stateHasChanged() { // Note: We are using statechange instead of popstate
+		console.log("CLEAR TIMEOUT");
+		window.clearTimeout(historyTimer);
+		historyTimer = null;
         console.log("State has changed");
         var State = History.getState(); // Note: We are using History.getState() instead of event.state
     	console.log(State);

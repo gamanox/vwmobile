@@ -25,15 +25,32 @@ class ConfiguratorController < ApplicationController
   end
   def version
     @car = Car.find(params[:id])
+    @versions = Version.all
     render layout:false
   end
 
   def transmission
-    @car = Car.find(params[:id])
+    @car = Car.find(params[:car_id])
+    @version = Version.find(params[:sid])
+    @transmissions = Transmission.all
     render layout:false
   end
 
   def color
+     @car = Car.find(params[:car_id])
+    @version = Version.find(params[:version_id])
+    @transmission = Transmission.find(params[:sid])
+    @colors = Color.all
+    render layout:false
+  end
+
+  def interior
+    @car = Car.find(params[:car_id])
+    @version = Version.find(params[:version_id])
+    @transmission = Transmission.find(params[:transmission_id])
+    @color = Color.find(params[:sid])
+    @interiors = Interior.all
+    render layout:false
   end
 
   def empty

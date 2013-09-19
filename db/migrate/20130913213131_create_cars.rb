@@ -3,6 +3,7 @@ class CreateCars < ActiveRecord::Migration
     create_table :cars do |t|
       t.string :name
       t.integer :subcategory_id
+      t.float :list_price
 
       t.timestamps
     end
