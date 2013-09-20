@@ -134,6 +134,31 @@ function doAction() {
 		param += "&sid="+$(slide).attr("sid")*1;
 		loadPage(param);
 	}
+	if(action == "select") {
+		param = $(this).attr("actionid");
+		var on = $(this).find(".on");
+		var off = $(this).find(".off");
+		var text = on.length > 0 ? "Agregar":"Remover";
+		$(this).find(".center").html(text);
+		on.removeClass("on").addClass("off");
+		off.removeClass("off").addClass("on");
+	}
+	if(action == "page_slide_select") {
+		param = $(this).attr("actionid");
+		var selected = "";
+		var sid;
+		var on;
+		$(".currentPage .image_slider li").each(function (index,element) {
+			on = $(element).find(".on");
+			if(on.length > 0 ){
+				sid = $(element).attr("sid")*1;
+				selected += "&sid[]="+sid;
+			}
+		});
+		param += selected;
+		loadPage(param);
+
+	}
 
 }
 function prevSlide() {

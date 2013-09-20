@@ -1,6 +1,6 @@
 <div>
 	<div class="page_title">
-			<%= @interior.name %>
+			Paquetes
 		<div class='back_btn btn' action='back'></div>
 	</div>
 	<div class='arrows'>
@@ -9,27 +9,27 @@
 	</div>
 	<div class='image_slider'>
 			<ul>
-				<% @packages.each do |p|
+				<% @services.each do |s|
 					img = ""
 					infoclass = ""
-					if (Rails.application.assets.find_asset 'pics/packages/'+p.id.to_s+'.png')
-						 img = '<img src="/assets/pics/packages/'+p.id.to_s+'.png" width="212" height="130" />' 
+					if (Rails.application.assets.find_asset 'pics/services/'+s.id.to_s+'.png')
+						 img = '<img src="/assets/pics/services/'+s.id.to_s+'.png" width="212" height="130" />' 
 						 infoclass = "white"
 					end
 				 %>
-				<li sid="<%= p.id %>">
+				<li sid="<%= s.id %>">
 					<div class='slider_prices'>
 						<div class='top_price'><div class='first'><span class='top_price_title'>Tu precio:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %></span> </div></div>
 						<div class='top_price'><div class='last'><span class='top_price_title'>Precio<br/>de lista:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %></span></div></div>
 					</div>
-					<div class='slide_title center_elem'>Elige paquete</div>
-					<div class='trans_title center_elem'><%= p.name %></div>
-					<div class='center_elem package_image' >
+					<div class='slide_title center_elem'>Elige servicio</div>
+					<div class='trans_title center_elem'><%= s.name %></div>
+					<div class='center_elem service_image' >
 						<%= raw img %>
 					
 					</div>
-					<div class='center_elem trans_info <%= infoclass %>'><%= p.description %></div>
-					<div class='large_btn btn config_btn' action='select' actionid="<%= p.id %>">
+					<div class='center_elem trans_info <%= infoclass %>'><%= s.description %></div>
+					<div class='large_btn btn config_btn' action='select' actionid="<%= s.id %>">
 						<div class='left'></div>
 						<div class='center'>Agregar</div>
 						<div class='right'></div>
@@ -39,12 +39,12 @@
 				<% end %>
 			</ul>
 	</div>
-	<div class='large_btn btn config_btn' action='page_slide_select' actionid="service/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior.id %>">
+	<div class='large_btn btn config_btn' action='page_slide_select' actionid="review/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior.id %><%= @package_id_str %>">
 		<div class='left'></div>
 		<div class='center'>Siguiente</div>
 		<div class='right'></div>
 	</div>
-	<div class='large_btn ready_btn btn' action='page_slide_select' actionid="review/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior.id %>">
+	<div class='large_btn ready_btn btn' action='page_slide_select' actionid="review/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior.id %><%= @package_id_str %>">
 		<div class='left'></div>
 		<div class='center'>Listo</div>
 		<div class='right'></div>

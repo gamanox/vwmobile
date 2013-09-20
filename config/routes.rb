@@ -11,6 +11,8 @@ VWMobile::Application.routes.draw do
   get "configurator/color"
   get "configurator/interior"
   get "configurator/package"
+  get "configurator/service"
+  get "configurator/review"
 
 
   get "configurator/" => "configurator#index"

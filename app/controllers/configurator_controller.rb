@@ -70,8 +70,40 @@ class ConfiguratorController < ApplicationController
     @transmission = Transmission.find(params[:transmission_id])
     @color = Color.find(params[:color_id])
     @interior = Interior.find(params[:interior_id])
-    @package = Package.find(params[:sid])
+    
+    @package_id_str = ""
+    if(params[:sid])
+      @packages = Package.find(params[:sid])
+      @packages.each do |p| 
+          @package_id_str += "&package_id[]="+p.id.to_s
+      end
+    end
     @services = Service.all
+    render layout:false
+  end
+  def review
+    # @car = Car.find(params[:car_id])
+    # @version = Version.find(params[:version_id])
+    # @transmission = Transmission.find(params[:transmission_id])
+    # @color = Color.find(params[:color_id])
+    # @interior = Interior.find(params[:interior_id])
+    
+    # @package_id_str = ""
+    
+    #if(params[:package_id])
+    #  @packages = Package.find(params[:package_id])
+    #  @packages.each do |p| 
+    #      @package_id_str += "&package_id[]="+p.id.to_s
+    #  end
+    #end
+    
+    # @service_id_str = ""
+    #if(params[:sid])
+    #  @services = Service.find(params[:sid])
+    #  @services.each do |s| 
+    #      @service_id_str += "&service_id[]="+s.id.to_s
+    #  end
+    #end
     render layout:false
   end
 
