@@ -18,6 +18,7 @@ class ConfiguratorController < ApplicationController
   def car
   	if(params[:id].to_i > 0)
   		@cars = Car.where(subcategory_id:params[:id])
+      @subcategory = Subcategory.find(params[:id])
   	else
   		@cars = Car.all
   	end
@@ -50,6 +51,27 @@ class ConfiguratorController < ApplicationController
     @transmission = Transmission.find(params[:transmission_id])
     @color = Color.find(params[:sid])
     @interiors = Interior.all
+    render layout:false
+  end
+
+  def package
+    @car = Car.find(params[:car_id])
+    @version = Version.find(params[:version_id])
+    @transmission = Transmission.find(params[:transmission_id])
+    @color = Color.find(params[:color_id])
+    @interior = Interior.find(params[:sid])
+    @packages = Package.all
+    render layout:false
+  end
+
+  def service
+    @car = Car.find(params[:car_id])
+    @version = Version.find(params[:version_id])
+    @transmission = Transmission.find(params[:transmission_id])
+    @color = Color.find(params[:color_id])
+    @interior = Interior.find(params[:interior_id])
+    @package = Package.find(params[:sid])
+    @services = Service.all
     render layout:false
   end
 

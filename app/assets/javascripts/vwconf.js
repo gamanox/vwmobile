@@ -20,12 +20,21 @@ function init(data) {
 var historyTimer;
 
 function setScreen() {
+	$(".currentPage .image_slider").height(getMaxSlideHeight());
 	console.log($(".currentPage").height());
 	//var height = $(window).height()-49;
 	//if(height < $(".currentPage").height()) {
 		height = $(".currentPage").height();
 	//}
 	$("#content").animate({"height":height});
+}
+
+function getMaxSlideHeight() {
+	var max = 0;
+	$(".currentPage .image_slider li").each(function (index,element) {
+		max = $(element).height() > max ? $(element).height():max;
+	});
+	return max;
 }
 
 function loadPage(page) {

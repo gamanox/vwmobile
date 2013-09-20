@@ -1,15 +1,17 @@
 VWMobile::Application.routes.draw do
   get "configurator/empty"
-  get "configurator/version"
-  get "configurator/interior"
-  get "configurator/transmission"
-  get "configurator/subcategory"
   get "configurator/price"
   get "configurator/index"
   get "configurator/data"
-  get "configurator/color"
   get "configurator/category"
+  get "configurator/subcategory"
   get "configurator/car"
+  get "configurator/version"
+  get "configurator/transmission"
+  get "configurator/color"
+  get "configurator/interior"
+  get "configurator/package"
+
 
   get "configurator/" => "configurator#index"
   root "configurator#index"

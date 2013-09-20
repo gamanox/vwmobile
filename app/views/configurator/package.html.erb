@@ -1,0 +1,51 @@
+<div>
+	<div class="page_title">
+			<%= @interior.name %>
+		<div class='back_btn btn' action='back'></div>
+	</div>
+	<div class='arrows'>
+		<div class='slide_arrow left2 btn' action='prev_slide'></div>
+		<div class='slide_arrow right2 btn' action='next_slide'></div>
+	</div>
+	<div class='image_slider'>
+			<ul>
+				<% @packages.each do |p|
+					img = ""
+					infoclass = ""
+					if (Rails.application.assets.find_asset 'pics/packages/'+p.id.to_s+'.png')
+						 img = '<img src="/assets/pics/packages/'+p.id.to_s+'.png" width="212" height="130" />' 
+						 infoclass = "white"
+					end
+				 %>
+				<li sid="<%= p.id %>">
+					<div class='slider_prices'>
+						<div class='top_price'><div class='first'><span class='top_price_title'>Tu precio:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %></span> </div></div>
+						<div class='top_price'><div class='last'><span class='top_price_title'>Precio<br/>de lista:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %></span></div></div>
+					</div>
+					<div class='slide_title center_elem'>Elige la vestidura</div>
+					<div class='trans_title center_elem'><%= p.name %></div>
+					<div class='center_elem interior_image' >
+						<%= raw img %>
+					
+					</div>
+					<div class='center_elem trans_info <%= infoclass %>'><%= p.description %></div>
+					<div class='large_btn btn config_btn' action='package' actionid="<%= p.id %>">
+						<div class='left'></div>
+						<div class='center'>Remover</div>
+						<div class='right'></div>
+					</div>
+				</li>
+				<% end %>
+			</ul>
+	</div>
+	<div class='large_btn btn config_btn' action='page_slide_next' actionid="service/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior %>">
+		<div class='left'></div>
+		<div class='center'>Siguiente</div>
+		<div class='right'></div>
+	</div>
+	<div class='large_btn ready_btn btn' action='page_slide' actionid="service/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior %>">
+		<div class='left'></div>
+		<div class='center'>Listo</div>
+		<div class='right'></div>
+	</div>
+</div>
