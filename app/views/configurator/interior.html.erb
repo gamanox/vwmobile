@@ -19,9 +19,42 @@
 				 %>
 				<li sid="<%= i.id %>">
 					<div class='slider_prices'>
-						<div class='top_price'><div class='first'><span class='top_price_title'>Tu precio:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*i.price_up,precision: 0) %></span> </div></div>
-						<div class='top_price'><div class='last'><span class='top_price_title'>Precio<br/>de lista:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up,precision: 0) %></span></div></div>
+						<div class='review_list'>
+							<ul>
+								<li>
+									<div>Modelo/Versión</div>
+									<div><%= @car.name %> <%=@version.name %></div>
+								</li>
+								<li>
+									<div>Transmisión</div>
+									<div><%= @transmission.name %> </div>
+								</li>
+								<li>
+									<div>Color</div>
+									<div><%= @color.name %> </div>
+								</li>
+								<li>
+									<div>Vestiduras</div>
+									<div>... </div>
+								</li>
+								<li>
+									<div>Paquetes</div>
+									<div>... </div>
+								</li>
+								<li>
+									<div>Servicios</div>
+									<div> ... </div>
+								</li>
+							</ul>
+						</div>
+						<div class='price_strip'>
+							<div class='top_price first'><div><span class='top_price_title'>Tu precio:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*i.price_up,precision: 0) %></span> </div></div>
+							<div class='top_price last'><div><span class='top_price_title'>Precio<br/>de lista:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up,precision: 0) %></span></div></div>
+							<div class='price_btn btn' action="show_review"></div>
+						</div>
+						<div class="dimmer"></div>
 					</div>
+					<div class='price_spacer'></div>
 					<div class='slide_title center_elem'>Elige la vestidura</div>
 					<div class='trans_title center_elem'><%= i.name %></div>
 					<div class='center_elem interior_image' >

@@ -82,8 +82,8 @@ class ConfiguratorController < ApplicationController
     render layout:false
   end
   def review
-    # @car = Car.find(params[:car_id])
-    # @version = Version.find(params[:version_id])
+    @car = Car.find(params[:car_id])
+    @version = Version.find(params[:version_id])
     # @transmission = Transmission.find(params[:transmission_id])
     # @color = Color.find(params[:color_id])
     # @interior = Interior.find(params[:interior_id])
@@ -104,6 +104,13 @@ class ConfiguratorController < ApplicationController
     #      @service_id_str += "&service_id[]="+s.id.to_s
     #  end
     #end
+    render layout:false
+  end
+
+  def search
+    q = "%#{params[:q]}%".downcase
+  #  @versions = Car.includes(:versions).where("cars.name like ? OR versions.name like ?",q,q)
+   @versions = Car.find_by_sql("SELECT versions.*, cars.name as car_name FROM cars INNER JOIN versions ON versions.car_id = cars.id WHERE lower(cars.name) LIKE '#{q}' OR lower(versions.name) LIKE '#{q}' LIMIT 10")
     render layout:false
   end
 

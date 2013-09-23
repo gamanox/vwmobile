@@ -6,10 +6,34 @@
 					<a href="./" target="_self"><img src="/assets/volkswagen_logo.png" widht="39" height="39"></a>
 				</li>
 
-				<li id="search"><img src="/assets/btn_search-icon.png" width="25" height="25" /></li>
-				<li id="submenu"><img src="/assets/btn_menu-icon.png" width="27" height="20" /></li>
+				<li id="search_btn" class="btn" action="search"><img src="/assets/btn_search-icon.png" width="25" height="25" /></li>
+				<li id="submenu_btn" class="btn" action="submenu"><img src="/assets/btn_menu-icon.png" width="27" height="20" /></li>
 			</ul>
 		</nav>
+		<div id="submenu">
+			<div class="whitebox">
+			</div>
+			<div class="m">
+				<ul>
+					<li><div class="icon tvw"></div><div class="title">Tus Volkswagen</div><div class="right_arrow"></div></li>
+					<li><div class="icon help"></div><div class="title">Ayuda</div><div class="right_arrow"></div></li>
+					<li action="page" class="btn"  actionid="car/"><div class="title">Todos los modelos</div><div class="right_arrow"></div></li>
+				</ul>
+			</div>
+			<div class="dimmer"></div>
+		</div>
+		<div id="search">
+			<div class="whitebox">
+			</div>
+			<div class="searchbox">
+				<div class='left'></div>
+				<div class='center'><input type="text" placeholder="Busca un VW" /></div>
+				<div class='right'></div>
+				<div class='close_btn btn' action="search"></div>
+			</div>
+			<div id="search_results"></div>
+			<div class="dimmer"></div>
+		</div>
 	</header>
 	<section id="content">
 			<div class="prevPage page">Cargando...</div>

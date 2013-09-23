@@ -19,6 +19,8 @@ body {
 
 #wrapper {
 	width:100%;
+	height: 100%;
+	overflow: scroll;
 }
 #header {
 	position: absolute;
@@ -30,7 +32,7 @@ body {
 	background-size: 1px 52px;
 	background-repeat: repeat-x;
 	box-shadow: 0px 1px 2px gray;
-	z-index: 3;
+	z-index: 5;
 }
 #header li {
 	cursor:pointer;
@@ -47,7 +49,7 @@ body {
 	width:39px;
 	height: 44px;
 }
-#submenu {
+#submenu_btn {
 	float:right;
 	background-image:url(img_menuTop_space.png);
 	background-size: 2px 1px;
@@ -58,7 +60,168 @@ body {
 	padding-left: 11px;
 	padding-top:15px;
 }
+#submenu {
+	position: absolute;
+	left:0px;
+	width:100%;
+	top:48px;
+	display: none;
+}
+#submenu .whitebox {
+	width:50px;
+	height:4px;
+	background-color: white;
+	float:right;
+	margin-right:48px;
+}
+#submenu .m {
+	clear:both;
+}
+#submenu li {
+	background-image: url(bg_buttonm-1.png);
+	padding-top:25px;
+	width:100%;
+	height:49px;
+	background-size: 1px 74px;
+	background-repeat: repeat-x;
+	border-bottom: 1px solid #cdd3d5;
+	color:#33434c;
+	font-size: 23px;
+	font-weight: normal;
+}
+#submenu li:hover {
+	background-image: url(bg_buttonm-2.png);
+	}
+#submenu .icon {
+	float:left;
+	width:17px;
+	height:17px;
+	margin-left: 15px;
+	background-size: 17px 17px;
+	background-repeat: no-repeat;
+}
+#submenu .tvw {
+	background-image: url(img_misVolkswagen.png);
+}
+#submenu .help {
+	background-image: url(img_help.png);
+}
+#submenu .title {
+	float:left;
+	margin-left:15px;
+}
+#submenu .right_arrow {
+	float:right;
+	margin-right:20px;
+	width:7px;
+	height:11px;
+	background-image:url(img_arrow.png);
+	background-size: 7px 11px;
+}
+#search_results {
+	position: absolute;
+	width: 100%;
+	background-color:white;
+	z-index: 6;
+}
 #search {
+	position: absolute;
+	left:0px;
+	width:100%;
+	top:48px;
+	display: none;
+}
+#search .whitebox {
+	width:48px;
+	height:4px;
+	background-color: white;
+	float:right;
+	margin-right:0px;
+}
+#search .searchbox {
+	clear:both;
+	position:relative;
+	padding-top: 9px;
+	padding-left: 9px;
+	height:47px;
+	background-image: url(bg_search-1.png);
+	background-size:1px 56px;
+	background-repeat: repeat-x;
+}
+.searchbox .left {
+	position: relative;
+	background-image:url(bg_search.png);
+	width:20px;
+	height:38px;
+	background-size:299px 38px;
+	background-position:0px 0px;
+	background-repeat:no-repeat;
+}
+.searchbox .center {
+	position: relative;
+	background-image:url(bg_search_h.png);
+	width:auto;
+	height:38px;
+	top:-38px;
+	margin-left: 20px;
+	margin-right: 38px;
+	background-size:1px 38px;
+	background-position:0px 0px;
+	background-repeat:repeat-x;
+}
+.searchbox .right {
+	position: relative;
+	background-image:url(bg_search.png);
+	width:20px;
+	height:38px;
+	margin-left: 100%;
+	margin-top: -76px;
+	left:-38px;
+	background-size:299px 38px;
+	background-position:-278px 0px;
+	background-repeat:no-repeat;
+}
+.searchbox input {
+	border:none;
+	font-family: "VWHeadline";
+	font-weight: normal;
+	font-size: 19px;
+	color:#33434c;
+	width: 85%;
+	padding-top: 7px;
+	background-color:transparent;
+	border-radius: 0px;
+	outline: none;
+	outline-style: none;
+	box-shadow: none;
+	-moz-appearance:none;
+}
+.searchbox .close_btn {
+	position: absolute;
+	right:20px;
+	top:10px;
+	width:34px;
+	height:34px;
+	background-image: url(img_close.png);
+	background-size:34px 67px;
+	background-repeat: no-repeat;
+}
+
+
+#submenu .dimmer {
+	clear:both;
+	width:100%;
+	height:100%;
+	background-color: #000;
+}
+
+#search .dimmer {
+	clear:both;
+	width:100%;
+	height:100%;
+	background-color: #000;
+}
+#search_btn {
 	float:right;
 	background-image:url(img_menuTop_space.png);
 	background-size: 2px 1px;
@@ -75,7 +238,7 @@ body {
 	width:100%;
 	min-height:200px;
 	font-weight: bold;
-	overflow: hidden;
+	overflow: visible;
 	margin-top:49px;
 }
 #footer {
@@ -274,7 +437,7 @@ body {
 .car_list li {
 	clear:both;
 	width:auto;
-	height:79px;
+	height:73px;
 	padding-top: 47px;
 	border-bottom: 2px solid #cdd3d5;
 	font-size: 23px;
@@ -332,6 +495,18 @@ body {
 	background-repeat: no-repeat;
 	cursor:pointer;
 }
+.home_btn {
+	position:absolute;
+	right:8px;
+	top:4px;
+	width:32px;
+	height:32px;
+	background-image: url(btn_home.png);
+	background-size:32px 63px;
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	cursor:pointer;
+}
 
 .image_slider {
 	width:100%;
@@ -344,7 +519,7 @@ body {
 .trans_slider ul {
 	height:330px !important;
 }*/
-.image_slider ul {
+.image_slider > ul {
 	list-style: none;
 	margin:0px;
 	padding:0px;
@@ -353,7 +528,7 @@ body {
 	top:0px;
 	width:100%;
 }
-.image_slider ul li {
+.image_slider > ul > li {
 	position: absolute;
 	left:0px;
 	top:0px;
@@ -531,6 +706,26 @@ body {
 	background-size:29px 57px;
 	background-repeat: no-repeat;
 }
+.large_btn .attention {
+	position:absolute;
+	left:30px;
+	top:20px;
+	width:20px;
+	height:17px;
+	background-image:url(img_atencionPersonalizada-icon.png);
+	background-size:20px 17px;
+	background-repeat: no-repeat;
+}
+.large_btn .calculator {
+	position:absolute;
+	left:30px;
+	top:18px;
+	width:20px;
+	height:24px;
+	background-image:url(img_calculadoraFinanciera-icon.png);
+	background-size:20px 24px;
+	background-repeat: no-repeat;
+}
 .large_btn .off {
 	background-position: 0px 0px;
 }
@@ -542,6 +737,9 @@ body {
 }
 .ready_btn {
 	color:#FFF;
+}
+.small_tx {
+	font-size:16px !important;
 }
 .config_btn .left,.config_btn .right {
 	background-image: url(btn_white_sprte-1.png);
@@ -562,7 +760,7 @@ body {
 	width:100%;
 	height:25px;
 	margin-top: 150px;
-	z-index: 5;
+	z-index: 3;
 }
 .arrows .left {
 	width:8px;
@@ -610,8 +808,14 @@ body {
 	background-repeat: no-repeat;
 }
 
+.slider_prices {
+	position:absolute;
+	z-index: 4;
+	width: 100%;
+}
 
-.image_slider .slider_prices{
+.slider_prices .price_strip{
+	position: relative;
 	width:100%;
 	height:50px;
 	background-image: url(bg_price.png);
@@ -619,43 +823,137 @@ body {
 	background-position:left top;
 	background-repeat: repeat-x;
 }
-.image_slider .top_price {
-	width:50%;
+.slider_prices .top_price {
 	height:50px;
 	float:left;
 }
-.image_slider .top_price > div {
+.slider_prices .top_price > div {
 
 	padding-top:15px;
 	height:35px;
 }
-.image_slider .top_price .first {
+.slider_prices .first {
+	width:46%;
+}
+.slider_prices .last {
+	width:54%;
+}
+.slider_prices .first div {
 	text-align: right;
 	padding-right:11px;
 	border-right:1px solid #CED3D5;
 	
 }
-.image_slider .top_price .last {
+.slider_prices .last div {
 	text-align: left;
-	padding-left:11px;
+	padding-left:9px;
 	border-left:1px solid #FFF;
 }
+.slider_prices .first .top_price_title {
+	width:40px;
+}
+.slider_prices  .last .top_price_title {
+	width:32px;
+}
 
-.image_slider .top_price .top_price_title {
+.slider_prices .top_price_title {
 	color:#8994a0;
 	font-size: 9px;
-	width:40px;
 	font-weight: normal;
 	text-align: left;
 	display: inline-block;
 }
-.image_slider .top_price .top_price_value {
+.slider_prices .price_btn {
+	position:absolute;
+	right:9px;
+	top:15px;
+	width:18px;
+	height:18px;
+	background-size: 18px 37px;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-image:url(btn_price.png); 
+}
+.slider_prices .open {
+	background-position: 0px -18px !important;
+}
+.slider_prices .top_price .top_price_value {
 	font-size: 19px;
 	font-weight: normal;
 }
-.image_slider .top_price .first .top_price_value {
+.slider_prices .first .top_price_value {
 	color:#0187cc ;
 }
-.image_slider .top_price .last .top_price_value {
+.slider_prices .last .top_price_value {
 	color:#33434c ;
+}
+.slider_prices .review_list {
+	background-color: white;
+	width: 100%;
+	height: 0px;
+	overflow: hidden;
+}
+.slider_prices .review_list ul {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+.image_slider .price_spacer {
+	width:100%;
+	height:50px;
+}
+.slider_prices .review_list ul li {
+	height:41px;
+	padding-top: 9px;
+	border-bottom: 1px solid #cdd3d5;
+	padding-left: 12px;
+}
+.slider_prices .review_list ul li div:first-child {
+	font-weight: bold;
+	color:#8994a0;
+	font-size: 11px;
+}
+.slider_prices .review_list ul li div:last-child {
+	font-weight: normal;
+	color:#33434c;
+	font-size: 17px;
+}
+.slider_prices .dimmer {
+	clear:both;
+	width:100%;
+	height:100%;
+	background-color: #000;
+}
+
+.share {
+	padding: 9px;
+	height:37px;
+}
+.share div {
+	float:left;
+	margin:3px;
+}
+.share_title {
+	margin-left: 54px !important;
+	padding-top: 8px;
+	padding-right: 2px;
+	font-size: 14px;
+	color:#33434c;
+	font-weight: bold;
+}
+.fb_btn {
+	width:31px;
+	height: 31px;
+	background-size: 61px 62px;
+	background-image: url(btn_social.png);
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+}
+.tw_btn {
+	width:31px;
+	height: 31px;
+	background-size: 61px 62px;
+	background-image: url(btn_social.png);
+	background-position: -31px 0px;
+	background-repeat: no-repeat;
 }

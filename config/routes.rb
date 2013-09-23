@@ -13,6 +13,7 @@ VWMobile::Application.routes.draw do
   get "configurator/package"
   get "configurator/service"
   get "configurator/review"
+  get "configurator/search"
 
 
   get "configurator/" => "configurator#index"

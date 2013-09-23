@@ -1,4 +1,87 @@
-REVIEW
-<% params.each do |p| %>
-	<%= p %>
-<% end %>
+<div>
+	<div class="page_title">
+			<%= @version.name %>
+		<div class='back_btn btn' action='back'></div>
+		<div class='home_btn btn' action='page' actionid="category/"></div>
+	</div>
+	<div class='arrows'>
+		<div class='slide_arrow left2 btn' action='prev_slide'></div>
+		<div class='slide_arrow right2 btn' action='next_slide'></div>
+	</div>
+	<div class='image_slider'>
+			<ul>
+				<li sid="<%= @version.id %>">
+					<div class='slider_prices'>
+						<div class='review_list'>
+							<ul>
+								<li>
+									<div>Modelo/Versión</div>
+									<div><%= @car.name %> <%=@version.name %></div>
+								</li>
+								<li>
+									<div>Transmisión</div>
+									<div>...</div>
+								</li>
+								<li>
+									<div>Color</div>
+									<div>...</div>
+								</li>
+								<li>
+									<div>Vestiduras</div>
+									<div>... </div>
+								</li>
+								<li>
+									<div>Paquetes</div>
+									<div>... </div>
+								</li>
+								<li>
+									<div>Servicios</div>
+									<div> ... </div>
+								</li>
+							</ul>
+
+						</div>
+						<div class='price_strip'>
+							<div class='top_price first'><div><span class='top_price_title'>Tu precio:</span><span class='top_price_value'><%= number_to_currency(@version.list_price,precision: 0) %></span> </div></div>
+							<div class='top_price last'><div><span class='top_price_title'>Precio<br/>de lista:</span><span class='top_price_value'><%= number_to_currency(@version.list_price,precision: 0) %></span></div></div>
+							<div class='price_btn btn' action="show_review"></div>
+						</div>
+						<div class="dimmer"></div>
+					</div>
+					<div class='price_spacer'></div>
+					<div class='model_title center_elem'><span class='car_name'><%= @car.name %></span> <span class='model_name'><%= @version.name %></span></div>
+					<div class='center_elem model_image'>
+					<% if (Rails.application.assets.find_asset 'pics/versions/'+@version.id.to_s+'.png') %>
+						<img src="/assets/pics/versions/<%= @version.id %>.png" width="204" height="126" />
+						<% end %>
+					</div>
+					<div class='center_elem model_info'><%= @version.description %></div>
+					<div class='center_elem share'>
+						<div class='share_title'>Comparte tu VW: </div> <div class='fb_btn btn'></div> <div  class='tw_btn btn'></div>
+					</div>
+				</li>
+			</ul>
+	</div>
+	<div class='large_btn btn config_btn small_tx' action='popper' actionid="">
+		<div class='left'></div>
+		<div class='center'>Obten atención personalizada</div>
+		<div class='right'></div>
+		<div class='attention'></div>
+	</div>	
+	<div class='large_btn btn config_btn small_tx' action='popper' actionid="">
+		<div class='left'></div>
+		<div class='center'>Calcula tu financiamiento</div>
+		<div class='right'></div>
+		<div class='calculator'></div>
+	</div>
+	<div class='large_btn btn config_btn' action='save' actionid="">
+		<div class='left'></div>
+		<div class='center'>Guarda tu VW</div>
+		<div class='right'></div>
+	</div>
+	<div class='large_btn ready_btn btn' action='page' actionid="category/">
+		<div class='left'></div>
+		<div class='center'>Configura otro VW</div>
+		<div class='right'></div>
+	</div>
+</div>

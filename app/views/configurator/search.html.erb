@@ -1,0 +1,21 @@
+<ul class='car_list'>
+<% if(@versions.size > 0) %>
+<% @versions.each do |v| %>
+	<li class='btn' action='page' actionid='transmission/?car_id=<%= v.car_id %>&sid=<%= v.id %>'>
+		<div class="car_img">
+			<% if (Rails.application.assets.find_asset 'pics/versions/'+v.id.to_s+'.png') %>
+				<img src="/assets/pics/versions/<%=v.id %>.png" width="130" height="64" />
+			<% end %>
+		&nbsp;</div>
+		<div>
+			<div><%= v.car_name %></div>
+			<div><%= v.name %></div>
+			<div class="car_price_name"><span>Desde: </span><span class='car_price_value'><%= number_to_currency(v.list_price,precision: 0) %></span> </div>
+		</div>
+		<div></div>
+	</li>
+<% end %>
+<% else %>
+	<li>No se encontraron resultados</li>
+<% end %>
+</ul>
