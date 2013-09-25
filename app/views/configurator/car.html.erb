@@ -9,7 +9,7 @@
 	</div>
 	<ul class='car_list'>
 <%  @cars.each do |c| %>
-	<li action="page" class="btn" actionid="version/?id=<%= c.id %>">
+	<li action="pagewurl" class="btn" actionid="version/?id=<%= c.id %>" url="./<%= c.name %>">
 		<div class="car_img">
 			<% if (Rails.application.assets.find_asset 'pics/cars/'+c.id.to_s+'.png') %>
 				<img src="assets/pics/cars/<%=c.id %>.png" width="130" height="64" />

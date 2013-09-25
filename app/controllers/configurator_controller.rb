@@ -82,8 +82,15 @@ class ConfiguratorController < ApplicationController
     render layout:false
   end
   def review
-    @car = Car.find(params[:car_id])
-    @version = Version.find(params[:version_id])
+    @car = Car.find(params[:car_id].to_i > 0)
+    if(params[:version_id].to_i > 0)
+      @version = Version.find(params[:version_id])
+    elsif (params[:sid].to_i > 0)
+      @version = Version.find(params[:sid])
+    else
+      redirect_to action:'index'
+      return
+    end
     # @transmission = Transmission.find(params[:transmission_id])
     # @color = Color.find(params[:color_id])
     # @interior = Interior.find(params[:interior_id])
@@ -125,5 +132,10 @@ class ConfiguratorController < ApplicationController
   	
   end
   def index
+      @car = Car.where(name:params[:name])
+  end
+  def tusvw
+    @versions = Car.find_by_sql("SELECT versions.*, cars.name as car_name FROM cars INNER JOIN versions ON versions.car_id = cars.id LIMIT 2")
+    render layout:false
   end
 end

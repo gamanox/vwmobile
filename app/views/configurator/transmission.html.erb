@@ -65,6 +65,13 @@
 				<% end %>
 			</ul>
 	</div>
+	<div class=' navcount'>
+		<ul>
+		<% @transmissions.each do |t1| %>
+			<li class='off'>&nbsp;</li>
+		<% end %>
+		</ul>
+	</div>
 	<div class='large_btn btn config_btn' action='page_slide' actionid="color/?car_id=<%= @car.id %>&version_id=<%= @version.id %>">
 		<div class='left'></div>
 		<div class='center'>Elegir</div>

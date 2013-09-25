@@ -1,7 +1,11 @@
 VWMobile::Application.routes.draw do
   get "configurator/empty"
   get "configurator/price"
+
+
+  #index es el único elemento que muestra la página completa (head, etc), todas las demás solo cargan su contenido interno (view)
   get "configurator/index"
+
   get "configurator/data"
   get "configurator/category"
   get "configurator/subcategory"
@@ -14,9 +18,18 @@ VWMobile::Application.routes.draw do
   get "configurator/service"
   get "configurator/review"
   get "configurator/search"
+  get "configurator/tusvw"
 
+  #el controlador por default (y unico es configurator)
 
   get "configurator/" => "configurator#index"
+  get "configurator/:name" => "configurator#index"
+
+  #para cuando el url trae el nombre del carro
+
+  get "/:name" => "configurator#index"
+
+  #
   root "configurator#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

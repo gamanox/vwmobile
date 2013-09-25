@@ -1,0 +1,35 @@
+<div id="tus_vw">
+	<div class="page_title">
+		Tus Volkswagen
+		<div class='back_btn btn' action='back'></div>
+	</div>
+	<ul class='tusvw_list'>
+<% @versions.each do |v| %>
+	<li class='tuvw btn' action='pagewurl' actionid='review/?car_id=<%= v.car_id %>&sid=<%= v.id %>' url='<%= v.car_name%>'>
+		<div class="car_img">
+			<% if (Rails.application.assets.find_asset 'pics/versions/'+v.id.to_s+'.png') %>
+				<img src="/assets/pics/versions/<%=v.id %>.png" width="130" height="64" />
+			<% end %>
+		&nbsp;</div>
+		<div>
+			<div><%= v.car_name %></div>
+			<div class='subname'><%= v.name %></div>
+			<div class="tusvw_price_name"><span>Precio de lista: </span><span class='car_price_value'><%= number_to_currency(v.list_price,precision: 0) %></span> </div>
+		</div>
+		<div></div>
+	</li>
+	<li class='title_on'>
+		<div>Resumen</div>
+		<div></div>
+	</li>
+	<li class='title_off'>
+		<div>Comparativo</div>
+		<div></div>
+	</li>
+	<li class='title_off'>
+		<div>Especificaciones</div>
+		<div></div>
+	</li>
+<% end %>
+</ul>
+</div>

@@ -10614,44 +10614,137 @@ typeof JSON!="object"&&(JSON={}),function(){"use strict";function f(e){return e<
 
 
 (function(t,e){"use strict";function n(){if(!r.READY){r.event.determineEventTypes();for(var t in r.gestures)r.gestures.hasOwnProperty(t)&&r.detection.register(r.gestures[t]);r.event.onTouch(r.DOCUMENT,r.EVENT_MOVE,r.detection.detect),r.event.onTouch(r.DOCUMENT,r.EVENT_END,r.detection.detect),r.READY=!0}}var r=function(t,e){return new r.Instance(t,e||{})};r.defaults={stop_browser_behavior:{userSelect:"none",touchAction:"none",touchCallout:"none",contentZooming:"none",userDrag:"none",tapHighlightColor:"rgba(0,0,0,0)"}},r.HAS_POINTEREVENTS=t.navigator.pointerEnabled||t.navigator.msPointerEnabled,r.HAS_TOUCHEVENTS="ontouchstart"in t,r.MOBILE_REGEX=/mobile|tablet|ip(ad|hone|od)|android|silk/i,r.NO_MOUSEEVENTS=r.HAS_TOUCHEVENTS&&t.navigator.userAgent.match(r.MOBILE_REGEX),r.EVENT_TYPES={},r.DIRECTION_DOWN="down",r.DIRECTION_LEFT="left",r.DIRECTION_UP="up",r.DIRECTION_RIGHT="right",r.POINTER_MOUSE="mouse",r.POINTER_TOUCH="touch",r.POINTER_PEN="pen",r.EVENT_START="start",r.EVENT_MOVE="move",r.EVENT_END="end",r.DOCUMENT=t.document,r.plugins={},r.READY=!1,r.Instance=function(t,e){var i=this;return n(),this.element=t,this.enabled=!0,this.options=r.utils.extend(r.utils.extend({},r.defaults),e||{}),this.options.stop_browser_behavior&&r.utils.stopDefaultBrowserBehavior(this.element,this.options.stop_browser_behavior),r.event.onTouch(t,r.EVENT_START,function(t){i.enabled&&r.detection.startDetect(i,t)}),this},r.Instance.prototype={on:function(t,e){for(var n=t.split(" "),r=0;n.length>r;r++)this.element.addEventListener(n[r],e,!1);return this},off:function(t,e){for(var n=t.split(" "),r=0;n.length>r;r++)this.element.removeEventListener(n[r],e,!1);return this},trigger:function(t,e){e||(e={});var n=r.DOCUMENT.createEvent("Event");n.initEvent(t,!0,!0),n.gesture=e;var i=this.element;return r.utils.hasParent(e.target,i)&&(i=e.target),i.dispatchEvent(n),this},enable:function(t){return this.enabled=t,this}};var i=null,o=!1,s=!1;r.event={bindDom:function(t,e,n){for(var r=e.split(" "),i=0;r.length>i;i++)t.addEventListener(r[i],n,!1)},onTouch:function(t,e,n){var a=this;this.bindDom(t,r.EVENT_TYPES[e],function(c){var u=c.type.toLowerCase();if(!u.match(/mouse/)||!s){u.match(/touch/)||u.match(/pointerdown/)||u.match(/mouse/)&&1===c.which?o=!0:u.match(/mouse/)&&1!==c.which&&(o=!1),u.match(/touch|pointer/)&&(s=!0);var h=0;o&&(r.HAS_POINTEREVENTS&&e!=r.EVENT_END?h=r.PointerEvent.updatePointer(e,c):u.match(/touch/)?h=c.touches.length:s||(h=u.match(/up/)?0:1),h>0&&e==r.EVENT_END?e=r.EVENT_MOVE:h||(e=r.EVENT_END),(h||null===i)&&(i=c),n.call(r.detection,a.collectEventData(t,e,a.getTouchList(i,e),c)),r.HAS_POINTEREVENTS&&e==r.EVENT_END&&(h=r.PointerEvent.updatePointer(e,c))),h||(i=null,o=!1,s=!1,r.PointerEvent.reset())}})},determineEventTypes:function(){var t;t=r.HAS_POINTEREVENTS?r.PointerEvent.getEvents():r.NO_MOUSEEVENTS?["touchstart","touchmove","touchend touchcancel"]:["touchstart mousedown","touchmove mousemove","touchend touchcancel mouseup"],r.EVENT_TYPES[r.EVENT_START]=t[0],r.EVENT_TYPES[r.EVENT_MOVE]=t[1],r.EVENT_TYPES[r.EVENT_END]=t[2]},getTouchList:function(t){return r.HAS_POINTEREVENTS?r.PointerEvent.getTouchList():t.touches?t.touches:(t.indentifier=1,[t])},collectEventData:function(t,e,n,i){var o=r.POINTER_TOUCH;return(i.type.match(/mouse/)||r.PointerEvent.matchType(r.POINTER_MOUSE,i))&&(o=r.POINTER_MOUSE),{center:r.utils.getCenter(n),timeStamp:(new Date).getTime(),target:i.target,touches:n,eventType:e,pointerType:o,srcEvent:i,preventDefault:function(){this.srcEvent.preventManipulation&&this.srcEvent.preventManipulation(),this.srcEvent.preventDefault&&this.srcEvent.preventDefault()},stopPropagation:function(){this.srcEvent.stopPropagation()},stopDetect:function(){return r.detection.stopDetect()}}}},r.PointerEvent={pointers:{},getTouchList:function(){var t=this,e=[];return Object.keys(t.pointers).sort().forEach(function(n){e.push(t.pointers[n])}),e},updatePointer:function(t,e){return t==r.EVENT_END?this.pointers={}:(e.identifier=e.pointerId,this.pointers[e.pointerId]=e),Object.keys(this.pointers).length},matchType:function(t,e){if(!e.pointerType)return!1;var n={};return n[r.POINTER_MOUSE]=e.pointerType==e.MSPOINTER_TYPE_MOUSE||e.pointerType==r.POINTER_MOUSE,n[r.POINTER_TOUCH]=e.pointerType==e.MSPOINTER_TYPE_TOUCH||e.pointerType==r.POINTER_TOUCH,n[r.POINTER_PEN]=e.pointerType==e.MSPOINTER_TYPE_PEN||e.pointerType==r.POINTER_PEN,n[t]},getEvents:function(){return["pointerdown MSPointerDown","pointermove MSPointerMove","pointerup pointercancel MSPointerUp MSPointerCancel"]},reset:function(){this.pointers={}}},r.utils={extend:function(t,n,r){for(var i in n)t[i]!==e&&r||(t[i]=n[i]);return t},hasParent:function(t,e){for(;t;){if(t==e)return!0;t=t.parentNode}return!1},getCenter:function(t){for(var e=[],n=[],r=0,i=t.length;i>r;r++)e.push(t[r].pageX),n.push(t[r].pageY);return{pageX:(Math.min.apply(Math,e)+Math.max.apply(Math,e))/2,pageY:(Math.min.apply(Math,n)+Math.max.apply(Math,n))/2}},getVelocity:function(t,e,n){return{x:Math.abs(e/t)||0,y:Math.abs(n/t)||0}},getAngle:function(t,e){var n=e.pageY-t.pageY,r=e.pageX-t.pageX;return 180*Math.atan2(n,r)/Math.PI},getDirection:function(t,e){var n=Math.abs(t.pageX-e.pageX),i=Math.abs(t.pageY-e.pageY);return n>=i?t.pageX-e.pageX>0?r.DIRECTION_LEFT:r.DIRECTION_RIGHT:t.pageY-e.pageY>0?r.DIRECTION_UP:r.DIRECTION_DOWN},getDistance:function(t,e){var n=e.pageX-t.pageX,r=e.pageY-t.pageY;return Math.sqrt(n*n+r*r)},getScale:function(t,e){return t.length>=2&&e.length>=2?this.getDistance(e[0],e[1])/this.getDistance(t[0],t[1]):1},getRotation:function(t,e){return t.length>=2&&e.length>=2?this.getAngle(e[1],e[0])-this.getAngle(t[1],t[0]):0},isVertical:function(t){return t==r.DIRECTION_UP||t==r.DIRECTION_DOWN},stopDefaultBrowserBehavior:function(t,e){var n,r=["webkit","khtml","moz","Moz","ms","o",""];if(e&&t.style){for(var i=0;r.length>i;i++)for(var o in e)e.hasOwnProperty(o)&&(n=o,r[i]&&(n=r[i]+n.substring(0,1).toUpperCase()+n.substring(1)),t.style[n]=e[o]);"none"==e.userSelect&&(t.onselectstart=function(){return!1}),"none"==e.userDrag&&(t.ondragstart=function(){return!1})}}},r.detection={gestures:[],current:null,previous:null,stopped:!1,startDetect:function(t,e){this.current||(this.stopped=!1,this.current={inst:t,startEvent:r.utils.extend({},e),lastEvent:!1,name:""},this.detect(e))},detect:function(t){if(this.current&&!this.stopped){t=this.extendEventData(t);for(var e=this.current.inst.options,n=0,i=this.gestures.length;i>n;n++){var o=this.gestures[n];if(!this.stopped&&e[o.name]!==!1&&o.handler.call(o,t,this.current.inst)===!1){this.stopDetect();break}}return this.current&&(this.current.lastEvent=t),t.eventType==r.EVENT_END&&!t.touches.length-1&&this.stopDetect(),t}},stopDetect:function(){this.previous=r.utils.extend({},this.current),this.current=null,this.stopped=!0},extendEventData:function(t){var e=this.current.startEvent;if(e&&(t.touches.length!=e.touches.length||t.touches===e.touches)){e.touches=[];for(var n=0,i=t.touches.length;i>n;n++)e.touches.push(r.utils.extend({},t.touches[n]))}var o=t.timeStamp-e.timeStamp,s=t.center.pageX-e.center.pageX,a=t.center.pageY-e.center.pageY,c=r.utils.getVelocity(o,s,a);return r.utils.extend(t,{deltaTime:o,deltaX:s,deltaY:a,velocityX:c.x,velocityY:c.y,distance:r.utils.getDistance(e.center,t.center),angle:r.utils.getAngle(e.center,t.center),interimAngle:this.current.lastEvent&&r.utils.getAngle(this.current.lastEvent.center,t.center),direction:r.utils.getDirection(e.center,t.center),interimDirection:this.current.lastEvent&&r.utils.getDirection(this.current.lastEvent.center,t.center),scale:r.utils.getScale(e.touches,t.touches),rotation:r.utils.getRotation(e.touches,t.touches),startEvent:e}),t},register:function(t){var n=t.defaults||{};return n[t.name]===e&&(n[t.name]=!0),r.utils.extend(r.defaults,n,!0),t.index=t.index||1e3,this.gestures.push(t),this.gestures.sort(function(t,e){return t.index<e.index?-1:t.index>e.index?1:0}),this.gestures}},r.gestures=r.gestures||{},r.gestures.Hold={name:"hold",index:10,defaults:{hold_timeout:500,hold_threshold:1},timer:null,handler:function(t,e){switch(t.eventType){case r.EVENT_START:clearTimeout(this.timer),r.detection.current.name=this.name,this.timer=setTimeout(function(){"hold"==r.detection.current.name&&e.trigger("hold",t)},e.options.hold_timeout);break;case r.EVENT_MOVE:t.distance>e.options.hold_threshold&&clearTimeout(this.timer);break;case r.EVENT_END:clearTimeout(this.timer)}}},r.gestures.Tap={name:"tap",index:100,defaults:{tap_max_touchtime:250,tap_max_distance:10,tap_always:!0,doubletap_distance:20,doubletap_interval:300},handler:function(t,e){if(t.eventType==r.EVENT_END&&"touchcancel"!=t.srcEvent.type){var n=r.detection.previous,i=!1;if(t.deltaTime>e.options.tap_max_touchtime||t.distance>e.options.tap_max_distance)return;n&&"tap"==n.name&&t.timeStamp-n.lastEvent.timeStamp<e.options.doubletap_interval&&t.distance<e.options.doubletap_distance&&(e.trigger("doubletap",t),i=!0),(!i||e.options.tap_always)&&(r.detection.current.name="tap",e.trigger(r.detection.current.name,t))}}},r.gestures.Swipe={name:"swipe",index:40,defaults:{swipe_max_touches:1,swipe_velocity:.7},handler:function(t,e){if(t.eventType==r.EVENT_END){if(e.options.swipe_max_touches>0&&t.touches.length>e.options.swipe_max_touches)return;(t.velocityX>e.options.swipe_velocity||t.velocityY>e.options.swipe_velocity)&&(e.trigger(this.name,t),e.trigger(this.name+t.direction,t))}}},r.gestures.Drag={name:"drag",index:50,defaults:{drag_min_distance:10,correct_for_drag_min_distance:!0,drag_max_touches:1,drag_block_horizontal:!1,drag_block_vertical:!1,drag_lock_to_axis:!1,drag_lock_min_distance:25},triggered:!1,handler:function(t,n){if(r.detection.current.name!=this.name&&this.triggered)return n.trigger(this.name+"end",t),this.triggered=!1,e;if(!(n.options.drag_max_touches>0&&t.touches.length>n.options.drag_max_touches))switch(t.eventType){case r.EVENT_START:this.triggered=!1;break;case r.EVENT_MOVE:if(t.distance<n.options.drag_min_distance&&r.detection.current.name!=this.name)return;if(r.detection.current.name!=this.name&&(r.detection.current.name=this.name,n.options.correct_for_drag_min_distance)){var i=Math.abs(n.options.drag_min_distance/t.distance);r.detection.current.startEvent.center.pageX+=t.deltaX*i,r.detection.current.startEvent.center.pageY+=t.deltaY*i,t=r.detection.extendEventData(t)}(r.detection.current.lastEvent.drag_locked_to_axis||n.options.drag_lock_to_axis&&n.options.drag_lock_min_distance<=t.distance)&&(t.drag_locked_to_axis=!0);var o=r.detection.current.lastEvent.direction;t.drag_locked_to_axis&&o!==t.direction&&(t.direction=r.utils.isVertical(o)?0>t.deltaY?r.DIRECTION_UP:r.DIRECTION_DOWN:0>t.deltaX?r.DIRECTION_LEFT:r.DIRECTION_RIGHT),this.triggered||(n.trigger(this.name+"start",t),this.triggered=!0),n.trigger(this.name,t),n.trigger(this.name+t.direction,t),(n.options.drag_block_vertical&&r.utils.isVertical(t.direction)||n.options.drag_block_horizontal&&!r.utils.isVertical(t.direction))&&t.preventDefault();break;case r.EVENT_END:this.triggered&&n.trigger(this.name+"end",t),this.triggered=!1}}},r.gestures.Transform={name:"transform",index:45,defaults:{transform_min_scale:.01,transform_min_rotation:1,transform_always_block:!1},triggered:!1,handler:function(t,n){if(r.detection.current.name!=this.name&&this.triggered)return n.trigger(this.name+"end",t),this.triggered=!1,e;if(!(2>t.touches.length))switch(n.options.transform_always_block&&t.preventDefault(),t.eventType){case r.EVENT_START:this.triggered=!1;break;case r.EVENT_MOVE:var i=Math.abs(1-t.scale),o=Math.abs(t.rotation);if(n.options.transform_min_scale>i&&n.options.transform_min_rotation>o)return;r.detection.current.name=this.name,this.triggered||(n.trigger(this.name+"start",t),this.triggered=!0),n.trigger(this.name,t),o>n.options.transform_min_rotation&&n.trigger("rotate",t),i>n.options.transform_min_scale&&(n.trigger("pinch",t),n.trigger("pinch"+(1>t.scale?"in":"out"),t));break;case r.EVENT_END:this.triggered&&n.trigger(this.name+"end",t),this.triggered=!1}}},r.gestures.Touch={name:"touch",index:-1/0,defaults:{prevent_default:!1,prevent_mouseevents:!1},handler:function(t,n){return n.options.prevent_mouseevents&&t.pointerType==r.POINTER_MOUSE?(t.stopDetect(),e):(n.options.prevent_default&&t.preventDefault(),t.eventType==r.EVENT_START&&n.trigger(this.name,t),e)}},r.gestures.Release={name:"release",index:1/0,handler:function(t,e){t.eventType==r.EVENT_END&&e.trigger(this.name,t)}},"function"==typeof define&&"object"==typeof define.amd&&define.amd?define(function(){return r}):"object"==typeof module&&"object"==typeof module.exports?module.exports=r:t.Hammer=r})(this),function(t){"use strict";var e=function(e,n){return n===t?e:(e.event.bindDom=function(e,r,i){n(e).on(r,function(e){var n=e.originalEvent||e;n.pageX===t&&(n.pageX=e.pageX,n.pageY=e.pageY),n.target||(n.target=e.target),n.which===t&&(n.which=n.button),n.preventDefault||(n.preventDefault=e.preventDefault),n.stopPropagation||(n.stopPropagation=e.stopPropagation),i.call(this,n)})},e.Instance.prototype.on=function(t,e){return n(this.element).on(t,e)},e.Instance.prototype.off=function(t,e){return n(this.element).off(t,e)},e.Instance.prototype.trigger=function(t,e){var r=n(this.element);return r.has(e.target).length&&(r=n(e.target)),r.trigger({type:t,gesture:e})},n.fn.hammer=function(t){return this.each(function(){var r=n(this),i=r.data("hammer");i?i&&t&&e.utils.extend(i.options,t):r.data("hammer",new e(this,t||{}))})},e)};"function"==typeof define&&"object"==typeof define.amd&&define.amd?define("hammer-jquery",["hammer","jquery"],e):e(window.Hammer,window.jQuery||window.Zepto)}();
-var config_data;
-var currentPage = null;
-var prevPage;
-var level = 0;
+var config_data; //No se usa
+var currentPage = null; //Pagina actual
+var prevPage; //Pagina anterior
+var level = 0; //Cantidad de veces que ha avanzado en el historial
+var previousState; //No se usa
 
-$(init);
+var currentSlide; //Slide actual
 
+$(init); //Arranca
 
+//Stack de páginas, una forma simple de saber el recorrido entre páginas
+var pages = new Array();
+
+/*
+	Inicia el configurador
+	1. arranca el listener de resize de la pantalla
+	2. activa todos los botones (clase btn)
+	3. activa el input de busqueda
+	4. desactiva los links del footer (son controlados por la clase btn)
+	5. oculta las páginas previas y siguientes
+	6. activa el listener de cambio de historial
+	7. acomoda la pantalla
+	8. carga la primera pantalla (si en el url viene el nombre del carro, carga sus versiones, si no, las categorias)
+*/
 function init(data) {
-	//config_data = data;
 	$(window).on("resize",setScreen);
+	$(".btn").on("click",doAction);
+	$("#search input").on("keyup",doSearch);
+	$("#footer a").on("click",disableLink);
 	$(".prevPage").hide();
 	$(".nextPage").hide();
 	var History = window.History;
 	History.Adapter.bind(window,'statechange',stateHasChanged);
 
 	setScreen();
-	loadPage("category");
+	if(car.length > 0) {
+		loadPage("version/?id="+car[0].id);
+	} else {
+		loadPage("category");
+	}
 }
+var historyTimer;
+
+/*
+	deshabilitador de links (a)
+*/
+
+function disableLink(e) {
+	e.preventDefault();
+}
+
+/*
+	ajusta la pantalla
+	acomoda la altura del contenido (image_slider en la mayoria de los casos) NOTA: quizá ya no es necesario
+	anima el bloque de #content para ajustarse al contenido (como consecuencia reposiciona el footer)
+*/
 
 function setScreen() {
+	$(".currentPage .image_slider").height(getMaxSlideHeight());
 	console.log($(".currentPage").height());
-	var height = $(window).height()-49;
-	if(height < $(".currentPage").height()) {
+	//var height = $(window).height()-49;
+	//if(height < $(".currentPage").height()) {
 		height = $(".currentPage").height();
-	}
+	//}
 	$("#content").animate({"height":height});
+	//$("#wrapper").height($(window).height());
 }
 
-function loadPage(page) {
+/*
+	obtiene la altura máxima del contenido (cuando son slides, eg: versiones, color, etc)
+*/
+
+function getMaxSlideHeight() {
+	var max = 0;
+	$(".currentPage .image_slider > ul > li").each(function (index,element) {
+		max = $(element).height() > max ? $(element).height():max;
+	});
+	return max;
+}
+
+/*
+	Manda a cargar una página
+	Lo hace metiendo un estado en el historial, cuando el evento de stateChange se dispara, carga mediante ajax la página
+	historyTimer es usado para forzar la carga, por alguna razón en ocasiones al cargar la primera vez no llama al evento stateChange
+	el timer hace que cargue la página sin usar ese evento.
+
+*/
+
+function loadPage(page,withURL) {
 	console.log("LOAD PAGE: "+page);
+	currentState = History.getState();
 	prevPage = currentPage
 	currentPage = page;
-	
-	History.pushState({"level":level,"page":page,"url":"/configurator/"+page},"VW Conf Mobile");
-	
-	
+	historyTimer = window.setTimeout('forceLoad("/configurator/'+page+'")',1000);
+	console.log("INIT TIMEOUT");
+	History.pushState({"level":level,"page":page,"url":"/configurator/"+page},"Volkswagen México - Configurador de autos Volkswagen",withURL);		
 }
+
+/*
+	Si el evento stateChange no es llamado (despues de 1 segundo), carga desde aqui la página mediante ajax
+*/
+function forceLoad(page) {
+	historyTimer = null;
+	console.log("Force Load");
+	pages.push(page);
+	$(".nextPage").load(page,switchScreen);
+
+}
+
+/*
+	cada que teclea el usuario en el buscador, carga mediante ajax los resultados
+*/
+function doSearch() {
+	console.log("SEARCH: "+$(this).val().length);
+
+	if($(this).val().length > 2) {
+		$("#search_results").load("/configurator/search/?q="+encodeURIComponent($(this).val()),function () {
+			$("#search .btn").on("click",doAction);
+		});
+	} else {
+		$("#search_results").html("");
+	}
+}
+/*
+	realiza la transición entre pantallas hacia la izquierda
+	mueve la currentPage y nextPage a la izquierda
+	reajusta los nombres (clases) para la siguiente llamada a esta función
+	llama a la funcion enableButtons que habilita todos los botones de la página
+	llama a la funcion enableSlider que habilita el slider del contenido
+	llama a la funcion setScreen que ajusta el contenido de la pantalla
+*/
 function switchScreen(){
 	var prev = $(".prevPage");
 	var current = $(".currentPage");
@@ -10664,6 +10757,15 @@ function switchScreen(){
 	setScreen();
 
 }
+
+/*
+	realiza la transición entre pantallas hacia la derecha
+	mueve la currentPage y prevPage a la derecha
+	reajusta los nombres (clases) para la siguiente llamada a esta función
+	llama a la funcion enableButtons que habilita todos los botones de la página
+	llama a la funcion enableSlider que habilita el slider del contenido
+	llama a la funcion setScreen que ajusta el contenido de la pantalla
+*/
 function switchBackScreen(){
 	var prev = $(".prevPage");
 	var current = $(".currentPage");
@@ -10676,19 +10778,25 @@ function switchBackScreen(){
 	setScreen();
 
 }
-var currentSlide;
+
+/*
+	habilita los botones izq y der del slider
+	habilita y ajusta el contador de slides
+*/
 function enableSlider() {
 	$(".currentPage .arrows").hammer().off("swipeleft");
 	$(".currentPage .arrows").hammer().off("swiperight");
 	$(".currentPage .image_slider").hammer().off("swipeleft");
 	$(".currentPage .image_slider").hammer().off("swiperight");
+	console.log("ULW: "+$(".currentPage .navcount ul").width());
+	$(".currentPage .navcount").css("margin-left",$(".currentPage .navcount li").length*-6);
 
-	$(".currentPage .image_slider li").each(function(index,element) {
+	$(".currentPage .image_slider > ul > li").each(function(index,element) {
 		$(element).css("left",index*$(window).width()).hide();
 	});
-	$($(".currentPage .image_slider li").get(0)).show();
+	$($(".currentPage .image_slider > ul > li").get(0)).show();
 
-	if($(".currentPage .image_slider li").length < 2) {
+	if($(".currentPage .image_slider > ul > li").length < 2) {
 		$(".currentPage .arrows").hide();
 	} else {
 		$(".currentPage .arrows").show();
@@ -10698,7 +10806,12 @@ function enableSlider() {
 		$(".currentPage .arrows").hammer().on("swiperight",prevSlide);
 	}
 	currentSlide = 0;
+	$($(".currentPage .navcount li").get(currentSlide)).removeClass("off").addClass("on");
 }
+/*
+	Habilita los botones (todo elemento con clase 'btn') que se encuentre dentro de la página actual
+
+*/
 function enableButtons() {
 
 	$(".prevPage .btn").off("click",doAction);
@@ -10706,57 +10819,271 @@ function enableButtons() {
 	$(".currentPage .btn").on("click",doAction);
 }
 
+/*
+	Evento al darle clic a algun elemento con clase 'btn'
+	Todos los elementos tienen atributo 'action', algunos tienen atributos extras que fungen como parámetros
+	ejecuta alguna accion dependiendo del valor en el atributo 'action'
+*/
+
 function doAction() {
 	var action = $(this).attr("action");
 	var param;
+	/*
+		Manda a llamar alguna página (definida en 'actionid')
+		oculta el submenu o el buscador en caso que esten activos
+	*/
 	if(action == "page") {
 		param = $(this).attr("actionid");
+		toggleSubmenu(true);
+		toggleSearch(true);
 		loadPage(param);
-	}
-	if(action == "back") {
+		return;
+
+	/*
+		Manda a llamar alguna página (definida en 'actionid') y cambia el url del navegador (definida en 'url')
+		oculta el submenu o el buscador en caso que esten activos
+	*/
+	} else if(action == "pagewurl") {
+		console.log("PAGE WITH URL");
+		param = $(this).attr("actionid");
+		var url = $(this).attr("url");
+		toggleSubmenu(true);
+		toggleSearch(true);
+		loadPage(param,url);
+		return;
+	/*
+		Regresa en la historia
+	*/
+	}else if(action == "back") {
 		History.back();
-	}
-	if(action == "next_slide") {
+		return;
+	/*
+		Regresa en la historia
+		Valida el regreso (si se cumple la condición de que la página anterior sea 'actionid'), si no, se va al principio
+		Este es principalmente cuando desde el url te lleva directamente al review o a algun carro
+	*/
+	} else if(action == "backcheck") {
+		param = $(this).attr("actionid");
+		console.log("BACK CHECK");
+		console.log(pages[pages.length-2]);
+		if(pages.length >= 2 && pages[pages.length-2].split("/")[0] == param)
+			History.back();
+		else {
+			loadPage("category","./");
+		}
+		return;
+	/*
+		Se mueve al siguiente slide
+	*/
+	} else if(action == "next_slide") {
 		nextSlide();
-	}
-	if(action == "prev_slide") {
+		return;
+	/*
+		Se mueve al previo slide
+	*/
+	} else if(action == "prev_slide") {
 		prevSlide();
+		return;
+	/*
+		Carga una página, enviando de parámetro el id del slide actual (para cuando se escoge versión, color, interior, etc)
+	*/
+	} else if(action == "page_slide") {
+		param = $(this).attr("actionid");
+		var slide = $(".currentPage .image_slider > ul > li").get(currentSlide);
+		param += "&sid="+$(slide).attr("sid")*1;
+		loadPage(param);
+	/*
+		Selecciona un paquete o servicio
+	*/
+	}else if(action == "select") {
+		param = $(this).attr("actionid");
+		var on = $(this).find(".on");
+		var off = $(this).find(".off");
+		var text = on.length > 0 ? "Agregar":"Remover";
+		$(this).find(".center").html(text);
+		on.removeClass("on").addClass("off");
+		off.removeClass("off").addClass("on");
+	/*
+		Carga una página, enviando de parámetro los id del paquete o servicio seleccionado
+	*/
+	} else if(action == "page_slide_select") {
+		param = $(this).attr("actionid");
+		var selected = "";
+		var sid;
+		var on;
+		$(".currentPage .image_slider > ul > li").each(function (index,element) {
+			on = $(element).find(".on");
+			if(on.length > 0 ){
+				sid = $(element).attr("sid")*1;
+				selected += "&sid[]="+sid;
+			}
+		});
+		param += selected;
+		loadPage(param);
+	/*
+		muestra el submenu, oculta el buscador en caso que esté activo
+	*/
+	} else if(action == "submenu") {
+		toggleSearch(true);
+		toggleSubmenu($("#submenu").is(":visible"));
+	/*
+		muestra el buscador, oculta el submenu en caso que esté activo
+	*/
+	} else if(action == "search") {
+
+		toggleSubmenu(true);
+		toggleSearch($("#search").is(":visible"));
+	/*
+		muestra el dropdown que se encuentra en la barra de precios (resumen de las características seleccionados)
+	*/
+	} else if(action == "show_review") {
+		toggleReview();
+	/*
+		Lleva a alguna liga (usada en los links del footer) en ventana nueva
+	*/
+	} else if(action == "link") {
+		param = $(this).attr("actionid");
+		window.open(param);
 	}
 
 }
+
+/*
+	Muestra u oculta el resumen de las características seleccionadas (dropdown de la barra de precios)
+	Lo hace de forma animada
+	Oscurece el fondo
+*/
+function toggleReview() {
+	var slides = $(".currentPage .image_slider > ul > li");
+	var slide = $(slides).get(currentSlide);
+	if($(slide).find(".review_list").height() > 0 ) {
+
+		$(slide).find(".price_btn").removeClass("open");
+		$(slide).find(".review_list").delay(250).animate({height:0},250);
+		$(slide).find(".slider_prices .dimmer").animate({height:0,opacity:0},250);
+	} else {
+		var h = $(slide).find(" .review_list ul").height();
+		console.log("H: "+h)
+		$(slide).find(" .price_btn").addClass("open");
+		$(slide).find(" .review_list").animate({height:h},250);
+		h = $("#content").height()+285-h-50-41;
+		console.log("DH: "+h);
+		$(slide).find(".slider_prices .dimmer").animate({height:h,opacity:0.75},250);
+	}
+}
+
+/*
+	Muestra u oculta el buscador
+	Lo hace de forma animada
+	Oscurece el fondo
+*/
+function toggleSearch(hide) {
+	if(hide){
+		$("#search").delay(250).animate({height:0},250).hide(0);
+		$("#search .dimmer").fadeTo(1,0.75).animate({opacity:0},250);
+	} else {
+		$("#search").css("height",0).show().animate({height:56},250);
+		$("#search .dimmer").fadeTo(1,0).height($("#wrapper").height()).delay(250).animate({height:$(window).height()-56,opacity:0.75},250);
+	}
+}
+
+/*
+	Muestra u oculta el submenu
+	Lo hace de forma animada
+	Oscurece el fondo
+*/
+function toggleSubmenu(hide) {
+	if(hide){
+		$("#submenu").delay(250).animate({height:0},250).hide(0);
+		$("#submenu .dimmer").fadeTo(1,0.75).animate({opacity:0},250);
+	} else {
+		console.log("WrH: "+$("#wrapper").height());
+		console.log("WiH: "+$(window).height());
+		console.log("CH: "+$("#content").height());
+		$("#submenu").css("height",0).show().animate({height:175},250);
+		$("#submenu .dimmer").fadeTo(1,0).height($("#wrapper").height()).delay(250).animate({height:$("#wrapper").height()-175,opacity:0.75},250);
+	}
+}
+
+/*
+	Genera la transición entre slides mueve hacia la derecha
+	Guarda en currentSlide el nuevo slide visible
+	Si se encuentra en el primer slide, se mueve al último
+*/
 function prevSlide() {
 	var prev = currentSlide-1;
-		var slides = $(".currentPage .image_slider li");
+		var slides = $(".currentPage .image_slider > ul > li");
 		if(prev < 0) {
 			prev = $(slides).length-1;
 		}
 		$($(slides).get(currentSlide)).animate({"left":$(window).width()},250).hide(0);
 		$($(slides).get(prev)).css("left",-$(window).width()).show().animate({left:0},250);
+		$($(".currentPage .navcount li").get(currentSlide)).removeClass("on").addClass("off");
 		currentSlide = prev;
+		$($(".currentPage .navcount li").get(currentSlide)).removeClass("off").addClass("on");
 }
+
+/*
+	Genera la transición entre slides mueve hacia la izquierda
+	Guarda en currentSlide el nuevo slide visible
+	Si se encuentra en el último slide, se mueve al primero
+*/
 function nextSlide() {
 	var next = currentSlide+1;
-		var slides = $(".currentPage .image_slider li");
+		var slides = $(".currentPage .image_slider > ul > li");
 		if(next >= $(slides).length) {
 			next = 0;
 		}
 		$($(slides).get(currentSlide)).animate({"left":-$(window).width()},250).hide(0);
 		$($(slides).get(next)).css("left",$(window).width()).show().animate({left:0},250);
+		$($(".currentPage .navcount li").get(currentSlide)).removeClass("on").addClass("off");
 		currentSlide = next;
+		$($(".currentPage .navcount li").get(currentSlide)).removeClass("off").addClass("on");
 }
+
+/*
+	Evento de historial
+	Cuando ocurre un evento en la historia, carga mediante ajax una página nueva (la que se encuentre en el historial)
+	En el State viene un objeto con varios parámetros:
+	data.page - página a cargar
+	data.level - nivel del historial (cuantas veces ha avanzado en la historia)
+	data.url - url real de la página que va a carga con ajax
+
+*/
 function stateHasChanged() { // Note: We are using statechange instead of popstate
+		console.log("CLEAR TIMEOUT");
+
+		window.clearTimeout(historyTimer);
+		historyTimer = null;
         console.log("State has changed");
         var State = History.getState(); // Note: We are using History.getState() instead of event.state
     	console.log(State);
     	console.log(State.data.level+" - "+level);
+
+    	/*
+    		Level es la cantidad de páginas metidas en la historia, 
+    		cuando es nulo es no hay páginas en la historia, recarga entonces todo el sitio
+    	*/
     	if(State.data.level == undefined) {
     		window.location.href = "/";
     	}
+    	/*
+			Cuando level es menor, quiere decir que se está regresando
+			Carga la página anterior, la mete en el contenedor .prevPage, posteriormente hará la transición para presentarlo (switchBackScreen)
+			Saca del stack de páginas
+    	*/
     	if(State.data.level < level) {
     		level--;
+    		pages.pop();
     		$(".prevPage").load(State.data.url,switchBackScreen);
+    	/*
+			Cuando level es mayor, quiere decir que se está avanzado
+			Carga la página siguiente,la mete en el contenedor .nextPage, posteriormente hará la transición para presentarlo (switchScreen)
+			Mete al stack de páginas la nueva página
+    	*/
     	} else {
     		level++;
+    		pages.push(State.data.page);
     		$(".nextPage").load(State.data.url,switchScreen);
     	}
     

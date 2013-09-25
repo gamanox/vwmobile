@@ -66,6 +66,13 @@
 				<% end %>
 			</ul>
 	</div>
+	<div class=' navcount'>
+		<ul>
+		<% @interiors.each do |i1| %>
+			<li class='off'>&nbsp;</li>
+		<% end %>
+		</ul>
+	</div>
 	<div class='large_btn btn config_btn' action='page_slide' actionid="package/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>">
 		<div class='left'></div>
 		<div class='center'>Elegir</div>

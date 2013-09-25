@@ -1,4 +1,7 @@
-<div id="wrapper">
+<!-- 
+	Esta es la única página que se carga sin AJAX, todas las demás se cargan internamente mediante ajax y se colocan todas en 
+	.prevPage o .nextPage, o bien dentro de la búsqueda (#search_results)
+--><div id="wrapper">
 	<header id="header">
 		<nav id="menu">
 			<ul>
@@ -6,8 +9,8 @@
 					<a href="./" target="_self"><img src="/assets/volkswagen_logo.png" widht="39" height="39"></a>
 				</li>
 
-				<li id="search_btn" class="btn" action="search"><img src="/assets/btn_search-icon.png" width="25" height="25" /></li>
-				<li id="submenu_btn" class="btn" action="submenu"><img src="/assets/btn_menu-icon.png" width="27" height="20" /></li>
+				<li id="search_btn" class="btn" action="search"><img src="/assets/img_search-icon.png" width="25" height="25" /></li>
+				<li id="submenu_btn" class="btn" action="submenu"><img src="/assets/img_menu-icon.png" width="27" height="20" /></li>
 			</ul>
 		</nav>
 		<div id="submenu">
@@ -15,8 +18,7 @@
 			</div>
 			<div class="m">
 				<ul>
-					<li><div class="icon tvw"></div><div class="title">Tus Volkswagen</div><div class="right_arrow"></div></li>
-					<li><div class="icon help"></div><div class="title">Ayuda</div><div class="right_arrow"></div></li>
+					<li  action="page" class="btn"  actionid="tusvw/"><div class="icon tvw"></div><div class="title">Tus Volkswagen</div><div class="right_arrow"></div></li>
 					<li action="page" class="btn"  actionid="car/"><div class="title">Todos los modelos</div><div class="right_arrow"></div></li>
 				</ul>
 			</div>
@@ -43,31 +45,36 @@
 	</section>
 	<footer id="footer">
 		<ul id="gral_btns">
-			<li>
+			<li class='btn' action='link_dead' actionid='http://www.vw.com.mx/es/guia_del_comprador/concesionarios.html'>
 				<div id="foot_ap" class="foot_icon"></div>
 				<div class="foot_label">Atención personalizada</div>
 				<div class="foot_go"></div>
 			</li>
-			<li>
+			<li class='btn' action='link' actionid='http://www.vw.com.mx/es/guia_del_comprador/concesionarios.html'>
 				<div id="foot_c" class="foot_icon"></div>
-				<div class="foot_label">Concesionarios</div>
+				<div class="foot_label"><a href="http://www.vw.com.mx/es/guia_del_comprador/concesionarios.html" target="_blank">Concesionarios
+				</a></div>
 				<div class="foot_go"></div>
 			</li>
-			<li>
+			<li class='btn' action='link' actionid='http://www.promocionesvw.mx/'>
 				<div  id="foot_p" class="foot_icon"></div>
-				<div class="foot_label">Promociones</div>
+				<div class="foot_label"><a href="http://www.promocionesvw.mx/" target="_blank">Promociones</a></div>
 				<div class="foot_go"></div>
 			</li>
 		</ul>
 		<ul id="social_btns">
-			<li id="twitter_btn"></li>
-			<li id="facebook_btn"></li>
-			<li id="googleplus_btn"></li>
+			<li id="twitter_btn" class='btn' action='link' actionid='https://twitter.com/Volkswagen_MX'></li>
+			<li id="facebook_btn"  class='btn' action='link' actionid='https://www.facebook.com/VolkswagenMexico?fref=ts'></li>
+			<li id="googleplus_btn"  class='btn' action='link' actionid='https://plus.google.com/+VolkswagenMexico'></li>
 		</ul>
 		<ul id="legal_btns">
-			<li>Aspectos Legales</li>
-			<li>Volkwagen Internacional</li>
+			<li class='btn' action='link' actionid='http://www.vw.com.mx/es/tools/navigation/footer/aspectos_legalesyavisodeprivacidad.html'><a href='http://www.vw.com.mx/es/tools/navigation/footer/aspectos_legalesyavisodeprivacidad.html'>Aspectos Legales</a></li>
+			<li class='btn' action='link' actionid='http://en.volkswagen.com/en.html'><a href='http://en.volkswagen.com/en.html'>Volkwagen Internacional</a></li>
 		</ul>
 		<div id="copy">&copy; Volkswagen México 2013</div>
 	</footer>
 </div>
+<script type='text/javascript'>
+	var params = <%= raw params.to_json %>;
+	var car = <%= raw @car.to_json %>;
+</script>

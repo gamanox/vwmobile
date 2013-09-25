@@ -72,6 +72,13 @@
 				<% end %>
 			</ul>
 	</div>
+	<div class=' navcount'>
+		<ul>
+		<% @packages.each do |vp| %>
+			<li class='off'>&nbsp;</li>
+		<% end %>
+		</ul>
+	</div>
 	<div class='large_btn btn config_btn' action='page_slide_select' actionid="service/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior.id %>">
 		<div class='left'></div>
 		<div class='center'>Siguiente</div>

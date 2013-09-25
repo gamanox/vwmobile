@@ -1,7 +1,7 @@
 <div>
 	<div class="page_title">
 			<%= @car.name %>
-		<div class='back_btn btn' action='back'></div>
+		<div class='back_btn btn' action='backcheck' actionid='car'></div>
 	</div>
 	<div class='arrows'>
 		<div class='slide_arrow left2 btn' action='prev_slide'></div>
@@ -23,6 +23,13 @@
 				</li>
 				<% end %>
 			</ul>
+	</div>
+	<div class=' navcount'>
+		<ul>
+		<% @versions.each do |v1| %>
+			<li class='off'>&nbsp;</li>
+		<% end %>
+		</ul>
 	</div>
 	<div class='large_btn btn config_btn' action='page_slide' actionid="transmission/?car_id=<%= @car.id %>">
 		<div class='left'></div>
