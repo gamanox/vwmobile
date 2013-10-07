@@ -14,5 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.history
-//= require jquery.hammer.min
+//= require jquery.mobile.custom.min
 //= require_tree .

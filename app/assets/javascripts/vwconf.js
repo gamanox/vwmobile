@@ -138,7 +138,7 @@ function switchScreen(){
 	$(prev).removeClass("prevPage").addClass("nextPage");
 	enableButtons();
 	enableSlider();
-	setScreen();
+	window.setTimeout(setScreen,250);
 
 }
 
@@ -159,7 +159,7 @@ function switchBackScreen(){
 	$(next).removeClass("nextPage").addClass("prevPage");
 	enableButtons();
 	enableSlider();
-	setScreen();
+	window.setTimeout(setScreen,250);
 
 }
 
@@ -168,10 +168,10 @@ function switchBackScreen(){
 	habilita y ajusta el contador de slides
 */
 function enableSlider() {
-	$(".currentPage .arrows").hammer().off("swipeleft");
-	$(".currentPage .arrows").hammer().off("swiperight");
-	$(".currentPage .image_slider").hammer().off("swipeleft");
-	$(".currentPage .image_slider").hammer().off("swiperight");
+	$(".currentPage .arrows").off("swipeleft");
+	$(".currentPage .arrows").off("swiperight");
+	$(".currentPage .image_slider").off("swipeleft");
+	$(".currentPage .image_slider").off("swiperight");
 	console.log("ULW: "+$(".currentPage .navcount ul").width());
 	$(".currentPage .navcount").css("margin-left",$(".currentPage .navcount li").length*-6);
 
@@ -184,10 +184,10 @@ function enableSlider() {
 		$(".currentPage .arrows").hide();
 	} else {
 		$(".currentPage .arrows").show();
-		$(".currentPage .image_slider").hammer().on("swipeleft",nextSlide);
-		$(".currentPage .image_slider").hammer().on("swiperight",prevSlide);
-		$(".currentPage .arrows").hammer().on("swipeleft",nextSlide);
-		$(".currentPage .arrows").hammer().on("swiperight",prevSlide);
+		$(".currentPage .image_slider").on("swipeleft",nextSlide);
+		$(".currentPage .image_slider").on("swiperight",prevSlide);
+		$(".currentPage .arrows").on("swipeleft",nextSlide);
+		$(".currentPage .arrows").on("swiperight",prevSlide);
 	}
 	currentSlide = 0;
 	$($(".currentPage .navcount li").get(currentSlide)).removeClass("off").addClass("on");
@@ -367,7 +367,8 @@ function toggleSearch(hide) {
 		$("#search .dimmer").fadeTo(1,0.75).animate({opacity:0},250);
 	} else {
 		$("#search").css("height",0).show().animate({height:56},250);
-		$("#search .dimmer").fadeTo(1,0).height($("#wrapper").height()).delay(250).animate({height:$(window).height()-56,opacity:0.75},250);
+		var newh = $("#wrapper").height() < $(window).height() ? $(window).height()-49:$("#wrapper").height();
+		$("#search .dimmer").fadeTo(1,0).height($("#wrapper").height()).delay(250).animate({height:newh-56,opacity:0.75},250);
 	}
 }
 
@@ -384,8 +385,9 @@ function toggleSubmenu(hide) {
 		console.log("WrH: "+$("#wrapper").height());
 		console.log("WiH: "+$(window).height());
 		console.log("CH: "+$("#content").height());
-		$("#submenu").css("height",0).show().animate({height:175},250);
-		$("#submenu .dimmer").fadeTo(1,0).height($("#wrapper").height()).delay(250).animate({height:$("#wrapper").height()-175,opacity:0.75},250);
+		$("#submenu").css("height",0).show().animate({height:150},250);
+		var newh = $("#wrapper").height() < $(window).height() ? $(window).height()-49:$("#wrapper").height();
+		$("#submenu .dimmer").fadeTo(1,0).height($("#wrapper").height()).delay(250).animate({height:newh-150,opacity:0.75},250);
 	}
 }
 
