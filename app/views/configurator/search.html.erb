@@ -1,7 +1,7 @@
 <ul class='car_list'>
 <% if(@versions.size > 0) %>
 <% @versions.each do |v| %>
-	<li class='btn' action='pagewurl' actionid='transmission/?car_id=<%= v.car_id %>&sid=<%= v.id %>' url='<%= v.car_name%>'>
+	<li class='btn' action='pagewurl' actionid='transmission/?car_id=<%= v.car_id %>&sid=<%= v.id %>' url='<%= v.car_name%>' review="version" reviewname="<%= v.car_name %> <%= v.name %>">
 		<div class="car_img">
 			<% if (Rails.application.assets.find_asset 'pics/versions/'+v.id.to_s+'.png') %>
 				<img src="/assets/pics/versions/<%=v.id %>.png" width="130" height="64" />

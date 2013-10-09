@@ -17,40 +17,25 @@
 						 infoclass = "white"
 					end
 				 %>
-				<li sid="<%= p.id %>">
+				<li sid="<%= p.id %>" name="<%= p.name %>">
 					<div class='slider_prices'>
-						<div class='review_list'>
+						<div class='price_strip'>
+							<div class='top_price'><div><span class='top_price_title'>Tu precio:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %> M.N.</span> </div></div>
+							<div class='price_btn btn' action="show_prices"></div>
+						</div>
+						<div class='price_list'>
 							<ul>
 								<li>
-									<div>Modelo/Versión</div>
-									<div><%= @car.name %> <%=@version.name %></div>
+									<div class='top_price subprice'><div><span class='top_price_title'>Precio de lista:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %> M.N.</span> </div>
 								</li>
 								<li>
-									<div>Transmisión</div>
-									<div><%= @transmission.name %> </div>
+									<div class='top_price subprice'><div><span class='top_price_title'>Precio de contado:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %> M.N.</span> </div>
 								</li>
 								<li>
-									<div>Color</div>
-									<div><%= @color.name %> </div>
-								</li>
-								<li>
-									<div>Vestiduras</div>
-									<div><%= @interior.name %> </div>
-								</li>
-								<li>
-									<div>Paquetes</div>
-									<div>... </div>
-								</li>
-								<li>
-									<div>Servicios</div>
-									<div> ... </div>
+									<div class='top_price subprice'><div><span class='top_price_title'>Precio de promoción:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %> M.N.</span> </div>
 								</li>
 							</ul>
-						</div>
-						<div class='price_strip'>
-							<div class='top_price first'><div><span class='top_price_title'>Tu precio:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %></span> </div></div>
-							<div class='top_price last'><div><span class='top_price_title'>Precio<br/>de lista:</span><span class='top_price_value'><%= number_to_currency(@version.list_price*@transmission.price_up*@color.price_up*@interior.price_up,precision: 0) %></span></div></div>
-							<div class='price_btn btn' action="show_review"></div>
+
 						</div>
 						<div class="dimmer"></div>
 					</div>
@@ -79,12 +64,12 @@
 		<% end %>
 		</ul>
 	</div>
-	<div class='large_btn btn config_btn' action='page_slide_select' actionid="service/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior.id %>">
+	<div class='large_btn btn config_btn' action='page_slide_select' actionid="service/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior.id %>" review="packages">
 		<div class='left'></div>
 		<div class='center'>Siguiente</div>
 		<div class='right'></div>
 	</div>
-	<div class='large_btn ready_btn btn' action='page_slide_select' actionid="review/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior.id %>">
+	<div class='large_btn ready_btn btn' action='review_select' actionid="review/?car_id=<%= @car.id %>&version_id=<%= @version.id %>&transmission_id=<%= @transmission.id %>&color_id=<%= @color.id %>&interior_id=<%= @interior.id %>" review="packages">
 		<div class='left'></div>
 		<div class='center'>Listo</div>
 		<div class='right'></div>

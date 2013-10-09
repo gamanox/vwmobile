@@ -4,13 +4,13 @@
 		<div class='back_btn btn' action='backcheck' actionid='car'></div>
 	</div>
 	<div class='arrows'>
-		<div class='slide_arrow left2 btn' action='prev_slide'></div>
-		<div class='slide_arrow right2 btn' action='next_slide'></div>
+		<div class='slide_arrow left3 btn' action='prev_slide'></div>
+		<div class='slide_arrow right3 btn' action='next_slide'></div>
 	</div>
 	<div class='image_slider'>
 			<ul>
 				<% @versions.each do |v| %>
-				<li sid="<%= v.id %>"> 
+				<li sid="<%= v.id %>" name="<%= @car.name %> <%= v.name %>"> 
 					<div class='slide_title center_elem'>Elige la versión</div>
 					<div class='model_title center_elem'><span class='car_name'><%= @car.name %></span> <span class='model_name'><%= v.name %></span></div>
 					<div class='price center_elem'><span class='price_from'>Desde: </span><span class='price_value'><%= number_to_currency(v.list_price,precision: 0) %></span></div>
@@ -31,12 +31,12 @@
 		<% end %>
 		</ul>
 	</div>
-	<div class='large_btn btn config_btn' action='page_slide' actionid="transmission/?car_id=<%= @car.id %>">
+	<div class='large_btn btn config_btn' action='page_slide' actionid="transmission/?car_id=<%= @car.id %>" review="version">
 		<div class='left'></div>
 		<div class='center'>Configurar</div>
 		<div class='right'></div>
 	</div>
-	<div class='large_btn ready_btn btn' action='page_slide' actionid="review/?car_id=<%= @car.id %>">
+	<div class='large_btn ready_btn btn' action='review_slide' actionid="review/?car_id=<%= @car.id %>" review="version">
 		<div class='left'></div>
 		<div class='center'>Listo</div>
 		<div class='right'></div>

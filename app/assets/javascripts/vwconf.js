@@ -3,6 +3,7 @@ var currentPage = null; //Pagina actual
 var prevPage; //Pagina anterior
 var level = 0; //Cantidad de veces que ha avanzado en el historial
 var previousState; //No se usa
+var newPage;
 
 var currentSlide; //Slide actual
 
@@ -218,8 +219,11 @@ function doAction() {
 	*/
 	if(action == "page") {
 		param = $(this).attr("actionid");
+		addReview($(this).attr("review"),$(this).attr("reviewname"));
+		toggleReview(true);
 		toggleSubmenu(true);
 		toggleSearch(true);
+		$("#end_btn").attr("actionid",param);
 		loadPage(param);
 		return;
 
@@ -228,11 +232,14 @@ function doAction() {
 		oculta el submenu o el buscador en caso que esten activos
 	*/
 	} else if(action == "pagewurl") {
-		console.log("PAGE WITH URL");
 		param = $(this).attr("actionid");
 		var url = $(this).attr("url");
+		addReview($(this).attr("review"),$(this).attr("reviewname"));
 		toggleSubmenu(true);
 		toggleSearch(true);
+		toggleReview(true);
+		$("#end_btn").attr("actionid",param);
+		$("html, body").animate({ scrollTop: "49px" },250);
 		loadPage(param,url);
 		return;
 	/*
@@ -275,11 +282,28 @@ function doAction() {
 		param = $(this).attr("actionid");
 		var slide = $(".currentPage .image_slider > ul > li").get(currentSlide);
 		param += "&sid="+$(slide).attr("sid")*1;
+		addReview($(this).attr("review"),$(slide).attr("name"));
+		$("#end_btn").attr("actionid",param);
+		toggleReview(true);
+		toggleSubmenu(true);
+		toggleSearch(true);
+		$("html, body").animate({ scrollTop: "49px" },250);
 		loadPage(param);
-	/*
+	
+	} else if(action == "review_slide") {
+		param = $(this).attr("actionid");
+		var slide = $(".currentPage .image_slider > ul > li").get(currentSlide);
+		param += "&sid="+$(slide).attr("sid")*1;
+		addReview($(this).attr("review"),$(slide).attr("name"));
+		$("#end_btn").attr("actionid",param);
+		toggleReview(false);
+		toggleSubmenu(true);
+		toggleSearch(true);
+	}
+	else if(action == "select") {
+		/*
 		Selecciona un paquete o servicio
 	*/
-	}else if(action == "select") {
 		param = $(this).attr("actionid");
 		var on = $(this).find(".on");
 		var off = $(this).find(".off");
@@ -294,21 +318,50 @@ function doAction() {
 		param = $(this).attr("actionid");
 		var selected = "";
 		var sid;
+		var names = "";
 		var on;
 		$(".currentPage .image_slider > ul > li").each(function (index,element) {
 			on = $(element).find(".on");
 			if(on.length > 0 ){
 				sid = $(element).attr("sid")*1;
 				selected += "&sid[]="+sid;
+				names += " "+$(element).attr("name");
 			}
 		});
 		param += selected;
+		addReview($(this).attr("review"),names);
+		$("#end_btn").attr("actionid",param);
+		$("html, body").animate({ scrollTop: "49px" },250);
 		loadPage(param);
-	/*
+	
+	} else if(action == "review_select") {
+		param = $(this).attr("actionid");
+		var selected = "";
+		var sid;
+		var names = "";
+		var on;
+		$(".currentPage .image_slider > ul > li").each(function (index,element) {
+			on = $(element).find(".on");
+			if(on.length > 0 ){
+				sid = $(element).attr("sid")*1;
+				selected += "&sid[]="+sid;
+				names += " "+$(element).attr("name");
+			}
+		});
+		param += selected;
+		addReview($(this).attr("review"),names);
+		$("#end_btn").attr("actionid",param);
+		toggleReview(false);
+		toggleSubmenu(true);
+		toggleSearch(true);
+	
+	}
+	else if(action == "submenu") {
+		/*
 		muestra el submenu, oculta el buscador en caso que esté activo
 	*/
-	} else if(action == "submenu") {
 		toggleSearch(true);
+		toggleReview(true);
 		toggleSubmenu($("#submenu").is(":visible"));
 	/*
 		muestra el buscador, oculta el submenu en caso que esté activo
@@ -316,20 +369,53 @@ function doAction() {
 	} else if(action == "search") {
 
 		toggleSubmenu(true);
+		toggleReview(true);
 		toggleSearch($("#search").is(":visible"));
 	/*
 		muestra el dropdown que se encuentra en la barra de precios (resumen de las características seleccionados)
 	*/
-	} else if(action == "show_review") {
-		toggleReview();
+	} else if(action == "show_prices") {
+		togglePrices();
 	/*
 		Lleva a alguna liga (usada en los links del footer) en ventana nueva
 	*/
 	} else if(action == "link") {
 		param = $(this).attr("actionid");
 		window.open(param);
+	} else if(action == "hide_review") {
+		toggleReview(true);
+	} else if(action == "attention") {
+
+		toggleAttention($("#attention").is(":visible"));
 	}
 
+}
+
+function addReview(review,value) {
+	$("#review_list ."+review).html(value);
+}
+
+function toggleAttention(hide) {
+	if(hide) {
+		$("#attention").fadeOut();
+	} else {
+		var newh = $("#content").height()+285+49;
+		$("#attention").css("min-height",newh);
+		$("#attention").fadeIn();
+	}
+	$("html, body").animate({ scrollTop: "0px" },300);
+}
+
+function toggleReview(hide) {
+	if(hide) {
+		$("#review_list").fadeOut();
+	} else {
+		var newh = $("#content").height()+285;
+		$("#review_list .dimmer").width($(window).width()).height(newh);
+		$("#review_list").fadeIn();
+		$("html, body").animate({ scrollTop: "49px" },300);
+	}
+	
 }
 
 /*
@@ -337,19 +423,19 @@ function doAction() {
 	Lo hace de forma animada
 	Oscurece el fondo
 */
-function toggleReview() {
+function togglePrices() {
 	var slides = $(".currentPage .image_slider > ul > li");
 	var slide = $(slides).get(currentSlide);
-	if($(slide).find(".review_list").height() > 0 ) {
+	if($(slide).find(".price_list").height() > 0 ) {
 
 		$(slide).find(".price_btn").removeClass("open");
-		$(slide).find(".review_list").delay(250).animate({height:0},250);
+		$(slide).find(".price_list").delay(250).animate({height:0},250);
 		$(slide).find(".slider_prices .dimmer").animate({height:0,opacity:0},250);
 	} else {
-		var h = $(slide).find(" .review_list ul").height();
+		var h = $(slide).find(" .price_list ul").height();
 		console.log("H: "+h)
 		$(slide).find(" .price_btn").addClass("open");
-		$(slide).find(" .review_list").animate({height:h},250);
+		$(slide).find(" .price_list").animate({height:h},250);
 		h = $("#content").height()+285-h-50-41;
 		console.log("DH: "+h);
 		$(slide).find(".slider_prices .dimmer").animate({height:h,opacity:0.75},250);

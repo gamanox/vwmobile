@@ -46,7 +46,7 @@
 	</section>
 	<footer id="footer">
 		<ul id="gral_btns">
-			<li class='btn' action='link_dead' actionid='http://www.vw.com.mx/es/guia_del_comprador/concesionarios.html'>
+			<li class='btn' action='attention'>
 				<div id="foot_ap" class="foot_icon"></div>
 				<div class="foot_label">Atención personalizada</div>
 				<div class="foot_go"></div>
@@ -74,6 +74,138 @@
 		</ul>
 		<div id="copy">&copy; Volkswagen México 2013</div>
 	</footer>
+</div>
+<div id='review_list'>
+		<div class="dimmer"></div>
+		<div class="content">
+			<div class="close_btn btn" action="hide_review"></div>
+			<ul>
+				<li>
+					<div>Modelo/Versión</div>
+					<div class="version">...</div>
+				</li>
+				<li>
+					<div>Transmisión</div>
+					<div class="transmission">Ninguno seleccionado</div>
+				</li>
+				<li>
+					<div>Color</div>
+					<div class="color">Ninguno seleccionado</div>
+				</li>
+				<li>
+					<div>Vestiduras</div>
+					<div class="interior">Ninguno seleccionado</div>
+				</li>
+				<li>
+					<div>Paquetes</div>
+					<div class="packages">Ninguno seleccionado</div>
+				</li>
+				<li>
+					<div>Servicios</div>
+					<div class="services">Ninguno seleccionado</div>
+				</li>
+			</ul>
+			<div id="end_btn" class='large_btn btn config_btn' action='page' actionid="review/">
+				<div class='left'></div>
+				<div class='center'>Continuar</div>
+				<div class='right'></div>
+			</div>
+		</div>
+
+</div>
+<div id='attention'>
+	<div id="sub_header">
+		<nav>
+			<ul>
+				<li id="sub_logo">
+					<img src="/assets/volkswagen_logo.png" widht="39" height="39">
+				</li>
+
+				<li id="sub_close_btn" class="btn" action="attention"><img src="/assets/btn_cerrar.png" width="24" height="24" /></li>
+			</ul>
+		</nav>
+	</div>
+	<div id="form_title">
+		<h1>Atención personalizada</h1>
+		<p>Para recibir una asesoría completa, ingresa tus datos y un experto Volkswagen te atenderá.</p>
+	</div>
+	<div id="attention_form">
+		<form action="" method="post">
+			<ul>
+				<li>
+					<label for="a_name">Nombre(s): *</label>
+					<div class="form_input">
+						<div class='left'></div>
+						<div class='center'><input type="text" name="a_name" id="a_name" /></div>
+						<div class='right'></div>
+					</div>
+					
+				</li>
+				<li>
+					<label for="a_lastname">Apellido(s): *</label>
+					<div class="form_input">
+						<div class='left'></div>
+						<div class='center'><input type="text" name="a_name" id="a_name" /></div>
+						<div class='right'></div>
+					</div>
+				</li>
+				<li>
+					<label for="a_mail">E-mail: *</label>
+					<div class="form_input">
+						<div class='left'></div>
+						<div class='center'><input type="email" name="a_name" id="a_name" /></div>
+						<div class='right'></div>
+					</div>
+				</li>
+				<li class="info">
+					Teléfono con lada y no más de 10 dígitos.
+				</li>
+				<li>
+					<label for="a_mail">Casa: *</label>
+					<div class="form_input">
+						<div class='left'></div>
+						<div class='center'><input type="number" name="a_name" id="a_home" maxlength="10" /></div>
+						<div class='right'></div>
+					</div>
+				</li>
+				<li>
+					<label for="a_mail">Oficina: </label>
+					<div class="form_input">
+						<div class='left'></div>
+						<div class='center'><input type="number" name="a_name" id="a_office" maxlength="10" /></div>
+						<div class='right'></div>
+					</div>
+				</li>
+				<li>
+					<label for="a_mail">Celular: </label>
+					<div class="form_input">
+						<div class='left'></div>
+						<div class='center'><input type="number" name="a_name" id="a_mobile" maxlength="10" /></div>
+						<div class='right'></div>
+					</div>
+				</li>
+				<li>&nbsp;</li>
+			</ul>
+			<div class='large_btn btn ready_btn' action='form_submit'>
+				<div class='left'></div>
+				<div class='center'>Enviar</div>
+				<div class='right'></div>
+			</div>
+		</form>
+	</div>
+	<div id="attention_info">
+		<p>En Volkswagen de México, S.A. de C.V., sabemos que existen muchas alternativas en el mundo virtual para obtener información automotriz, por lo que valoramos y apreciamos el tiempo que Usted se toma para conocer con mas detalle nuestros diferentes productos y servicios.</p>
+		<p>
+		Al momento de ingresar sus datos, el Titular acepta que los mismos serán tratados para las finalidades y bajo los términos y condiciones previstos en el Aviso de privacidad mismo que manifiesta conocer.
+		</p>
+		<p>
+		Puede solicitar dejar de recibir esta información al correo: <a href="mailto:ProteccionDeDatosPersonalesVWM@vw.com.mx">ProteccionDeDatosPersonalesVWM@vw.com.mx</a>
+		</p>
+	</div>
+	<div id="legal_info">
+		<p>*) La información y/o imágenes aquí contenidas pueden no corresponder con total precisión (incluyendo precios, equipamiento, disponibilidad y demás aplicables) a la de los vehículos ofertados por las distribuidoras Volkswagen, por lo que le recomendamos visitar su distribuidor Volkswagen más cercano.
+		</p>
+	</div>
 </div>
 <script type='text/javascript'>
 	var params = <%= raw params.to_json %>;
