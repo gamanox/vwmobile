@@ -13,9 +13,10 @@
 					img = ""
 					style = ""
 					infoclass = ""
+					bg = "color_image"
 					if (Rails.application.assets.find_asset 'pics/colors/'+c.id.to_s+'.png')
 						 img = '<img src="/assets/pics/colors/'+c.id.to_s+'.png" width="212" height="130" />'
-						 
+						 bg = "no_color_image"
 					else
 						style = "style='background-color:"+c.hex+";'"
 						infoclass = "white"
@@ -47,7 +48,7 @@
 					<div class='price_spacer'></div>
 					<div class='slide_title center_elem'>Elige el color</div>
 					<div class='trans_title center_elem'><%= c.name %></div>
-					<div class='center_elem color_image' <%= raw style %> >
+					<div class='center_elem <%= bg %>' <%= raw style %> >
 						<%= raw img %>
 					
 					</div>

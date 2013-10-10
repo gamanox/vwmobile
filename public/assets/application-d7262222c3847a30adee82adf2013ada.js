@@ -10606,36 +10606,67 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 }).call(this);
 typeof JSON!="object"&&(JSON={}),function(){"use strict";function f(e){return e<10?"0"+e:e}function quote(e){return escapable.lastIndex=0,escapable.test(e)?'"'+e.replace(escapable,function(e){var t=meta[e];return typeof t=="string"?t:"\\u"+("0000"+e.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+e+'"'}function str(e,t){var n,r,i,s,o=gap,u,a=t[e];a&&typeof a=="object"&&typeof a.toJSON=="function"&&(a=a.toJSON(e)),typeof rep=="function"&&(a=rep.call(t,e,a));switch(typeof a){case"string":return quote(a);case"number":return isFinite(a)?String(a):"null";case"boolean":case"null":return String(a);case"object":if(!a)return"null";gap+=indent,u=[];if(Object.prototype.toString.apply(a)==="[object Array]"){s=a.length;for(n=0;n<s;n+=1)u[n]=str(n,a)||"null";return i=u.length===0?"[]":gap?"[\n"+gap+u.join(",\n"+gap)+"\n"+o+"]":"["+u.join(",")+"]",gap=o,i}if(rep&&typeof rep=="object"){s=rep.length;for(n=0;n<s;n+=1)typeof rep[n]=="string"&&(r=rep[n],i=str(r,a),i&&u.push(quote(r)+(gap?": ":":")+i))}else for(r in a)Object.prototype.hasOwnProperty.call(a,r)&&(i=str(r,a),i&&u.push(quote(r)+(gap?": ":":")+i));return i=u.length===0?"{}":gap?"{\n"+gap+u.join(",\n"+gap)+"\n"+o+"}":"{"+u.join(",")+"}",gap=o,i}}typeof Date.prototype.toJSON!="function"&&(Date.prototype.toJSON=function(e){return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+f(this.getUTCMonth()+1)+"-"+f(this.getUTCDate())+"T"+f(this.getUTCHours())+":"+f(this.getUTCMinutes())+":"+f(this.getUTCSeconds())+"Z":null},String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(e){return this.valueOf()});var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={"\b":"\\b","	":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"},rep;typeof JSON.stringify!="function"&&(JSON.stringify=function(e,t,n){var r;gap="",indent="";if(typeof n=="number")for(r=0;r<n;r+=1)indent+=" ";else typeof n=="string"&&(indent=n);rep=t;if(!t||typeof t=="function"||typeof t=="object"&&typeof t.length=="number")return str("",{"":e});throw new Error("JSON.stringify")}),typeof JSON.parse!="function"&&(JSON.parse=function(text,reviver){function walk(e,t){var n,r,i=e[t];if(i&&typeof i=="object")for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(r=walk(i,n),r!==undefined?i[n]=r:delete i[n]);return reviver.call(e,t,i)}var j;text=String(text),cx.lastIndex=0,cx.test(text)&&(text=text.replace(cx,function(e){return"\\u"+("0000"+e.charCodeAt(0).toString(16)).slice(-4)}));if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:\s*\[)+/g,"")))return j=eval("("+text+")"),typeof reviver=="function"?walk({"":j},""):j;throw new SyntaxError("JSON.parse")})}(),function(e,t){"use strict";var n=e.History=e.History||{},r=e.jQuery;if(typeof n.Adapter!="undefined")throw new Error("History.js Adapter has already been loaded...");n.Adapter={bind:function(e,t,n){r(e).bind(t,n)},trigger:function(e,t,n){r(e).trigger(t,n)},extractEventData:function(e,n,r){var i=n&&n.originalEvent&&n.originalEvent[e]||r&&r[e]||t;return i},onDomLoad:function(e){r(e)}},typeof n.init!="undefined"&&n.init()}(window),function(e,t){"use strict";var n=e.document,r=e.setTimeout||r,i=e.clearTimeout||i,s=e.setInterval||s,o=e.History=e.History||{};if(typeof o.initHtml4!="undefined")throw new Error("History.js HTML4 Support has already been loaded...");o.initHtml4=function(){if(typeof o.initHtml4.initialized!="undefined")return!1;o.initHtml4.initialized=!0,o.enabled=!0,o.savedHashes=[],o.isLastHash=function(e){var t=o.getHashByIndex(),n;return n=e===t,n},o.isHashEqual=function(e,t){return e=encodeURIComponent(e).replace(/%25/g,"%"),t=encodeURIComponent(t).replace(/%25/g,"%"),e===t},o.saveHash=function(e){return o.isLastHash(e)?!1:(o.savedHashes.push(e),!0)},o.getHashByIndex=function(e){var t=null;return typeof e=="undefined"?t=o.savedHashes[o.savedHashes.length-1]:e<0?t=o.savedHashes[o.savedHashes.length+e]:t=o.savedHashes[e],t},o.discardedHashes={},o.discardedStates={},o.discardState=function(e,t,n){var r=o.getHashByState(e),i;return i={discardedState:e,backState:n,forwardState:t},o.discardedStates[r]=i,!0},o.discardHash=function(e,t,n){var r={discardedHash:e,backState:n,forwardState:t};return o.discardedHashes[e]=r,!0},o.discardedState=function(e){var t=o.getHashByState(e),n;return n=o.discardedStates[t]||!1,n},o.discardedHash=function(e){var t=o.discardedHashes[e]||!1;return t},o.recycleState=function(e){var t=o.getHashByState(e);return o.discardedState(e)&&delete o.discardedStates[t],!0},o.emulated.hashChange&&(o.hashChangeInit=function(){o.checkerFunction=null;var t="",r,i,u,a,f=Boolean(o.getHash());return o.isInternetExplorer()?(r="historyjs-iframe",i=n.createElement("iframe"),i.setAttribute("id",r),i.setAttribute("src","#"),i.style.display="none",n.body.appendChild(i),i.contentWindow.document.open(),i.contentWindow.document.close(),u="",a=!1,o.checkerFunction=function(){if(a)return!1;a=!0;var n=o.getHash(),r=o.getHash(i.contentWindow.document);return n!==t?(t=n,r!==n&&(u=r=n,i.contentWindow.document.open(),i.contentWindow.document.close(),i.contentWindow.document.location.hash=o.escapeHash(n)),o.Adapter.trigger(e,"hashchange")):r!==u&&(u=r,f&&r===""?o.back():o.setHash(r,!1)),a=!1,!0}):o.checkerFunction=function(){var n=o.getHash()||"";return n!==t&&(t=n,o.Adapter.trigger(e,"hashchange")),!0},o.intervalList.push(s(o.checkerFunction,o.options.hashChangeInterval)),!0},o.Adapter.onDomLoad(o.hashChangeInit)),o.emulated.pushState&&(o.onHashChange=function(t){var n=t&&t.newURL||o.getLocationHref(),r=o.getHashByUrl(n),i=null,s=null,u=null,a;return o.isLastHash(r)?(o.busy(!1),!1):(o.doubleCheckComplete(),o.saveHash(r),r&&o.isTraditionalAnchor(r)?(o.Adapter.trigger(e,"anchorchange"),o.busy(!1),!1):(i=o.extractState(o.getFullUrl(r||o.getLocationHref()),!0),o.isLastSavedState(i)?(o.busy(!1),!1):(s=o.getHashByState(i),a=o.discardedState(i),a?(o.getHashByIndex(-2)===o.getHashByState(a.forwardState)?o.back(!1):o.forward(!1),!1):(o.pushState(i.data,i.title,encodeURI(i.url),!1),!0))))},o.Adapter.bind(e,"hashchange",o.onHashChange),o.pushState=function(t,n,r,i){r=encodeURI(r).replace(/%25/g,"%");if(o.getHashByUrl(r))throw new Error("History.js does not support states with fragment-identifiers (hashes/anchors).");if(i!==!1&&o.busy())return o.pushQueue({scope:o,callback:o.pushState,args:arguments,queue:i}),!1;o.busy(!0);var s=o.createStateObject(t,n,r),u=o.getHashByState(s),a=o.getState(!1),f=o.getHashByState(a),l=o.getHash(),c=o.expectedStateId==s.id;return o.storeState(s),o.expectedStateId=s.id,o.recycleState(s),o.setTitle(s),u===f?(o.busy(!1),!1):(o.saveState(s),c||o.Adapter.trigger(e,"statechange"),!o.isHashEqual(u,l)&&!o.isHashEqual(u,o.getShortUrl(o.getLocationHref()))&&o.setHash(u,!1),o.busy(!1),!0)},o.replaceState=function(t,n,r,i){r=encodeURI(r).replace(/%25/g,"%");if(o.getHashByUrl(r))throw new Error("History.js does not support states with fragment-identifiers (hashes/anchors).");if(i!==!1&&o.busy())return o.pushQueue({scope:o,callback:o.replaceState,args:arguments,queue:i}),!1;o.busy(!0);var s=o.createStateObject(t,n,r),u=o.getHashByState(s),a=o.getState(!1),f=o.getHashByState(a),l=o.getStateByIndex(-2);return o.discardState(a,s,l),u===f?(o.storeState(s),o.expectedStateId=s.id,o.recycleState(s),o.setTitle(s),o.saveState(s),o.Adapter.trigger(e,"statechange"),o.busy(!1)):o.pushState(s.data,s.title,s.url,!1),!0}),o.emulated.pushState&&o.getHash()&&!o.emulated.hashChange&&o.Adapter.onDomLoad(function(){o.Adapter.trigger(e,"hashchange")})},typeof o.init!="undefined"&&o.init()}(window),function(e,t){"use strict";var n=e.console||t,r=e.document,i=e.navigator,s=e.sessionStorage||!1,o=e.setTimeout,u=e.clearTimeout,a=e.setInterval,f=e.clearInterval,l=e.JSON,c=e.alert,h=e.History=e.History||{},p=e.history;try{s.setItem("TEST","1"),s.removeItem("TEST")}catch(d){s=!1}l.stringify=l.stringify||l.encode,l.parse=l.parse||l.decode;if(typeof h.init!="undefined")throw new Error("History.js Core has already been loaded...");h.init=function(e){return typeof h.Adapter=="undefined"?!1:(typeof h.initCore!="undefined"&&h.initCore(),typeof h.initHtml4!="undefined"&&h.initHtml4(),!0)},h.initCore=function(d){if(typeof h.initCore.initialized!="undefined")return!1;h.initCore.initialized=!0,h.options=h.options||{},h.options.hashChangeInterval=h.options.hashChangeInterval||100,h.options.safariPollInterval=h.options.safariPollInterval||500,h.options.doubleCheckInterval=h.options.doubleCheckInterval||500,h.options.disableSuid=h.options.disableSuid||!1,h.options.storeInterval=h.options.storeInterval||1e3,h.options.busyDelay=h.options.busyDelay||250,h.options.debug=h.options.debug||!1,h.options.initialTitle=h.options.initialTitle||r.title,h.options.html4Mode=h.options.html4Mode||!1,h.options.delayInit=h.options.delayInit||!1,h.intervalList=[],h.clearAllIntervals=function(){var e,t=h.intervalList;if(typeof t!="undefined"&&t!==null){for(e=0;e<t.length;e++)f(t[e]);h.intervalList=null}},h.debug=function(){(h.options.debug||!1)&&h.log.apply(h,arguments)},h.log=function(){var e=typeof n!="undefined"&&typeof n.log!="undefined"&&typeof n.log.apply!="undefined",t=r.getElementById("log"),i,s,o,u,a;e?(u=Array.prototype.slice.call(arguments),i=u.shift(),typeof n.debug!="undefined"?n.debug.apply(n,[i,u]):n.log.apply(n,[i,u])):i="\n"+arguments[0]+"\n";for(s=1,o=arguments.length;s<o;++s){a=arguments[s];if(typeof a=="object"&&typeof l!="undefined")try{a=l.stringify(a)}catch(f){}i+="\n"+a+"\n"}return t?(t.value+=i+"\n-----\n",t.scrollTop=t.scrollHeight-t.clientHeight):e||c(i),!0},h.getInternetExplorerMajorVersion=function(){var e=h.getInternetExplorerMajorVersion.cached=typeof h.getInternetExplorerMajorVersion.cached!="undefined"?h.getInternetExplorerMajorVersion.cached:function(){var e=3,t=r.createElement("div"),n=t.getElementsByTagName("i");while((t.innerHTML="<!--[if gt IE "+ ++e+"]><i></i><![endif]-->")&&n[0]);return e>4?e:!1}();return e},h.isInternetExplorer=function(){var e=h.isInternetExplorer.cached=typeof h.isInternetExplorer.cached!="undefined"?h.isInternetExplorer.cached:Boolean(h.getInternetExplorerMajorVersion());return e},h.options.html4Mode?h.emulated={pushState:!0,hashChange:!0}:h.emulated={pushState:!Boolean(e.history&&e.history.pushState&&e.history.replaceState&&!/ Mobile\/([1-7][a-z]|(8([abcde]|f(1[0-8]))))/i.test(i.userAgent)&&!/AppleWebKit\/5([0-2]|3[0-2])/i.test(i.userAgent)),hashChange:Boolean(!("onhashchange"in e||"onhashchange"in r)||h.isInternetExplorer()&&h.getInternetExplorerMajorVersion()<8)},h.enabled=!h.emulated.pushState,h.bugs={setHash:Boolean(!h.emulated.pushState&&i.vendor==="Apple Computer, Inc."&&/AppleWebKit\/5([0-2]|3[0-3])/.test(i.userAgent)),safariPoll:Boolean(!h.emulated.pushState&&i.vendor==="Apple Computer, Inc."&&/AppleWebKit\/5([0-2]|3[0-3])/.test(i.userAgent)),ieDoubleCheck:Boolean(h.isInternetExplorer()&&h.getInternetExplorerMajorVersion()<8),hashEscape:Boolean(h.isInternetExplorer()&&h.getInternetExplorerMajorVersion()<7)},h.isEmptyObject=function(e){for(var t in e)if(e.hasOwnProperty(t))return!1;return!0},h.cloneObject=function(e){var t,n;return e?(t=l.stringify(e),n=l.parse(t)):n={},n},h.getRootUrl=function(){var e=r.location.protocol+"//"+(r.location.hostname||r.location.host);if(r.location.port||!1)e+=":"+r.location.port;return e+="/",e},h.getBaseHref=function(){var e=r.getElementsByTagName("base"),t=null,n="";return e.length===1&&(t=e[0],n=t.href.replace(/[^\/]+$/,"")),n=n.replace(/\/+$/,""),n&&(n+="/"),n},h.getBaseUrl=function(){var e=h.getBaseHref()||h.getBasePageUrl()||h.getRootUrl();return e},h.getPageUrl=function(){var e=h.getState(!1,!1),t=(e||{}).url||h.getLocationHref(),n;return n=t.replace(/\/+$/,"").replace(/[^\/]+$/,function(e,t,n){return/\./.test(e)?e:e+"/"}),n},h.getBasePageUrl=function(){var e=h.getLocationHref().replace(/[#\?].*/,"").replace(/[^\/]+$/,function(e,t,n){return/[^\/]$/.test(e)?"":e}).replace(/\/+$/,"")+"/";return e},h.getFullUrl=function(e,t){var n=e,r=e.substring(0,1);return t=typeof t=="undefined"?!0:t,/[a-z]+\:\/\//.test(e)||(r==="/"?n=h.getRootUrl()+e.replace(/^\/+/,""):r==="#"?n=h.getPageUrl().replace(/#.*/,"")+e:r==="?"?n=h.getPageUrl().replace(/[\?#].*/,"")+e:t?n=h.getBaseUrl()+e.replace(/^(\.\/)+/,""):n=h.getBasePageUrl()+e.replace(/^(\.\/)+/,"")),n.replace(/\#$/,"")},h.getShortUrl=function(e){var t=e,n=h.getBaseUrl(),r=h.getRootUrl();return h.emulated.pushState&&(t=t.replace(n,"")),t=t.replace(r,"/"),h.isTraditionalAnchor(t)&&(t="./"+t),t=t.replace(/^(\.\/)+/g,"./").replace(/\#$/,""),t},h.getLocationHref=function(e){return e=e||r,e.URL===e.location.href?e.location.href:e.location.href===decodeURIComponent(e.URL)?e.URL:e.location.hash&&decodeURIComponent(e.location.href.replace(/^[^#]+/,""))===e.location.hash?e.location.href:e.URL.indexOf("#")==-1&&e.location.href.indexOf("#")!=-1?e.location.href:e.URL||e.location.href},h.store={},h.idToState=h.idToState||{},h.stateToId=h.stateToId||{},h.urlToId=h.urlToId||{},h.storedStates=h.storedStates||[],h.savedStates=h.savedStates||[],h.normalizeStore=function(){h.store.idToState=h.store.idToState||{},h.store.urlToId=h.store.urlToId||{},h.store.stateToId=h.store.stateToId||{}},h.getState=function(e,t){typeof e=="undefined"&&(e=!0),typeof t=="undefined"&&(t=!0);var n=h.getLastSavedState();return!n&&t&&(n=h.createStateObject()),e&&(n=h.cloneObject(n),n.url=n.cleanUrl||n.url),n},h.getIdByState=function(e){var t=h.extractId(e.url),n;if(!t){n=h.getStateString(e);if(typeof h.stateToId[n]!="undefined")t=h.stateToId[n];else if(typeof h.store.stateToId[n]!="undefined")t=h.store.stateToId[n];else{for(;;){t=(new Date).getTime()+String(Math.random()).replace(/\D/g,"");if(typeof h.idToState[t]=="undefined"&&typeof h.store.idToState[t]=="undefined")break}h.stateToId[n]=t,h.idToState[t]=e}}return t},h.normalizeState=function(e){var t,n;if(!e||typeof e!="object")e={};if(typeof e.normalized!="undefined")return e;if(!e.data||typeof e.data!="object")e.data={};return t={},t.normalized=!0,t.title=e.title||"",t.url=h.getFullUrl(e.url?e.url:h.getLocationHref()),t.hash=h.getShortUrl(t.url),t.data=h.cloneObject(e.data),t.id=h.getIdByState(t),t.cleanUrl=t.url.replace(/\??\&_suid.*/,""),t.url=t.cleanUrl,n=!h.isEmptyObject(t.data),(t.title||n)&&h.options.disableSuid!==!0&&(t.hash=h.getShortUrl(t.url).replace(/\??\&_suid.*/,""),/\?/.test(t.hash)||(t.hash+="?"),t.hash+="&_suid="+t.id),t.hashedUrl=h.getFullUrl(t.hash),(h.emulated.pushState||h.bugs.safariPoll)&&h.hasUrlDuplicate(t)&&(t.url=t.hashedUrl),t},h.createStateObject=function(e,t,n){var r={data:e,title:t,url:n};return r=h.normalizeState(r),r},h.getStateById=function(e){e=String(e);var n=h.idToState[e]||h.store.idToState[e]||t;return n},h.getStateString=function(e){var t,n,r;return t=h.normalizeState(e),n={data:t.data,title:e.title,url:e.url},r=l.stringify(n),r},h.getStateId=function(e){var t,n;return t=h.normalizeState(e),n=t.id,n},h.getHashByState=function(e){var t,n;return t=h.normalizeState(e),n=t.hash,n},h.extractId=function(e){var t,n,r,i;return e.indexOf("#")!=-1?i=e.split("#")[0]:i=e,n=/(.*)\&_suid=([0-9]+)$/.exec(i),r=n?n[1]||e:e,t=n?String(n[2]||""):"",t||!1},h.isTraditionalAnchor=function(e){var t=!/[\/\?\.]/.test(e);return t},h.extractState=function(e,t){var n=null,r,i;return t=t||!1,r=h.extractId(e),r&&(n=h.getStateById(r)),n||(i=h.getFullUrl(e),r=h.getIdByUrl(i)||!1,r&&(n=h.getStateById(r)),!n&&t&&!h.isTraditionalAnchor(e)&&(n=h.createStateObject(null,null,i))),n},h.getIdByUrl=function(e){var n=h.urlToId[e]||h.store.urlToId[e]||t;return n},h.getLastSavedState=function(){return h.savedStates[h.savedStates.length-1]||t},h.getLastStoredState=function(){return h.storedStates[h.storedStates.length-1]||t},h.hasUrlDuplicate=function(e){var t=!1,n;return n=h.extractState(e.url),t=n&&n.id!==e.id,t},h.storeState=function(e){return h.urlToId[e.url]=e.id,h.storedStates.push(h.cloneObject(e)),e},h.isLastSavedState=function(e){var t=!1,n,r,i;return h.savedStates.length&&(n=e.id,r=h.getLastSavedState(),i=r.id,t=n===i),t},h.saveState=function(e){return h.isLastSavedState(e)?!1:(h.savedStates.push(h.cloneObject(e)),!0)},h.getStateByIndex=function(e){var t=null;return typeof e=="undefined"?t=h.savedStates[h.savedStates.length-1]:e<0?t=h.savedStates[h.savedStates.length+e]:t=h.savedStates[e],t},h.getCurrentIndex=function(){var e=null;return h.savedStates.length<1?e=0:e=h.savedStates.length-1,e},h.getHash=function(e){var t=h.getLocationHref(e),n;return n=h.getHashByUrl(t),n},h.unescapeHash=function(e){var t=h.normalizeHash(e);return t=decodeURIComponent(t),t},h.normalizeHash=function(e){var t=e.replace(/[^#]*#/,"").replace(/#.*/,"");return t},h.setHash=function(e,t){var n,i;return t!==!1&&h.busy()?(h.pushQueue({scope:h,callback:h.setHash,args:arguments,queue:t}),!1):(h.busy(!0),n=h.extractState(e,!0),n&&!h.emulated.pushState?h.pushState(n.data,n.title,n.url,!1):h.getHash()!==e&&(h.bugs.setHash?(i=h.getPageUrl(),h.pushState(null,null,i+"#"+e,!1)):r.location.hash=e),h)},h.escapeHash=function(t){var n=h.normalizeHash(t);return n=e.encodeURIComponent(n),h.bugs.hashEscape||(n=n.replace(/\%21/g,"!").replace(/\%26/g,"&").replace(/\%3D/g,"=").replace(/\%3F/g,"?")),n},h.getHashByUrl=function(e){var t=String(e).replace(/([^#]*)#?([^#]*)#?(.*)/,"$2");return t=h.unescapeHash(t),t},h.setTitle=function(e){var t=e.title,n;t||(n=h.getStateByIndex(0),n&&n.url===e.url&&(t=n.title||h.options.initialTitle));try{r.getElementsByTagName("title")[0].innerHTML=t.replace("<","&lt;").replace(">","&gt;").replace(" & "," &amp; ")}catch(i){}return r.title=t,h},h.queues=[],h.busy=function(e){typeof e!="undefined"?h.busy.flag=e:typeof h.busy.flag=="undefined"&&(h.busy.flag=!1);if(!h.busy.flag){u(h.busy.timeout);var t=function(){var e,n,r;if(h.busy.flag)return;for(e=h.queues.length-1;e>=0;--e){n=h.queues[e];if(n.length===0)continue;r=n.shift(),h.fireQueueItem(r),h.busy.timeout=o(t,h.options.busyDelay)}};h.busy.timeout=o(t,h.options.busyDelay)}return h.busy.flag},h.busy.flag=!1,h.fireQueueItem=function(e){return e.callback.apply(e.scope||h,e.args||[])},h.pushQueue=function(e){return h.queues[e.queue||0]=h.queues[e.queue||0]||[],h.queues[e.queue||0].push(e),h},h.queue=function(e,t){return typeof e=="function"&&(e={callback:e}),typeof t!="undefined"&&(e.queue=t),h.busy()?h.pushQueue(e):h.fireQueueItem(e),h},h.clearQueue=function(){return h.busy.flag=!1,h.queues=[],h},h.stateChanged=!1,h.doubleChecker=!1,h.doubleCheckComplete=function(){return h.stateChanged=!0,h.doubleCheckClear(),h},h.doubleCheckClear=function(){return h.doubleChecker&&(u(h.doubleChecker),h.doubleChecker=!1),h},h.doubleCheck=function(e){return h.stateChanged=!1,h.doubleCheckClear(),h.bugs.ieDoubleCheck&&(h.doubleChecker=o(function(){return h.doubleCheckClear(),h.stateChanged||e(),!0},h.options.doubleCheckInterval)),h},h.safariStatePoll=function(){var t=h.extractState(h.getLocationHref()),n;if(!h.isLastSavedState(t))return n=t,n||(n=h.createStateObject()),h.Adapter.trigger(e,"popstate"),h;return},h.back=function(e){return e!==!1&&h.busy()?(h.pushQueue({scope:h,callback:h.back,args:arguments,queue:e}),!1):(h.busy(!0),h.doubleCheck(function(){h.back(!1)}),p.go(-1),!0)},h.forward=function(e){return e!==!1&&h.busy()?(h.pushQueue({scope:h,callback:h.forward,args:arguments,queue:e}),!1):(h.busy(!0),h.doubleCheck(function(){h.forward(!1)}),p.go(1),!0)},h.go=function(e,t){var n;if(e>0)for(n=1;n<=e;++n)h.forward(t);else{if(!(e<0))throw new Error("History.go: History.go requires a positive or negative integer passed.");for(n=-1;n>=e;--n)h.back(t)}return h};if(h.emulated.pushState){var v=function(){};h.pushState=h.pushState||v,h.replaceState=h.replaceState||v}else h.onPopState=function(t,n){var r=!1,i=!1,s,o;return h.doubleCheckComplete(),s=h.getHash(),s?(o=h.extractState(s||h.getLocationHref(),!0),o?h.replaceState(o.data,o.title,o.url,!1):(h.Adapter.trigger(e,"anchorchange"),h.busy(!1)),h.expectedStateId=!1,!1):(r=h.Adapter.extractEventData("state",t,n)||!1,r?i=h.getStateById(r):h.expectedStateId?i=h.getStateById(h.expectedStateId):i=h.extractState(h.getLocationHref()),i||(i=h.createStateObject(null,null,h.getLocationHref())),h.expectedStateId=!1,h.isLastSavedState(i)?(h.busy(!1),!1):(h.storeState(i),h.saveState(i),h.setTitle(i),h.Adapter.trigger(e,"statechange"),h.busy(!1),!0))},h.Adapter.bind(e,"popstate",h.onPopState),h.pushState=function(t,n,r,i){if(h.getHashByUrl(r)&&h.emulated.pushState)throw new Error("History.js does not support states with fragement-identifiers (hashes/anchors).");if(i!==!1&&h.busy())return h.pushQueue({scope:h,callback:h.pushState,args:arguments,queue:i}),!1;h.busy(!0);var s=h.createStateObject(t,n,r);return h.isLastSavedState(s)?h.busy(!1):(h.storeState(s),h.expectedStateId=s.id,p.pushState(s.id,s.title,s.url),h.Adapter.trigger(e,"popstate")),!0},h.replaceState=function(t,n,r,i){if(h.getHashByUrl(r)&&h.emulated.pushState)throw new Error("History.js does not support states with fragement-identifiers (hashes/anchors).");if(i!==!1&&h.busy())return h.pushQueue({scope:h,callback:h.replaceState,args:arguments,queue:i}),!1;h.busy(!0);var s=h.createStateObject(t,n,r);return h.isLastSavedState(s)?h.busy(!1):(h.storeState(s),h.expectedStateId=s.id,p.replaceState(s.id,s.title,s.url),h.Adapter.trigger(e,"popstate")),!0};if(s){try{h.store=l.parse(s.getItem("History.store"))||{}}catch(m){h.store={}}h.normalizeStore()}else h.store={},h.normalizeStore();h.Adapter.bind(e,"unload",h.clearAllIntervals),h.saveState(h.storeState(h.extractState(h.getLocationHref(),!0))),s&&(h.onUnload=function(){var e,t,n;try{e=l.parse(s.getItem("History.store"))||{}}catch(r){e={}}e.idToState=e.idToState||{},e.urlToId=e.urlToId||{},e.stateToId=e.stateToId||{};for(t in h.idToState){if(!h.idToState.hasOwnProperty(t))continue;e.idToState[t]=h.idToState[t]}for(t in h.urlToId){if(!h.urlToId.hasOwnProperty(t))continue;e.urlToId[t]=h.urlToId[t]}for(t in h.stateToId){if(!h.stateToId.hasOwnProperty(t))continue;e.stateToId[t]=h.stateToId[t]}h.store=e,h.normalizeStore(),n=l.stringify(e);try{s.setItem("History.store",n)}catch(i){if(i.code!==DOMException.QUOTA_EXCEEDED_ERR)throw i;s.length&&(s.removeItem("History.store"),s.setItem("History.store",n))}},h.intervalList.push(a(h.onUnload,h.options.storeInterval)),h.Adapter.bind(e,"beforeunload",h.onUnload),h.Adapter.bind(e,"unload",h.onUnload));if(!h.emulated.pushState){h.bugs.safariPoll&&h.intervalList.push(a(h.safariStatePoll,h.options.safariPollInterval));if(i.vendor==="Apple Computer, Inc."||(i.appCodeName||"")==="Mozilla")h.Adapter.bind(e,"hashchange",function(){h.Adapter.trigger(e,"popstate")}),h.getHash()&&h.Adapter.onDomLoad(function(){h.Adapter.trigger(e,"hashchange")})}},(!h.options||!h.options.delayInit)&&h.init()}(window)
 ;
-/*! Hammer.JS - v1.0.6dev - 2013-09-12
- * http://eightmedia.github.com/hammer.js
- *
- * Copyright (c) 2013 Jorik Tangelder <j.tangelder@gmail.com>;
- * Licensed under the MIT license */
+/*! jQuery Mobile v1.3.2 | Copyright 2010, 2013 jQuery Foundation, Inc. | jquery.org/license */
 
 
-(function(t,e){"use strict";function n(){if(!r.READY){r.event.determineEventTypes();for(var t in r.gestures)r.gestures.hasOwnProperty(t)&&r.detection.register(r.gestures[t]);r.event.onTouch(r.DOCUMENT,r.EVENT_MOVE,r.detection.detect),r.event.onTouch(r.DOCUMENT,r.EVENT_END,r.detection.detect),r.READY=!0}}var r=function(t,e){return new r.Instance(t,e||{})};r.defaults={stop_browser_behavior:{userSelect:"none",touchAction:"none",touchCallout:"none",contentZooming:"none",userDrag:"none",tapHighlightColor:"rgba(0,0,0,0)"}},r.HAS_POINTEREVENTS=t.navigator.pointerEnabled||t.navigator.msPointerEnabled,r.HAS_TOUCHEVENTS="ontouchstart"in t,r.MOBILE_REGEX=/mobile|tablet|ip(ad|hone|od)|android|silk/i,r.NO_MOUSEEVENTS=r.HAS_TOUCHEVENTS&&t.navigator.userAgent.match(r.MOBILE_REGEX),r.EVENT_TYPES={},r.DIRECTION_DOWN="down",r.DIRECTION_LEFT="left",r.DIRECTION_UP="up",r.DIRECTION_RIGHT="right",r.POINTER_MOUSE="mouse",r.POINTER_TOUCH="touch",r.POINTER_PEN="pen",r.EVENT_START="start",r.EVENT_MOVE="move",r.EVENT_END="end",r.DOCUMENT=t.document,r.plugins={},r.READY=!1,r.Instance=function(t,e){var i=this;return n(),this.element=t,this.enabled=!0,this.options=r.utils.extend(r.utils.extend({},r.defaults),e||{}),this.options.stop_browser_behavior&&r.utils.stopDefaultBrowserBehavior(this.element,this.options.stop_browser_behavior),r.event.onTouch(t,r.EVENT_START,function(t){i.enabled&&r.detection.startDetect(i,t)}),this},r.Instance.prototype={on:function(t,e){for(var n=t.split(" "),r=0;n.length>r;r++)this.element.addEventListener(n[r],e,!1);return this},off:function(t,e){for(var n=t.split(" "),r=0;n.length>r;r++)this.element.removeEventListener(n[r],e,!1);return this},trigger:function(t,e){e||(e={});var n=r.DOCUMENT.createEvent("Event");n.initEvent(t,!0,!0),n.gesture=e;var i=this.element;return r.utils.hasParent(e.target,i)&&(i=e.target),i.dispatchEvent(n),this},enable:function(t){return this.enabled=t,this}};var i=null,o=!1,s=!1;r.event={bindDom:function(t,e,n){for(var r=e.split(" "),i=0;r.length>i;i++)t.addEventListener(r[i],n,!1)},onTouch:function(t,e,n){var a=this;this.bindDom(t,r.EVENT_TYPES[e],function(c){var u=c.type.toLowerCase();if(!u.match(/mouse/)||!s){u.match(/touch/)||u.match(/pointerdown/)||u.match(/mouse/)&&1===c.which?o=!0:u.match(/mouse/)&&1!==c.which&&(o=!1),u.match(/touch|pointer/)&&(s=!0);var h=0;o&&(r.HAS_POINTEREVENTS&&e!=r.EVENT_END?h=r.PointerEvent.updatePointer(e,c):u.match(/touch/)?h=c.touches.length:s||(h=u.match(/up/)?0:1),h>0&&e==r.EVENT_END?e=r.EVENT_MOVE:h||(e=r.EVENT_END),(h||null===i)&&(i=c),n.call(r.detection,a.collectEventData(t,e,a.getTouchList(i,e),c)),r.HAS_POINTEREVENTS&&e==r.EVENT_END&&(h=r.PointerEvent.updatePointer(e,c))),h||(i=null,o=!1,s=!1,r.PointerEvent.reset())}})},determineEventTypes:function(){var t;t=r.HAS_POINTEREVENTS?r.PointerEvent.getEvents():r.NO_MOUSEEVENTS?["touchstart","touchmove","touchend touchcancel"]:["touchstart mousedown","touchmove mousemove","touchend touchcancel mouseup"],r.EVENT_TYPES[r.EVENT_START]=t[0],r.EVENT_TYPES[r.EVENT_MOVE]=t[1],r.EVENT_TYPES[r.EVENT_END]=t[2]},getTouchList:function(t){return r.HAS_POINTEREVENTS?r.PointerEvent.getTouchList():t.touches?t.touches:(t.indentifier=1,[t])},collectEventData:function(t,e,n,i){var o=r.POINTER_TOUCH;return(i.type.match(/mouse/)||r.PointerEvent.matchType(r.POINTER_MOUSE,i))&&(o=r.POINTER_MOUSE),{center:r.utils.getCenter(n),timeStamp:(new Date).getTime(),target:i.target,touches:n,eventType:e,pointerType:o,srcEvent:i,preventDefault:function(){this.srcEvent.preventManipulation&&this.srcEvent.preventManipulation(),this.srcEvent.preventDefault&&this.srcEvent.preventDefault()},stopPropagation:function(){this.srcEvent.stopPropagation()},stopDetect:function(){return r.detection.stopDetect()}}}},r.PointerEvent={pointers:{},getTouchList:function(){var t=this,e=[];return Object.keys(t.pointers).sort().forEach(function(n){e.push(t.pointers[n])}),e},updatePointer:function(t,e){return t==r.EVENT_END?this.pointers={}:(e.identifier=e.pointerId,this.pointers[e.pointerId]=e),Object.keys(this.pointers).length},matchType:function(t,e){if(!e.pointerType)return!1;var n={};return n[r.POINTER_MOUSE]=e.pointerType==e.MSPOINTER_TYPE_MOUSE||e.pointerType==r.POINTER_MOUSE,n[r.POINTER_TOUCH]=e.pointerType==e.MSPOINTER_TYPE_TOUCH||e.pointerType==r.POINTER_TOUCH,n[r.POINTER_PEN]=e.pointerType==e.MSPOINTER_TYPE_PEN||e.pointerType==r.POINTER_PEN,n[t]},getEvents:function(){return["pointerdown MSPointerDown","pointermove MSPointerMove","pointerup pointercancel MSPointerUp MSPointerCancel"]},reset:function(){this.pointers={}}},r.utils={extend:function(t,n,r){for(var i in n)t[i]!==e&&r||(t[i]=n[i]);return t},hasParent:function(t,e){for(;t;){if(t==e)return!0;t=t.parentNode}return!1},getCenter:function(t){for(var e=[],n=[],r=0,i=t.length;i>r;r++)e.push(t[r].pageX),n.push(t[r].pageY);return{pageX:(Math.min.apply(Math,e)+Math.max.apply(Math,e))/2,pageY:(Math.min.apply(Math,n)+Math.max.apply(Math,n))/2}},getVelocity:function(t,e,n){return{x:Math.abs(e/t)||0,y:Math.abs(n/t)||0}},getAngle:function(t,e){var n=e.pageY-t.pageY,r=e.pageX-t.pageX;return 180*Math.atan2(n,r)/Math.PI},getDirection:function(t,e){var n=Math.abs(t.pageX-e.pageX),i=Math.abs(t.pageY-e.pageY);return n>=i?t.pageX-e.pageX>0?r.DIRECTION_LEFT:r.DIRECTION_RIGHT:t.pageY-e.pageY>0?r.DIRECTION_UP:r.DIRECTION_DOWN},getDistance:function(t,e){var n=e.pageX-t.pageX,r=e.pageY-t.pageY;return Math.sqrt(n*n+r*r)},getScale:function(t,e){return t.length>=2&&e.length>=2?this.getDistance(e[0],e[1])/this.getDistance(t[0],t[1]):1},getRotation:function(t,e){return t.length>=2&&e.length>=2?this.getAngle(e[1],e[0])-this.getAngle(t[1],t[0]):0},isVertical:function(t){return t==r.DIRECTION_UP||t==r.DIRECTION_DOWN},stopDefaultBrowserBehavior:function(t,e){var n,r=["webkit","khtml","moz","Moz","ms","o",""];if(e&&t.style){for(var i=0;r.length>i;i++)for(var o in e)e.hasOwnProperty(o)&&(n=o,r[i]&&(n=r[i]+n.substring(0,1).toUpperCase()+n.substring(1)),t.style[n]=e[o]);"none"==e.userSelect&&(t.onselectstart=function(){return!1}),"none"==e.userDrag&&(t.ondragstart=function(){return!1})}}},r.detection={gestures:[],current:null,previous:null,stopped:!1,startDetect:function(t,e){this.current||(this.stopped=!1,this.current={inst:t,startEvent:r.utils.extend({},e),lastEvent:!1,name:""},this.detect(e))},detect:function(t){if(this.current&&!this.stopped){t=this.extendEventData(t);for(var e=this.current.inst.options,n=0,i=this.gestures.length;i>n;n++){var o=this.gestures[n];if(!this.stopped&&e[o.name]!==!1&&o.handler.call(o,t,this.current.inst)===!1){this.stopDetect();break}}return this.current&&(this.current.lastEvent=t),t.eventType==r.EVENT_END&&!t.touches.length-1&&this.stopDetect(),t}},stopDetect:function(){this.previous=r.utils.extend({},this.current),this.current=null,this.stopped=!0},extendEventData:function(t){var e=this.current.startEvent;if(e&&(t.touches.length!=e.touches.length||t.touches===e.touches)){e.touches=[];for(var n=0,i=t.touches.length;i>n;n++)e.touches.push(r.utils.extend({},t.touches[n]))}var o=t.timeStamp-e.timeStamp,s=t.center.pageX-e.center.pageX,a=t.center.pageY-e.center.pageY,c=r.utils.getVelocity(o,s,a);return r.utils.extend(t,{deltaTime:o,deltaX:s,deltaY:a,velocityX:c.x,velocityY:c.y,distance:r.utils.getDistance(e.center,t.center),angle:r.utils.getAngle(e.center,t.center),interimAngle:this.current.lastEvent&&r.utils.getAngle(this.current.lastEvent.center,t.center),direction:r.utils.getDirection(e.center,t.center),interimDirection:this.current.lastEvent&&r.utils.getDirection(this.current.lastEvent.center,t.center),scale:r.utils.getScale(e.touches,t.touches),rotation:r.utils.getRotation(e.touches,t.touches),startEvent:e}),t},register:function(t){var n=t.defaults||{};return n[t.name]===e&&(n[t.name]=!0),r.utils.extend(r.defaults,n,!0),t.index=t.index||1e3,this.gestures.push(t),this.gestures.sort(function(t,e){return t.index<e.index?-1:t.index>e.index?1:0}),this.gestures}},r.gestures=r.gestures||{},r.gestures.Hold={name:"hold",index:10,defaults:{hold_timeout:500,hold_threshold:1},timer:null,handler:function(t,e){switch(t.eventType){case r.EVENT_START:clearTimeout(this.timer),r.detection.current.name=this.name,this.timer=setTimeout(function(){"hold"==r.detection.current.name&&e.trigger("hold",t)},e.options.hold_timeout);break;case r.EVENT_MOVE:t.distance>e.options.hold_threshold&&clearTimeout(this.timer);break;case r.EVENT_END:clearTimeout(this.timer)}}},r.gestures.Tap={name:"tap",index:100,defaults:{tap_max_touchtime:250,tap_max_distance:10,tap_always:!0,doubletap_distance:20,doubletap_interval:300},handler:function(t,e){if(t.eventType==r.EVENT_END&&"touchcancel"!=t.srcEvent.type){var n=r.detection.previous,i=!1;if(t.deltaTime>e.options.tap_max_touchtime||t.distance>e.options.tap_max_distance)return;n&&"tap"==n.name&&t.timeStamp-n.lastEvent.timeStamp<e.options.doubletap_interval&&t.distance<e.options.doubletap_distance&&(e.trigger("doubletap",t),i=!0),(!i||e.options.tap_always)&&(r.detection.current.name="tap",e.trigger(r.detection.current.name,t))}}},r.gestures.Swipe={name:"swipe",index:40,defaults:{swipe_max_touches:1,swipe_velocity:.7},handler:function(t,e){if(t.eventType==r.EVENT_END){if(e.options.swipe_max_touches>0&&t.touches.length>e.options.swipe_max_touches)return;(t.velocityX>e.options.swipe_velocity||t.velocityY>e.options.swipe_velocity)&&(e.trigger(this.name,t),e.trigger(this.name+t.direction,t))}}},r.gestures.Drag={name:"drag",index:50,defaults:{drag_min_distance:10,correct_for_drag_min_distance:!0,drag_max_touches:1,drag_block_horizontal:!1,drag_block_vertical:!1,drag_lock_to_axis:!1,drag_lock_min_distance:25},triggered:!1,handler:function(t,n){if(r.detection.current.name!=this.name&&this.triggered)return n.trigger(this.name+"end",t),this.triggered=!1,e;if(!(n.options.drag_max_touches>0&&t.touches.length>n.options.drag_max_touches))switch(t.eventType){case r.EVENT_START:this.triggered=!1;break;case r.EVENT_MOVE:if(t.distance<n.options.drag_min_distance&&r.detection.current.name!=this.name)return;if(r.detection.current.name!=this.name&&(r.detection.current.name=this.name,n.options.correct_for_drag_min_distance)){var i=Math.abs(n.options.drag_min_distance/t.distance);r.detection.current.startEvent.center.pageX+=t.deltaX*i,r.detection.current.startEvent.center.pageY+=t.deltaY*i,t=r.detection.extendEventData(t)}(r.detection.current.lastEvent.drag_locked_to_axis||n.options.drag_lock_to_axis&&n.options.drag_lock_min_distance<=t.distance)&&(t.drag_locked_to_axis=!0);var o=r.detection.current.lastEvent.direction;t.drag_locked_to_axis&&o!==t.direction&&(t.direction=r.utils.isVertical(o)?0>t.deltaY?r.DIRECTION_UP:r.DIRECTION_DOWN:0>t.deltaX?r.DIRECTION_LEFT:r.DIRECTION_RIGHT),this.triggered||(n.trigger(this.name+"start",t),this.triggered=!0),n.trigger(this.name,t),n.trigger(this.name+t.direction,t),(n.options.drag_block_vertical&&r.utils.isVertical(t.direction)||n.options.drag_block_horizontal&&!r.utils.isVertical(t.direction))&&t.preventDefault();break;case r.EVENT_END:this.triggered&&n.trigger(this.name+"end",t),this.triggered=!1}}},r.gestures.Transform={name:"transform",index:45,defaults:{transform_min_scale:.01,transform_min_rotation:1,transform_always_block:!1},triggered:!1,handler:function(t,n){if(r.detection.current.name!=this.name&&this.triggered)return n.trigger(this.name+"end",t),this.triggered=!1,e;if(!(2>t.touches.length))switch(n.options.transform_always_block&&t.preventDefault(),t.eventType){case r.EVENT_START:this.triggered=!1;break;case r.EVENT_MOVE:var i=Math.abs(1-t.scale),o=Math.abs(t.rotation);if(n.options.transform_min_scale>i&&n.options.transform_min_rotation>o)return;r.detection.current.name=this.name,this.triggered||(n.trigger(this.name+"start",t),this.triggered=!0),n.trigger(this.name,t),o>n.options.transform_min_rotation&&n.trigger("rotate",t),i>n.options.transform_min_scale&&(n.trigger("pinch",t),n.trigger("pinch"+(1>t.scale?"in":"out"),t));break;case r.EVENT_END:this.triggered&&n.trigger(this.name+"end",t),this.triggered=!1}}},r.gestures.Touch={name:"touch",index:-1/0,defaults:{prevent_default:!1,prevent_mouseevents:!1},handler:function(t,n){return n.options.prevent_mouseevents&&t.pointerType==r.POINTER_MOUSE?(t.stopDetect(),e):(n.options.prevent_default&&t.preventDefault(),t.eventType==r.EVENT_START&&n.trigger(this.name,t),e)}},r.gestures.Release={name:"release",index:1/0,handler:function(t,e){t.eventType==r.EVENT_END&&e.trigger(this.name,t)}},"function"==typeof define&&"object"==typeof define.amd&&define.amd?define(function(){return r}):"object"==typeof module&&"object"==typeof module.exports?module.exports=r:t.Hammer=r})(this),function(t){"use strict";var e=function(e,n){return n===t?e:(e.event.bindDom=function(e,r,i){n(e).on(r,function(e){var n=e.originalEvent||e;n.pageX===t&&(n.pageX=e.pageX,n.pageY=e.pageY),n.target||(n.target=e.target),n.which===t&&(n.which=n.button),n.preventDefault||(n.preventDefault=e.preventDefault),n.stopPropagation||(n.stopPropagation=e.stopPropagation),i.call(this,n)})},e.Instance.prototype.on=function(t,e){return n(this.element).on(t,e)},e.Instance.prototype.off=function(t,e){return n(this.element).off(t,e)},e.Instance.prototype.trigger=function(t,e){var r=n(this.element);return r.has(e.target).length&&(r=n(e.target)),r.trigger({type:t,gesture:e})},n.fn.hammer=function(t){return this.each(function(){var r=n(this),i=r.data("hammer");i?i&&t&&e.utils.extend(i.options,t):r.data("hammer",new e(this,t||{}))})},e)};"function"==typeof define&&"object"==typeof define.amd&&define.amd?define("hammer-jquery",["hammer","jquery"],e):e(window.Hammer,window.jQuery||window.Zepto)}();
-var config_data;
-var currentPage = null;
-var prevPage;
-var level = 0;
+(function(e,t,n){typeof define=="function"&&define.amd?define(["jquery"],function(r){return n(r,e,t),r.mobile}):n(e.jQuery,e,t)})(this,document,function(e,t,n,r){(function(e,n){e.extend(e.support,{orientation:"orientation"in t&&"onorientationchange"in t})})(e),function(e){e.event.special.throttledresize={setup:function(){e(this).bind("resize",n)},teardown:function(){e(this).unbind("resize",n)}};var t=250,n=function(){s=(new Date).getTime(),o=s-r,o>=t?(r=s,e(this).trigger("throttledresize")):(i&&clearTimeout(i),i=setTimeout(n,t-o))},r=0,i,s,o}(e),function(e,t){function d(){var e=o();e!==u&&(u=e,r.trigger(i))}var r=e(t),i="orientationchange",s,o,u,a,f,l={0:!0,180:!0};if(e.support.orientation){var c=t.innerWidth||r.width(),h=t.innerHeight||r.height(),p=50;a=c>h&&c-h>p,f=l[t.orientation];if(a&&f||!a&&!f)l={"-90":!0,90:!0}}e.event.special.orientationchange=e.extend({},e.event.special.orientationchange,{setup:function(){if(e.support.orientation&&!e.event.special.orientationchange.disabled)return!1;u=o(),r.bind("throttledresize",d)},teardown:function(){if(e.support.orientation&&!e.event.special.orientationchange.disabled)return!1;r.unbind("throttledresize",d)},add:function(e){var t=e.handler;e.handler=function(e){return e.orientation=o(),t.apply(this,arguments)}}}),e.event.special.orientationchange.orientation=o=function(){var r=!0,i=n.documentElement;return e.support.orientation?r=l[t.orientation]:r=i&&i.clientWidth/i.clientHeight<1.1,r?"portrait":"landscape"},e.fn[i]=function(e){return e?this.bind(i,e):this.trigger(i)},e.attrFn&&(e.attrFn[i]=!0)}(e,this),function(e,t,n,r){function x(e){while(e&&typeof e.originalEvent!="undefined")e=e.originalEvent;return e}function T(t,n){var i=t.type,s,o,a,l,c,h,p,d,v;t=e.Event(t),t.type=n,s=t.originalEvent,o=e.event.props,i.search(/^(mouse|click)/)>-1&&(o=f);if(s)for(p=o.length,l;p;)l=o[--p],t[l]=s[l];i.search(/mouse(down|up)|click/)>-1&&!t.which&&(t.which=1);if(i.search(/^touch/)!==-1){a=x(s),i=a.touches,c=a.changedTouches,h=i&&i.length?i[0]:c&&c.length?c[0]:r;if(h)for(d=0,v=u.length;d<v;d++)l=u[d],t[l]=h[l]}return t}function N(t){var n={},r,s;while(t){r=e.data(t,i);for(s in r)r[s]&&(n[s]=n.hasVirtualBinding=!0);t=t.parentNode}return n}function C(t,n){var r;while(t){r=e.data(t,i);if(r&&(!n||r[n]))return t;t=t.parentNode}return null}function k(){g=!1}function L(){g=!0}function A(){E=0,v.length=0,m=!1,L()}function O(){k()}function M(){_(),c=setTimeout(function(){c=0,A()},e.vmouse.resetTimerDuration)}function _(){c&&(clearTimeout(c),c=0)}function D(t,n,r){var i;if(r&&r[t]||!r&&C(n.target,t))i=T(n,t),e(n.target).trigger(i);return i}function P(t){var n=e.data(t.target,s);if(!m&&(!E||E!==n)){var r=D("v"+t.type,t);r&&(r.isDefaultPrevented()&&t.preventDefault(),r.isPropagationStopped()&&t.stopPropagation(),r.isImmediatePropagationStopped()&&t.stopImmediatePropagation())}}function H(t){var n=x(t).touches,r,i;if(n&&n.length===1){r=t.target,i=N(r);if(i.hasVirtualBinding){E=w++,e.data(r,s,E),_(),O(),d=!1;var o=x(t).touches[0];h=o.pageX,p=o.pageY,D("vmouseover",t,i),D("vmousedown",t,i)}}}function B(e){if(g)return;d||D("vmousecancel",e,N(e.target)),d=!0,M()}function j(t){if(g)return;var n=x(t).touches[0],r=d,i=e.vmouse.moveDistanceThreshold,s=N(t.target);d=d||Math.abs(n.pageX-h)>i||Math.abs(n.pageY-p)>i,d&&!r&&D("vmousecancel",t,s),D("vmousemove",t,s),M()}function F(e){if(g)return;L();var t=N(e.target),n;D("vmouseup",e,t);if(!d){var r=D("vclick",e,t);r&&r.isDefaultPrevented()&&(n=x(e).changedTouches[0],v.push({touchID:E,x:n.clientX,y:n.clientY}),m=!0)}D("vmouseout",e,t),d=!1,M()}function I(t){var n=e.data(t,i),r;if(n)for(r in n)if(n[r])return!0;return!1}function q(){}function R(t){var n=t.substr(1);return{setup:function(r,s){I(this)||e.data(this,i,{});var o=e.data(this,i);o[t]=!0,l[t]=(l[t]||0)+1,l[t]===1&&b.bind(n,P),e(this).bind(n,q),y&&(l.touchstart=(l.touchstart||0)+1,l.touchstart===1&&b.bind("touchstart",H).bind("touchend",F).bind("touchmove",j).bind("scroll",B))},teardown:function(r,s){--l[t],l[t]||b.unbind(n,P),y&&(--l.touchstart,l.touchstart||b.unbind("touchstart",H).unbind("touchmove",j).unbind("touchend",F).unbind("scroll",B));var o=e(this),u=e.data(this,i);u&&(u[t]=!1),o.unbind(n,q),I(this)||o.removeData(i)}}}var i="virtualMouseBindings",s="virtualTouchID",o="vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel".split(" "),u="clientX clientY pageX pageY screenX screenY".split(" "),a=e.event.mouseHooks?e.event.mouseHooks.props:[],f=e.event.props.concat(a),l={},c=0,h=0,p=0,d=!1,v=[],m=!1,g=!1,y="addEventListener"in n,b=e(n),w=1,E=0,S;e.vmouse={moveDistanceThreshold:10,clickDistanceThreshold:10,resetTimerDuration:1500};for(var U=0;U<o.length;U++)e.event.special[o[U]]=R(o[U]);y&&n.addEventListener("click",function(t){var n=v.length,r=t.target,i,o,u,a,f,l;if(n){i=t.clientX,o=t.clientY,S=e.vmouse.clickDistanceThreshold,u=r;while(u){for(a=0;a<n;a++){f=v[a],l=0;if(u===r&&Math.abs(f.x-i)<S&&Math.abs(f.y-o)<S||e.data(u,s)===f.touchID){t.preventDefault(),t.stopPropagation();return}}u=u.parentNode}}},!0)}(e,t,n),function(e){e.mobile={}}(e),function(e,t){var r={touch:"ontouchend"in n};e.mobile.support=e.mobile.support||{},e.extend(e.support,r),e.extend(e.mobile.support,r)}(e),function(e,t,r){function l(t,n,r){var i=r.type;r.type=n,e.event.dispatch.call(t,r),r.type=i}var i=e(n);e.each("touchstart touchmove touchend tap taphold swipe swipeleft swiperight scrollstart scrollstop".split(" "),function(t,n){e.fn[n]=function(e){return e?this.bind(n,e):this.trigger(n)},e.attrFn&&(e.attrFn[n]=!0)});var s=e.mobile.support.touch,o="touchmove scroll",u=s?"touchstart":"mousedown",a=s?"touchend":"mouseup",f=s?"touchmove":"mousemove";e.event.special.scrollstart={enabled:!0,setup:function(){function s(e,n){r=n,l(t,r?"scrollstart":"scrollstop",e)}var t=this,n=e(t),r,i;n.bind(o,function(t){if(!e.event.special.scrollstart.enabled)return;r||s(t,!0),clearTimeout(i),i=setTimeout(function(){s(t,!1)},50)})}},e.event.special.tap={tapholdThreshold:750,setup:function(){var t=this,n=e(t);n.bind("vmousedown",function(r){function a(){clearTimeout(u)}function f(){a(),n.unbind("vclick",c).unbind("vmouseup",a),i.unbind("vmousecancel",f)}function c(e){f(),s===e.target&&l(t,"tap",e)}if(r.which&&r.which!==1)return!1;var s=r.target,o=r.originalEvent,u;n.bind("vmouseup",a).bind("vclick",c),i.bind("vmousecancel",f),u=setTimeout(function(){l(t,"taphold",e.Event("taphold",{target:s}))},e.event.special.tap.tapholdThreshold)})}},e.event.special.swipe={scrollSupressionThreshold:30,durationThreshold:1e3,horizontalDistanceThreshold:30,verticalDistanceThreshold:75,start:function(t){var n=t.originalEvent.touches?t.originalEvent.touches[0]:t;return{time:(new Date).getTime(),coords:[n.pageX,n.pageY],origin:e(t.target)}},stop:function(e){var t=e.originalEvent.touches?e.originalEvent.touches[0]:e;return{time:(new Date).getTime(),coords:[t.pageX,t.pageY]}},handleSwipe:function(t,n){n.time-t.time<e.event.special.swipe.durationThreshold&&Math.abs(t.coords[0]-n.coords[0])>e.event.special.swipe.horizontalDistanceThreshold&&Math.abs(t.coords[1]-n.coords[1])<e.event.special.swipe.verticalDistanceThreshold&&t.origin.trigger("swipe").trigger(t.coords[0]>n.coords[0]?"swipeleft":"swiperight")},setup:function(){var t=this,n=e(t);n.bind(u,function(t){function o(t){if(!i)return;s=e.event.special.swipe.stop(t),Math.abs(i.coords[0]-s.coords[0])>e.event.special.swipe.scrollSupressionThreshold&&t.preventDefault()}var i=e.event.special.swipe.start(t),s;n.bind(f,o).one(a,function(){n.unbind(f,o),i&&s&&e.event.special.swipe.handleSwipe(i,s),i=s=r})})}},e.each({scrollstop:"scrollstart",taphold:"tap",swipeleft:"swipe",swiperight:"swipe"},function(t,n){e.event.special[t]={setup:function(){e(this).bind(n,e.noop)}}})}(e,this)});
+var config_data; //No se usa
+var currentPage = null; //Pagina actual
+var prevPage; //Pagina anterior
+var level = 0; //Cantidad de veces que ha avanzado en el historial
+var previousState; //No se usa
+var newPage;
 
-$(init);
+var currentSlide; //Slide actual
 
+$(init); //Arranca
 
+//Stack de páginas, una forma simple de saber el recorrido entre páginas
+var pages = new Array();
+
+/*
+	Inicia el configurador
+	1. arranca el listener de resize de la pantalla
+	2. activa todos los botones (clase btn)
+	3. activa el input de busqueda
+	4. desactiva los links del footer (son controlados por la clase btn)
+	5. oculta las páginas previas y siguientes
+	6. activa el listener de cambio de historial
+	7. acomoda la pantalla
+	8. carga la primera pantalla (si en el url viene el nombre del carro, carga sus versiones, si no, las categorias)
+*/
 function init(data) {
-	//config_data = data;
 	$(window).on("resize",setScreen);
 	$(".btn").on("click",doAction);
 	$("#search input").on("keyup",doSearch);
+	$("#footer a").on("click",disableLink);
 	$(".prevPage").hide();
 	$(".nextPage").hide();
 	var History = window.History;
 	History.Adapter.bind(window,'statechange',stateHasChanged);
 
 	setScreen();
-	loadPage("category");
+	if(car.length > 0) {
+		loadPage("version/?id="+car[0].id);
+	} else {
+		loadPage("category");
+	}
 }
 var historyTimer;
+
+/*
+	deshabilitador de links (a)
+*/
+
+function disableLink(e) {
+	e.preventDefault();
+}
+
+/*
+	ajusta la pantalla
+	acomoda la altura del contenido (image_slider en la mayoria de los casos) NOTA: quizá ya no es necesario
+	anima el bloque de #content para ajustarse al contenido (como consecuencia reposiciona el footer)
+*/
 
 function setScreen() {
 	$(".currentPage .image_slider").height(getMaxSlideHeight());
@@ -10645,8 +10676,12 @@ function setScreen() {
 		height = $(".currentPage").height();
 	//}
 	$("#content").animate({"height":height});
-	$("#wrapper").height($(window).height());
+	//$("#wrapper").height($(window).height());
 }
+
+/*
+	obtiene la altura máxima del contenido (cuando son slides, eg: versiones, color, etc)
+*/
 
 function getMaxSlideHeight() {
 	var max = 0;
@@ -10656,24 +10691,38 @@ function getMaxSlideHeight() {
 	return max;
 }
 
-function loadPage(page) {
+/*
+	Manda a cargar una página
+	Lo hace metiendo un estado en el historial, cuando el evento de stateChange se dispara, carga mediante ajax la página
+	historyTimer es usado para forzar la carga, por alguna razón en ocasiones al cargar la primera vez no llama al evento stateChange
+	el timer hace que cargue la página sin usar ese evento.
+
+*/
+
+function loadPage(page,withURL) {
 	console.log("LOAD PAGE: "+page);
+	currentState = History.getState();
 	prevPage = currentPage
 	currentPage = page;
-	historyTimer = window.setTimeout('forceLoad("/configurator/'+page+'")',3000);
+	historyTimer = window.setTimeout('forceLoad("/configurator/'+page+'")',1000);
 	console.log("INIT TIMEOUT");
-	History.pushState({"level":level,"page":page,"url":"/configurator/"+page},"VW Conf Mobile");
-	
-	
-	
+	History.pushState({"level":level,"page":page,"url":"/configurator/"+page},"Volkswagen México - Configurador de autos Volkswagen",withURL);		
 }
+
+/*
+	Si el evento stateChange no es llamado (despues de 1 segundo), carga desde aqui la página mediante ajax
+*/
 function forceLoad(page) {
 	historyTimer = null;
 	console.log("Force Load");
+	pages.push(page);
 	$(".nextPage").load(page,switchScreen);
 
 }
 
+/*
+	cada que teclea el usuario en el buscador, carga mediante ajax los resultados
+*/
 function doSearch() {
 	console.log("SEARCH: "+$(this).val().length);
 
@@ -10685,6 +10734,14 @@ function doSearch() {
 		$("#search_results").html("");
 	}
 }
+/*
+	realiza la transición entre pantallas hacia la izquierda
+	mueve la currentPage y nextPage a la izquierda
+	reajusta los nombres (clases) para la siguiente llamada a esta función
+	llama a la funcion enableButtons que habilita todos los botones de la página
+	llama a la funcion enableSlider que habilita el slider del contenido
+	llama a la funcion setScreen que ajusta el contenido de la pantalla
+*/
 function switchScreen(){
 	var prev = $(".prevPage");
 	var current = $(".currentPage");
@@ -10694,9 +10751,18 @@ function switchScreen(){
 	$(prev).removeClass("prevPage").addClass("nextPage");
 	enableButtons();
 	enableSlider();
-	setScreen();
+	window.setTimeout(setScreen,250);
 
 }
+
+/*
+	realiza la transición entre pantallas hacia la derecha
+	mueve la currentPage y prevPage a la derecha
+	reajusta los nombres (clases) para la siguiente llamada a esta función
+	llama a la funcion enableButtons que habilita todos los botones de la página
+	llama a la funcion enableSlider que habilita el slider del contenido
+	llama a la funcion setScreen que ajusta el contenido de la pantalla
+*/
 function switchBackScreen(){
 	var prev = $(".prevPage");
 	var current = $(".currentPage");
@@ -10706,15 +10772,21 @@ function switchBackScreen(){
 	$(next).removeClass("nextPage").addClass("prevPage");
 	enableButtons();
 	enableSlider();
-	setScreen();
+	window.setTimeout(setScreen,250);
 
 }
-var currentSlide;
+
+/*
+	habilita los botones izq y der del slider
+	habilita y ajusta el contador de slides
+*/
 function enableSlider() {
-	$(".currentPage .arrows").hammer().off("swipeleft");
-	$(".currentPage .arrows").hammer().off("swiperight");
-	$(".currentPage .image_slider").hammer().off("swipeleft");
-	$(".currentPage .image_slider").hammer().off("swiperight");
+	$(".currentPage .arrows").off("swipeleft");
+	$(".currentPage .arrows").off("swiperight");
+	$(".currentPage .image_slider").off("swipeleft");
+	$(".currentPage .image_slider").off("swiperight");
+	console.log("ULW: "+$(".currentPage .navcount ul").width());
+	$(".currentPage .navcount").css("margin-left",$(".currentPage .navcount li").length*-6);
 
 	$(".currentPage .image_slider > ul > li").each(function(index,element) {
 		$(element).css("left",index*$(window).width()).hide();
@@ -10725,13 +10797,18 @@ function enableSlider() {
 		$(".currentPage .arrows").hide();
 	} else {
 		$(".currentPage .arrows").show();
-		$(".currentPage .image_slider").hammer().on("swipeleft",nextSlide);
-		$(".currentPage .image_slider").hammer().on("swiperight",prevSlide);
-		$(".currentPage .arrows").hammer().on("swipeleft",nextSlide);
-		$(".currentPage .arrows").hammer().on("swiperight",prevSlide);
+		$(".currentPage .image_slider").on("swipeleft",nextSlide);
+		$(".currentPage .image_slider").on("swiperight",prevSlide);
+		$(".currentPage .arrows").on("swipeleft",nextSlide);
+		$(".currentPage .arrows").on("swiperight",prevSlide);
 	}
 	currentSlide = 0;
+	$($(".currentPage .navcount li").get(currentSlide)).removeClass("off").addClass("on");
 }
+/*
+	Habilita los botones (todo elemento con clase 'btn') que se encuentre dentro de la página actual
+
+*/
 function enableButtons() {
 
 	$(".prevPage .btn").off("click",doAction);
@@ -10739,31 +10816,106 @@ function enableButtons() {
 	$(".currentPage .btn").on("click",doAction);
 }
 
+/*
+	Evento al darle clic a algun elemento con clase 'btn'
+	Todos los elementos tienen atributo 'action', algunos tienen atributos extras que fungen como parámetros
+	ejecuta alguna accion dependiendo del valor en el atributo 'action'
+*/
+
 function doAction() {
 	var action = $(this).attr("action");
 	var param;
+	/*
+		Manda a llamar alguna página (definida en 'actionid')
+		oculta el submenu o el buscador en caso que esten activos
+	*/
 	if(action == "page") {
 		param = $(this).attr("actionid");
+		addReview($(this).attr("review"),$(this).attr("reviewname"));
+		toggleReview(true);
 		toggleSubmenu(true);
 		toggleSearch(true);
+		$("#end_btn").attr("actionid",param);
 		loadPage(param);
 		return;
-	}
-	if(action == "back") {
+
+	/*
+		Manda a llamar alguna página (definida en 'actionid') y cambia el url del navegador (definida en 'url')
+		oculta el submenu o el buscador en caso que esten activos
+	*/
+	} else if(action == "pagewurl") {
+		param = $(this).attr("actionid");
+		var url = $(this).attr("url");
+		addReview($(this).attr("review"),$(this).attr("reviewname"));
+		toggleSubmenu(true);
+		toggleSearch(true);
+		toggleReview(true);
+		$("#end_btn").attr("actionid",param);
+		$("html, body").animate({ scrollTop: "49px" },250);
+		loadPage(param,url);
+		return;
+	/*
+		Regresa en la historia
+	*/
+	}else if(action == "back") {
 		History.back();
 		return;
+	/*
+		Regresa en la historia
+		Valida el regreso (si se cumple la condición de que la página anterior sea 'actionid'), si no, se va al principio
+		Este es principalmente cuando desde el url te lleva directamente al review o a algun carro
+	*/
+	} else if(action == "backcheck") {
+		param = $(this).attr("actionid");
+		console.log("BACK CHECK");
+		console.log(pages[pages.length-2]);
+		if(pages.length >= 2 && pages[pages.length-2].split("/")[0] == param)
+			History.back();
+		else {
+			loadPage("category","./");
+		}
+		return;
+	/*
+		Se mueve al siguiente slide
+	*/
 	} else if(action == "next_slide") {
 		nextSlide();
 		return;
+	/*
+		Se mueve al previo slide
+	*/
 	} else if(action == "prev_slide") {
 		prevSlide();
 		return;
+	/*
+		Carga una página, enviando de parámetro el id del slide actual (para cuando se escoge versión, color, interior, etc)
+	*/
 	} else if(action == "page_slide") {
 		param = $(this).attr("actionid");
 		var slide = $(".currentPage .image_slider > ul > li").get(currentSlide);
 		param += "&sid="+$(slide).attr("sid")*1;
+		addReview($(this).attr("review"),$(slide).attr("name"));
+		$("#end_btn").attr("actionid",param);
+		toggleReview(true);
+		toggleSubmenu(true);
+		toggleSearch(true);
+		$("html, body").animate({ scrollTop: "49px" },250);
 		loadPage(param);
-	}else if(action == "select") {
+	
+	} else if(action == "review_slide") {
+		param = $(this).attr("actionid");
+		var slide = $(".currentPage .image_slider > ul > li").get(currentSlide);
+		param += "&sid="+$(slide).attr("sid")*1;
+		addReview($(this).attr("review"),$(slide).attr("name"));
+		$("#end_btn").attr("actionid",param);
+		toggleReview(false);
+		toggleSubmenu(true);
+		toggleSearch(true);
+	}
+	else if(action == "select") {
+		/*
+		Selecciona un paquete o servicio
+	*/
 		param = $(this).attr("actionid");
 		var on = $(this).find(".on");
 		var off = $(this).find(".off");
@@ -10771,67 +10923,203 @@ function doAction() {
 		$(this).find(".center").html(text);
 		on.removeClass("on").addClass("off");
 		off.removeClass("off").addClass("on");
+	/*
+		Carga una página, enviando de parámetro los id del paquete o servicio seleccionado
+	*/
 	} else if(action == "page_slide_select") {
 		param = $(this).attr("actionid");
 		var selected = "";
 		var sid;
+		var names = "";
 		var on;
 		$(".currentPage .image_slider > ul > li").each(function (index,element) {
 			on = $(element).find(".on");
 			if(on.length > 0 ){
 				sid = $(element).attr("sid")*1;
 				selected += "&sid[]="+sid;
+				names += " "+$(element).attr("name");
 			}
 		});
 		param += selected;
+		addReview($(this).attr("review"),names);
+		$("#end_btn").attr("actionid",param);
+		$("html, body").animate({ scrollTop: "49px" },250);
 		loadPage(param);
-
-	} else if(action == "submenu") {
+	
+	} else if(action == "review_select") {
+		param = $(this).attr("actionid");
+		var selected = "";
+		var sid;
+		var names = "";
+		var on;
+		$(".currentPage .image_slider > ul > li").each(function (index,element) {
+			on = $(element).find(".on");
+			if(on.length > 0 ){
+				sid = $(element).attr("sid")*1;
+				selected += "&sid[]="+sid;
+				names += " "+$(element).attr("name");
+			}
+		});
+		param += selected;
+		addReview($(this).attr("review"),names);
+		$("#end_btn").attr("actionid",param);
+		toggleReview(false);
+		toggleSubmenu(true);
+		toggleSearch(true);
+	
+	}
+	else if(action == "submenu") {
+		/*
+		muestra el submenu, oculta el buscador en caso que esté activo
+	*/
+		toggleSearch(true);
+		toggleReview(true);
 		toggleSubmenu($("#submenu").is(":visible"));
+	/*
+		muestra el buscador, oculta el submenu en caso que esté activo
+	*/
 	} else if(action == "search") {
+
+		toggleSubmenu(true);
+		toggleReview(true);
 		toggleSearch($("#search").is(":visible"));
-	} else if(action == "show_review") {
-		toggleReview();
+	/*
+		muestra el dropdown que se encuentra en la barra de precios (resumen de las características seleccionados)
+	*/
+	} else if(action == "show_prices") {
+		togglePrices();
+	/*
+		Lleva a alguna liga (usada en los links del footer) en ventana nueva
+	*/
+	} else if(action == "link") {
+		param = $(this).attr("actionid");
+		window.open(param);
+	} else if(action == "hide_review") {
+		toggleReview(true);
+	} else if(action == "attention") {
+
+		toggleAttention($("#attention").is(":visible"));
+	} else if(action == "form_submit") {
+		param = $(this).attr("actionid");
+		submitForm(param);
 	}
 
 }
 
-function toggleReview() {
+function submitForm(form_id) {
+	var form = $("#"+form_id);
+	var valid = true;
+	$("#"+form_id+" input").each(function(index,element) {
+		var li = element.parentNode.parentNode.parentNode;
+		console.log($(element).attr("r"));
+		console.log($(element).attr("r") == "yes");
+		console.log($(element).val() == "");
+		if($(element).attr("r") == "yes" && $(element).val() == "") {
+			$(li).addClass("error");
+			valid = false;
+		} else {
+			$(li).removeClass("error");
+		}
+	});
+	if(valid) {
+		//SUBMIT FORM
+		$("#attention_content").hide();
+		$("#attention_thanks").fadeIn();
+	}
+	
+}
+
+function addReview(review,value) {
+	$("#review_list ."+review).html(value);
+}
+
+function toggleAttention(hide) {
+	if(hide) {
+		$("#attention").fadeOut();
+	} else {
+		var newh = $("#content").height()+285+49;
+		$("#attention").css("min-height",newh);
+		$("#attention").fadeIn();
+	}
+	$("html, body").animate({ scrollTop: "0px" },300);
+}
+
+function toggleReview(hide) {
+	if(hide) {
+		$("#review_list").fadeOut();
+	} else {
+		var newh = $("#content").height()+285;
+		$("#review_list .dimmer").width($(window).width()).height(newh);
+		$("#review_list").fadeIn();
+		$("html, body").animate({ scrollTop: "49px" },300);
+	}
+	
+}
+
+/*
+	Muestra u oculta el resumen de las características seleccionadas (dropdown de la barra de precios)
+	Lo hace de forma animada
+	Oscurece el fondo
+*/
+function togglePrices() {
 	var slides = $(".currentPage .image_slider > ul > li");
 	var slide = $(slides).get(currentSlide);
-	if($(slide).find(".review_list").height() > 0 ) {
+	if($(slide).find(".price_list").height() > 0 ) {
 
 		$(slide).find(".price_btn").removeClass("open");
-		$(slide).find(".review_list").delay(250).animate({height:0},250);
+		$(slide).find(".price_list").delay(250).animate({height:0},250);
 		$(slide).find(".slider_prices .dimmer").animate({height:0,opacity:0},250);
 	} else {
-		var h = $(slide).find(" .review_list ul").height();
+		var h = $(slide).find(" .price_list ul").height();
 		console.log("H: "+h)
 		$(slide).find(" .price_btn").addClass("open");
-		$(slide).find(" .review_list").animate({height:h},250);
+		$(slide).find(" .price_list").animate({height:h},250);
 		h = $("#content").height()+285-h-50-41;
 		console.log("DH: "+h);
 		$(slide).find(".slider_prices .dimmer").animate({height:h,opacity:0.75},250);
 	}
 }
+
+/*
+	Muestra u oculta el buscador
+	Lo hace de forma animada
+	Oscurece el fondo
+*/
 function toggleSearch(hide) {
 	if(hide){
 		$("#search").delay(250).animate({height:0},250).hide(0);
 		$("#search .dimmer").fadeTo(1,0.75).animate({opacity:0},250);
 	} else {
 		$("#search").css("height",0).show().animate({height:56},250);
-		$("#search .dimmer").fadeTo(1,0).height($(window).height()-48).delay(250).animate({height:$(window).height()-104,opacity:0.75},250);
+		var newh = $("#wrapper").height() < $(window).height() ? $(window).height()-49:$("#wrapper").height();
+		$("#search .dimmer").fadeTo(1,0).height($("#wrapper").height()).delay(250).animate({height:newh-56,opacity:0.75},250);
 	}
 }
+
+/*
+	Muestra u oculta el submenu
+	Lo hace de forma animada
+	Oscurece el fondo
+*/
 function toggleSubmenu(hide) {
 	if(hide){
 		$("#submenu").delay(250).animate({height:0},250).hide(0);
 		$("#submenu .dimmer").fadeTo(1,0.75).animate({opacity:0},250);
 	} else {
-		$("#submenu").css("height",0).show().animate({height:228},250);
-		$("#submenu .dimmer").fadeTo(1,0).height($(window).height()-48).delay(250).animate({height:$(window).height()-276,opacity:0.75},250);
+		console.log("WrH: "+$("#wrapper").height());
+		console.log("WiH: "+$(window).height());
+		console.log("CH: "+$("#content").height());
+		$("#submenu").css("height",0).show().animate({height:150},250);
+		var newh = $("#wrapper").height() < $(window).height() ? $(window).height()-49:$("#wrapper").height();
+		$("#submenu .dimmer").fadeTo(1,0).height($("#wrapper").height()).delay(250).animate({height:newh-150,opacity:0.75},250);
 	}
 }
+
+/*
+	Genera la transición entre slides mueve hacia la derecha
+	Guarda en currentSlide el nuevo slide visible
+	Si se encuentra en el primer slide, se mueve al último
+*/
 function prevSlide() {
 	var prev = currentSlide-1;
 		var slides = $(".currentPage .image_slider > ul > li");
@@ -10840,8 +11128,16 @@ function prevSlide() {
 		}
 		$($(slides).get(currentSlide)).animate({"left":$(window).width()},250).hide(0);
 		$($(slides).get(prev)).css("left",-$(window).width()).show().animate({left:0},250);
+		$($(".currentPage .navcount li").get(currentSlide)).removeClass("on").addClass("off");
 		currentSlide = prev;
+		$($(".currentPage .navcount li").get(currentSlide)).removeClass("off").addClass("on");
 }
+
+/*
+	Genera la transición entre slides mueve hacia la izquierda
+	Guarda en currentSlide el nuevo slide visible
+	Si se encuentra en el último slide, se mueve al primero
+*/
 function nextSlide() {
 	var next = currentSlide+1;
 		var slides = $(".currentPage .image_slider > ul > li");
@@ -10850,24 +11146,54 @@ function nextSlide() {
 		}
 		$($(slides).get(currentSlide)).animate({"left":-$(window).width()},250).hide(0);
 		$($(slides).get(next)).css("left",$(window).width()).show().animate({left:0},250);
+		$($(".currentPage .navcount li").get(currentSlide)).removeClass("on").addClass("off");
 		currentSlide = next;
+		$($(".currentPage .navcount li").get(currentSlide)).removeClass("off").addClass("on");
 }
+
+/*
+	Evento de historial
+	Cuando ocurre un evento en la historia, carga mediante ajax una página nueva (la que se encuentre en el historial)
+	En el State viene un objeto con varios parámetros:
+	data.page - página a cargar
+	data.level - nivel del historial (cuantas veces ha avanzado en la historia)
+	data.url - url real de la página que va a carga con ajax
+
+*/
 function stateHasChanged() { // Note: We are using statechange instead of popstate
 		console.log("CLEAR TIMEOUT");
+
 		window.clearTimeout(historyTimer);
 		historyTimer = null;
         console.log("State has changed");
         var State = History.getState(); // Note: We are using History.getState() instead of event.state
     	console.log(State);
     	console.log(State.data.level+" - "+level);
+
+    	/*
+    		Level es la cantidad de páginas metidas en la historia, 
+    		cuando es nulo es no hay páginas en la historia, recarga entonces todo el sitio
+    	*/
     	if(State.data.level == undefined) {
     		window.location.href = "/";
     	}
+    	/*
+			Cuando level es menor, quiere decir que se está regresando
+			Carga la página anterior, la mete en el contenedor .prevPage, posteriormente hará la transición para presentarlo (switchBackScreen)
+			Saca del stack de páginas
+    	*/
     	if(State.data.level < level) {
     		level--;
+    		pages.pop();
     		$(".prevPage").load(State.data.url,switchBackScreen);
+    	/*
+			Cuando level es mayor, quiere decir que se está avanzado
+			Carga la página siguiente,la mete en el contenedor .nextPage, posteriormente hará la transición para presentarlo (switchScreen)
+			Mete al stack de páginas la nueva página
+    	*/
     	} else {
     		level++;
+    		pages.push(State.data.page);
     		$(".nextPage").load(State.data.url,switchScreen);
     	}
     

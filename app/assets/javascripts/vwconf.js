@@ -387,8 +387,34 @@ function doAction() {
 	} else if(action == "attention") {
 
 		toggleAttention($("#attention").is(":visible"));
+	} else if(action == "form_submit") {
+		param = $(this).attr("actionid");
+		submitForm(param);
 	}
 
+}
+
+function submitForm(form_id) {
+	var form = $("#"+form_id);
+	var valid = true;
+	$("#"+form_id+" input").each(function(index,element) {
+		var li = element.parentNode.parentNode.parentNode;
+		console.log($(element).attr("r"));
+		console.log($(element).attr("r") == "yes");
+		console.log($(element).val() == "");
+		if($(element).attr("r") == "yes" && $(element).val() == "") {
+			$(li).addClass("error");
+			valid = false;
+		} else {
+			$(li).removeClass("error");
+		}
+	});
+	if(valid) {
+		//SUBMIT FORM
+		$("#attention_content").hide();
+		$("#attention_thanks").fadeIn();
+	}
+	
 }
 
 function addReview(review,value) {

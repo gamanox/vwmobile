@@ -701,6 +701,13 @@ body {
 	background-image: url(img_color.png);
 
 }
+.image_slider .no_color_image {
+	padding-top:10px;
+	width:320px;
+	height:200px;
+	background-color: white;
+
+}
 .image_slider .DGS {
 	background-image: url(img_transmision_dsg.png);
 }
@@ -1289,6 +1296,12 @@ body {
 	height:24px;
 	cursor:pointer;
 }
+#attention_form {
+	position: relative;
+	left:50%;
+	margin-left:-160px;
+	width: 320px;
+}
 
 #attention_form label, #attention input {
 	display: block;
@@ -1304,9 +1317,12 @@ body {
 	padding: 0px;
 	margin: 0px;
 }
+#attention_form li {
+	clear:both;
+}
 
 #attention_form .form_input {
-	clear:both;
+	
 	position:relative;
 	padding-top: 9px;
 	padding-left: 20px;
@@ -1314,16 +1330,16 @@ body {
 }
 .form_input .left {
 	position: relative;
-	background-image:url(bg_search.png);
+	background-image:url(bg_tel.png);
 	width:20px;
 	height:38px;
-	background-size:299px 38px;
+	background-size:200px 38px;
 	background-position:0px 0px;
 	background-repeat:no-repeat;
 }
 .form_input .center {
 	position: relative;
-	background-image:url(bg_search_h.png);
+	background-image:url(bg_tel_h.png);
 	width:auto;
 	height:38px;
 	top:-38px;
@@ -1335,15 +1351,33 @@ body {
 }
 .form_input .right {
 	position: relative;
-	background-image:url(bg_search.png);
+	background-image:url(bg_tel.png);
 	width:20px;
 	height:38px;
 	margin-left: 100%;
 	margin-top: -76px;
 	left:-44px;
-	background-size:299px 38px;
-	background-position:-278px 0px;
+	background-size:200px 38px;
+	background-position:-180px 0px;
 	background-repeat:no-repeat;
+}
+.error .left, .error .right {
+	background-image:url(bg_error.png) !important;
+}
+.error .center {
+	background-image:url(bg_error_h.png) !important;
+}
+.error input, .error label {
+	color:#b23838 !important;
+}
+#attention_form .short {
+	width:100px;
+}
+#attention_form .tel {
+	width:180px;
+}
+#attention_form li > div {
+	float:left;
 }
 .form_input input {
 	border:none;
@@ -1413,4 +1447,34 @@ padding-bottom: 14px;
 	font-size: 10px;
 	
 	font-weight: bold;
+}
+.tel_spacer {
+	background-image: url(img_space.png);
+	width:5px;
+	height:1px;
+	background-size:5px 1px;
+	position: relative;
+	left:115px;
+	top:-27px;
+}
+#attention_thanks {
+	display: none;
+	background-image: url(img_ok.png);
+	background-size:103px 95px;
+	background-position: center 10px;
+	background-repeat: no-repeat;
+	text-align: center;
+}
+#vw_thanks {
+	padding-top: 86px;
+	color:#088acd;
+	font-size: 17px;
+	font-weight: bold;
+}
+#soon {
+	padding-top: 5px;
+	font-size: 13px;
+	color:#8994a0;
+	font-weight: normal;
+	padding-bottom: 20px;
 }
