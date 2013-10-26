@@ -114,14 +114,14 @@
 
 </div>
 <div id='attention'>
-	<div id="sub_header">
+	<div class="sub_header">
 		<nav>
 			<ul>
-				<li id="sub_logo">
+				<li class="sub_logo">
 					<img src="/assets/volkswagen_logo.png" widht="39" height="39">
 				</li>
 
-				<li id="sub_close_btn" class="btn" action="attention"><img src="/assets/btn_cerrar.png" width="24" height="24" /></li>
+				<li class="btn sub_close_btn" action="attention"><img src="/assets/btn_cerrar.png" width="24" height="24" /></li>
 			</ul>
 		</nav>
 	</div>
@@ -234,6 +234,93 @@
 					<div class='center'>Regresar</div>
 					<div class='right'></div>
 				</div>
+	</div>
+</div>
+<div id="simulator">
+	<div class="sub_header">
+		<nav>
+			<div>Simulador financiero</div>
+			<ul>
+				<li class="sub_logo">
+					<img src="/assets/volkswagen_logo.png" widht="39" height="39">
+				</li>
+
+				<li class="btn sub_close_btn" action="simulator"><img src="/assets/btn_cerrar.png" width="24" height="24" /></li>
+			</ul>
+		</nav>
+	</div>
+	<div id="simulator_content">
+		<div class="page_title">
+			<span class="cname">...</span> <span class="vname"></span>
+		</div>
+		<ul>
+			<li id="regimen_fiscal">
+
+				<div class="expand_btn btn"  action="expand_sim"></div>
+				<div class="sim_title btn"  action="expand_sim">Régimen fiscal</div>
+				<div class="sim_options">
+					<ul>
+						<li class="btn" action="option_sel" actionid="regimen_fiscal"><div>Option A</div></li>
+						<li class="btn" action="option_sel" actionid="regimen_fiscal"><div>Option B</div></li>
+						<li class="btn" action="option_sel" actionid="regimen_fiscal"><div>Option C</div></li>
+					</ul>
+				</div>
+			</li>
+			<li  id="inst_credito">
+				<div class="nbtn" action="expand_sim"></div>
+				<div class="sim_title"  action="expand_sim">Institución de crédito</div>
+				<div class="sim_options">
+					<ul>
+						<li class="btn" action="option_sel" actionid="inst_credito"><div>Option A</div></li>
+						<li class="btn" action="option_sel" actionid="inst_credito"><div>Option B</div></li>
+						<li class="btn" action="option_sel" actionid="inst_credito"><div>Option C</div></li>
+					</ul>
+				</div>
+			</li>
+			<li id="plan_financiamiento">
+				<div class="nbtn"  action="expand_sim"></div>
+				<div class="sim_title"  action="expand_sim">Plan de finánciamiento</div>
+				<div class="sim_options">
+					<ul>
+						<li class="btn" action="option_sel" actionid="plan_financiamiento"><div>Option A</div></li>
+						<li class="btn" action="option_sel" actionid="plan_financiamiento"><div>Option B</div></li>
+						<li class="btn" action="option_sel" actionid="plan_financiamiento"><div>Option C</div></li>
+					</ul>
+				</div>
+			</li>
+			<li id="plazo">
+				<div class="nbtn" action="expand_sim"></div>
+				<div class="sim_title"  action="expand_sim">Plazo</div>
+				<div class="sim_options">
+					<ul>
+						<li class="btn" action="option_sel" actionid="plazo"><div>Option A</div></li>
+						<li class="btn" action="option_sel" actionid="plazo"><div>Option B</div></li>
+						<li class="btn" action="option_sel" actionid="plazo"><div>Option C</div></li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div id="slider_title">Porcentaje de enganche:</div>
+				<div id="slider">
+					<div id="slider_btn" class="btn">20%</div>
+				</div>
+			</li>
+		</ul>
+		<ul class="sim_totals">
+			<li>
+				<div class="simtotal_title">Mensualidades: </div> 
+				<div class="simtotal_value">$6,820.00 M.N.</div> 
+			</li>
+			<li>
+				<div class="simtotal_title">Enganche: </div> 
+				<div class="simtotal_value">$20,620.00 M.N.</div> 
+			</li>
+			<li>
+				<div class="comission">Comisión por apertura 2%</div>
+			</li>
+		</ul>
+		<div class="info_sim">* La información y/o imágenes aquí contenidas pueden no corresponder con total precisión (incluyendo precios, equipamiento, disponibilidad y demás aplicables) a la de los vehículos ofertados por las distribuidoras Volkswagen, por lo que le recomendamos visitar su distribuidor Volkswagen más cercano</div>
+		<div class="ac_sim">* Operaciones calculadas con precios vigentes al 30 de Septiembre 2013.</div>
 	</div>
 </div>
 <script type='text/javascript'>

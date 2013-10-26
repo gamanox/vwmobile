@@ -10,7 +10,7 @@
 	<div class='image_slider'>
 			<ul>
 				<% @versions.each do |v| %>
-				<li sid="<%= v.id %>" name="<%= @car.name %> <%= v.name %>"> 
+				<li sid="<%= v.id %>" name="<%= @car.name %> <%= v.name %>" cname="<%= @car.name %>" vname="<%= v.name %>"> 
 					<div class='slide_title center_elem'>Elige la versión</div>
 					<div class='model_title center_elem'><span class='car_name'><%= @car.name %></span> <span class='model_name'><%= v.name %></span></div>
 					<div class='price center_elem'><span class='price_from'>Desde: </span><span class='price_value'><%= number_to_currency(v.list_price,precision: 0) %></span></div>
