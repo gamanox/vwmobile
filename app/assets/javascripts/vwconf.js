@@ -440,11 +440,17 @@ function doAction() {
 	} else if(action == "option_sel") {
 		var current = $("#"+$(this).attr("actionid"));
 		var next = $(current).next();
+		if($(next).attr("id") == "sim_slider") {
+			next = $(next).next();
+		}
 		$(current).find("div").removeClass("selected");
 		$(this).find("div").addClass("selected");
 		$(next).find(".sim_title, .nbtn").addClass("btn");
 		$(next).find(".btn").off("click",doAction).on("click",doAction);
-		$(next).find(".nbtn").addClass("expand_btn");
+		//$(next).find(".nbtn").addClass("expand_btn");
+		$(current).find(".sim_title").html($(this).html());
+		toggleSimOption(current);
+		toggleSimOption(next);
 	}
 
 }
