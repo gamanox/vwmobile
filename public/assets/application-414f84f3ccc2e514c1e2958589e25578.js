@@ -10615,8 +10615,11 @@ var currentPage = null; //Pagina actual
 var prevPage; //Pagina anterior
 var level = 0; //Cantidad de veces que ha avanzado en el historial
 var previousState; //No se usa
+var newPage;
 
 var currentSlide; //Slide actual
+
+var isDragging = false;
 
 $(init); //Arranca
 
@@ -10641,6 +10644,11 @@ function init(data) {
 	$("#footer a").on("click",disableLink);
 	$(".prevPage").hide();
 	$(".nextPage").hide();
+	$("#slider_btn").on("vmousedown",startDrag);
+	//$("#slider_btn").on("touchstart",startDrag);
+	$("body").on("vmouseup",stopDrag);
+	//$(window).on("touchend",stopDrag);
+	//$(window).on("touchmove".moveSliderT);
 	var History = window.History;
 	History.Adapter.bind(window,'statechange',stateHasChanged);
 
@@ -10659,6 +10667,36 @@ var historyTimer;
 
 function disableLink(e) {
 	e.preventDefault();
+}
+
+function startDrag() {
+	console.log("start drag");
+	isDragging = true;
+	$("body").on("vmousemove",moveSlider);
+	//$(window).on("touchmove",moveSliderT);
+}
+function stopDrag() {
+	
+	if(isDragging){
+		console.log("stop drag");
+		$("body").off("vmousemove",moveSlider);
+		//$(window).off("touchmove",moveSliderT);
+		isDragging = false;
+	}
+}
+function moveSliderT(e) {
+	console.log(e.touches[0]);
+	//$("#slider_btn").css("left",e.touches[0].pageX);
+	//moveSlider(e.touches[0]);
+}
+function moveSlider(e) {
+	var x = e.pageX-75;
+	x = x < 20 ? 20:x;
+	x = x > 230 ? 230:x;
+	var r = x-20;
+	r = Math.floor(r/15);
+	r = 20+r*5;
+	$("#slider_btn").css("left",x).html(r+"%").attr("range",r);
 }
 
 /*
@@ -10830,8 +10868,11 @@ function doAction() {
 	*/
 	if(action == "page") {
 		param = $(this).attr("actionid");
+		addReview($(this).attr("review"),$(this).attr("reviewname"));
+		toggleReview(true);
 		toggleSubmenu(true);
 		toggleSearch(true);
+		$("#end_btn").attr("actionid",param);
 		loadPage(param);
 		return;
 
@@ -10840,11 +10881,14 @@ function doAction() {
 		oculta el submenu o el buscador en caso que esten activos
 	*/
 	} else if(action == "pagewurl") {
-		console.log("PAGE WITH URL");
 		param = $(this).attr("actionid");
 		var url = $(this).attr("url");
+		addReview($(this).attr("review"),$(this).attr("reviewname"));
 		toggleSubmenu(true);
 		toggleSearch(true);
+		toggleReview(true);
+		$("#end_btn").attr("actionid",param);
+		$("html, body").animate({ scrollTop: "49px" },250);
 		loadPage(param,url);
 		return;
 	/*
@@ -10887,11 +10931,32 @@ function doAction() {
 		param = $(this).attr("actionid");
 		var slide = $(".currentPage .image_slider > ul > li").get(currentSlide);
 		param += "&sid="+$(slide).attr("sid")*1;
+		addReview($(this).attr("review"),$(slide).attr("name"));
+		$("#end_btn").attr("actionid",param);
+		toggleReview(true);
+		toggleSubmenu(true);
+		toggleSearch(true);
+		$("html, body").animate({ scrollTop: "49px" },250);
 		loadPage(param);
-	/*
+	
+	} else if(action == "review_slide") {
+		param = $(this).attr("actionid");
+		var slide = $(".currentPage .image_slider > ul > li").get(currentSlide);
+		param += "&sid="+$(slide).attr("sid")*1;
+		addReview($(this).attr("review"),$(slide).attr("name"));
+		if($(this).attr("review") == "version") {
+			$("#simulator_content .page_title .cname").html($(slide).attr("cname"));
+			$("#simulator_content .page_title .vname").html($(slide).attr("vname"));
+		}
+		$("#end_btn").attr("actionid",param);
+		toggleReview(false);
+		toggleSubmenu(true);
+		toggleSearch(true);
+	}
+	else if(action == "select") {
+		/*
 		Selecciona un paquete o servicio
 	*/
-	}else if(action == "select") {
 		param = $(this).attr("actionid");
 		var on = $(this).find(".on");
 		var off = $(this).find(".off");
@@ -10906,21 +10971,50 @@ function doAction() {
 		param = $(this).attr("actionid");
 		var selected = "";
 		var sid;
+		var names = "";
 		var on;
 		$(".currentPage .image_slider > ul > li").each(function (index,element) {
 			on = $(element).find(".on");
 			if(on.length > 0 ){
 				sid = $(element).attr("sid")*1;
 				selected += "&sid[]="+sid;
+				names += " "+$(element).attr("name");
 			}
 		});
 		param += selected;
+		addReview($(this).attr("review"),names);
+		$("#end_btn").attr("actionid",param);
+		$("html, body").animate({ scrollTop: "49px" },250);
 		loadPage(param);
-	/*
+	
+	} else if(action == "review_select") {
+		param = $(this).attr("actionid");
+		var selected = "";
+		var sid;
+		var names = "";
+		var on;
+		$(".currentPage .image_slider > ul > li").each(function (index,element) {
+			on = $(element).find(".on");
+			if(on.length > 0 ){
+				sid = $(element).attr("sid")*1;
+				selected += "&sid[]="+sid;
+				names += " "+$(element).attr("name");
+			}
+		});
+		param += selected;
+		addReview($(this).attr("review"),names);
+		$("#end_btn").attr("actionid",param);
+		toggleReview(false);
+		toggleSubmenu(true);
+		toggleSearch(true);
+	
+	}
+	else if(action == "submenu") {
+		/*
 		muestra el submenu, oculta el buscador en caso que esté activo
 	*/
-	} else if(action == "submenu") {
 		toggleSearch(true);
+		toggleReview(true);
 		toggleSubmenu($("#submenu").is(":visible"));
 	/*
 		muestra el buscador, oculta el submenu en caso que esté activo
@@ -10928,20 +11022,149 @@ function doAction() {
 	} else if(action == "search") {
 
 		toggleSubmenu(true);
+		toggleReview(true);
 		toggleSearch($("#search").is(":visible"));
 	/*
 		muestra el dropdown que se encuentra en la barra de precios (resumen de las características seleccionados)
 	*/
-	} else if(action == "show_review") {
-		toggleReview();
+	} else if(action == "show_prices") {
+		togglePrices();
 	/*
 		Lleva a alguna liga (usada en los links del footer) en ventana nueva
 	*/
 	} else if(action == "link") {
 		param = $(this).attr("actionid");
 		window.open(param);
+	} else if(action == "hide_review") {
+		toggleReview(true);
+	} else if(action == "attention") {
+
+		toggleAttention($("#attention").is(":visible"));
+	} else if(action == "simulator") {
+
+		toggleSimulator($("#simulator").is(":visible"));
+	}
+	 else if(action == "form_submit") {
+		param = $(this).attr("actionid");
+		submitForm(param);
+	} else if(action == "expand_sim") {
+		toggleSimOption(this.parentNode);
+	} else if(action == "option_sel") {
+		var current = $("#"+$(this).attr("actionid"));
+		var next = $(current).next();
+		if($(next).attr("id") == "sim_slider") {
+			next = $(next).next();
+		}
+		$(current).find("div").removeClass("selected");
+		$(this).find("div").addClass("selected");
+		$(next).find(".sim_title, .nbtn").addClass("btn");
+		$(next).find(".btn").off("click",doAction).on("click",doAction);
+		//$(next).find(".nbtn").addClass("expand_btn");
+		$(current).find(".sim_title").html($(this).html());
+		toggleSimOption(current);
+		toggleSimOption(next);
+	} else if(action =="do_sim") {
+		$("#simulator_content .sim_title").each(function(index,element) {
+			var next = $(element).next();
+			if($(next).find(".selected").length == 0) {
+				$(element).addClass("error");
+				$(element).parent().find(".expand_btn").addClass("error_btn");
+			} else {
+				$(element).removeClass("error");
+				$(element).parent().find(".expand_btn").removeClass("error_btn");
+			}
+		});
+		//TODO SIMULAR
+	} else if(action == "new_sim") {
+		console.log("new sim");
+		$("#simulator_content").find(".expand_btn").removeClass("btn").removeClass("on").off("click",doAction);
+		$("#simulator_content").find(".sim_title").removeClass("btn").off("click",doAction);
+		$("#simulator_content .sim_options").animate({height:0},250)
+		$("#simulator_content .sim_options").find("div").removeClass("selected");
+		$("#regimen_fiscal .expand_btn").addClass("btn").on("click",doAction);
+		$("#regimen_fiscal .sim_title").addClass("btn").on("click",doAction);
+		$("#simulator_content .sim_title").each(function (index,element) {
+			$(element).html($(element).attr("dtitle"));
+		});
+		$("#slider_btn").css("left",20).html("20%").attr("range",20);
+			//TODO CLEAR VALUES
 	}
 
+}
+
+function submitForm(form_id) {
+	var form = $("#"+form_id);
+	var valid = true;
+	$("#"+form_id+" input").each(function(index,element) {
+		var li = element.parentNode.parentNode.parentNode;
+		console.log($(element).attr("r"));
+		console.log($(element).attr("r") == "yes");
+		console.log($(element).val() == "");
+		if($(element).attr("r") == "yes" && $(element).val() == "") {
+			$(li).addClass("error");
+			valid = false;
+		} else {
+			$(li).removeClass("error");
+		}
+	});
+	if(valid) {
+		//SUBMIT FORM
+		$("#attention_content").hide();
+		$("#attention_thanks").fadeIn();
+	}
+	
+}
+
+function addReview(review,value) {
+	$("#review_list ."+review).html(value);
+}
+
+function toggleSimOption(node) {
+	console.log(node);
+	var options = $(node).find(".sim_options");
+	if($(options).height() > 0) {
+		$(options).animate({height:0},250);
+		$(node).find(".expand_btn").removeClass("on");
+	} else {
+		var h = $(options).find("ul").height();
+		console.log("H: "+h);
+		$(options).animate({height:h},250);
+		$(node).find(".expand_btn").addClass("on");
+	}
+}
+
+function toggleAttention(hide) {
+	if(hide) {
+		$("#attention").fadeOut();
+	} else {
+		var newh = $("#content").height()+285+49;
+		$("#attention").css("min-height",newh);
+		$("#attention").fadeIn();
+	}
+	$("html, body").animate({ scrollTop: "0px" },300);
+}
+
+function toggleSimulator(hide) {
+	if(hide) {
+		$("#simulator").fadeOut();
+	} else {
+		var newh = $("#content").height()+285+49;
+		$("#simulator").css("min-height",newh);
+		$("#simulator").fadeIn();
+	}
+	$("html, body").animate({ scrollTop: "0px" },300);
+}
+
+function toggleReview(hide) {
+	if(hide) {
+		$("#review_list").fadeOut();
+	} else {
+		var newh = $("#content").height()+285;
+		$("#review_list .dimmer").width($(window).width()).height(newh);
+		$("#review_list").fadeIn();
+		$("html, body").animate({ scrollTop: "49px" },300);
+	}
+	
 }
 
 /*
@@ -10949,19 +11172,19 @@ function doAction() {
 	Lo hace de forma animada
 	Oscurece el fondo
 */
-function toggleReview() {
+function togglePrices() {
 	var slides = $(".currentPage .image_slider > ul > li");
 	var slide = $(slides).get(currentSlide);
-	if($(slide).find(".review_list").height() > 0 ) {
+	if($(slide).find(".price_list").height() > 0 ) {
 
 		$(slide).find(".price_btn").removeClass("open");
-		$(slide).find(".review_list").delay(250).animate({height:0},250);
+		$(slide).find(".price_list").delay(250).animate({height:0},250);
 		$(slide).find(".slider_prices .dimmer").animate({height:0,opacity:0},250);
 	} else {
-		var h = $(slide).find(" .review_list ul").height();
+		var h = $(slide).find(" .price_list ul").height();
 		console.log("H: "+h)
 		$(slide).find(" .price_btn").addClass("open");
-		$(slide).find(" .review_list").animate({height:h},250);
+		$(slide).find(" .price_list").animate({height:h},250);
 		h = $("#content").height()+285-h-50-41;
 		console.log("DH: "+h);
 		$(slide).find(".slider_prices .dimmer").animate({height:h,opacity:0.75},250);

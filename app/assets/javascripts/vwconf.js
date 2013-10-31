@@ -452,6 +452,16 @@ function doAction() {
 		toggleSimOption(current);
 		toggleSimOption(next);
 	} else if(action =="do_sim") {
+		$("#simulator_content .sim_title").each(function(index,element) {
+			var next = $(element).next();
+			if($(next).find(".selected").length == 0) {
+				$(element).addClass("error");
+				$(element).parent().find(".expand_btn").addClass("error_btn");
+			} else {
+				$(element).removeClass("error");
+				$(element).parent().find(".expand_btn").removeClass("error_btn");
+			}
+		});
 		//TODO SIMULAR
 	} else if(action == "new_sim") {
 		console.log("new sim");

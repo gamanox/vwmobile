@@ -1519,6 +1519,13 @@ padding-bottom: 14px;
 	left:271px;
 	top:14px;
 }
+#simulator_content .error {
+	background-image: url(bg_options_e.jpg) !important;
+	color:#b23838 !important;
+}
+#simulator_content .error_btn {
+	background-image: url(btn_arrow_se.png) !important;
+}
 #simulator_content .on {
 	background-position: 0px 18px !important;
 }
@@ -1631,5 +1638,5 @@ padding-bottom: 14px;
 	color:#088acd;
 }
 .vanme {
-	color:#33434c;
+	color:#33434cq;
 }
