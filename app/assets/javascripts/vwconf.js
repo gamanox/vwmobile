@@ -451,6 +451,21 @@ function doAction() {
 		$(current).find(".sim_title").html($(this).html());
 		toggleSimOption(current);
 		toggleSimOption(next);
+	} else if(action =="do_sim") {
+		//TODO SIMULAR
+	} else if(action == "new_sim") {
+		console.log("new sim");
+		$("#simulator_content").find(".expand_btn").removeClass("btn").removeClass("on").off("click",doAction);
+		$("#simulator_content").find(".sim_title").removeClass("btn").off("click",doAction);
+		$("#simulator_content .sim_options").animate({height:0},250)
+		$("#simulator_content .sim_options").find("div").removeClass("selected");
+		$("#regimen_fiscal .expand_btn").addClass("btn").on("click",doAction);
+		$("#regimen_fiscal .sim_title").addClass("btn").on("click",doAction);
+		$("#simulator_content .sim_title").each(function (index,element) {
+			$(element).html($(element).attr("dtitle"));
+		});
+		$("#slider_btn").css("left",20).html("20%").attr("range",20);
+			//TODO CLEAR VALUES
 	}
 
 }
