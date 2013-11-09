@@ -78,13 +78,23 @@ function moveSliderT(e) {
 	//moveSlider(e.touches[0]);
 }
 function moveSlider(e) {
-	var x = e.pageX-75;
+	var x = e.pageX-75+20;
+	var min = $("#slider_btn").attr("min")*1;
+	var max = $("#slider_btn").attr("max")*1;
 	x = x < 20 ? 20:x;
 	x = x > 230 ? 230:x;
 	var r = x-20;
-	r = Math.floor(r/15);
-	r = 20+r*5;
-	$("#slider_btn").css("left",x).html(r+"%").attr("range",r);
+	var steps = Math.floor((max-min)/5);
+	var ratio = 210/steps;
+	var nr =  Math.floor(r/ratio);
+	var nv = nr*5+min;
+	$("#slider_btn").css("left",x).html(nv+"%").attr("range",nv);
+}
+
+function setSilderRange(min,max) {
+
+	$("#slider_btn").attr("min",min).attr("max",max).attr("range",min).css("left",20).html(min+"%");
+
 }
 
 /*
@@ -437,6 +447,7 @@ function doAction() {
 		submitForm(param);
 	} else if(action == "expand_sim") {
 		toggleSimOption(this.parentNode);
+		
 	} else if(action == "option_sel") {
 		var current = $("#"+$(this).attr("actionid"));
 		var next = $(current).next();
